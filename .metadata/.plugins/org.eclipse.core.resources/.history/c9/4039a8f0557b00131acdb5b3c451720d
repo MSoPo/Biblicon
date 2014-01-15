@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Proyecto de prueba de Spring</title>
+</head>
+<body>
+ <h2>Qué es SPRING?</h2>
+ <h3>Spring es un sustituto (fantástico por cierto) de los EJBs de Java. Hay que verlo como una bolsa donde tenemos todos los beans que reutilizamos en nuestra aplicación.
+ Todos ellos residen en lo que se llama el Spring Container</h3><br>
+ El Spring container contiene todos los beans que necesitamos para que la aplicación funcione, por ejemplo: <br>
+ - Bean con las properties de la aplicación<br>
+ - Bean de un servicio que hace una operación y nos devuelve un resultado...<br>
+ - Bean del datasource de la base de datos<br>
+ - etc, etc ...<br>
+ En general, todo aquello que sea un bean java puede estar en el contenedor de Spring. El contenedor se inicializa él solo con la configuración que ponemos en web.xml<br>
+ <br>
+ Todos los beans están definidos únicamente en el fichero WEB-INF/application-Context.xml, simplemente indicando el nombre que le queremos dar y la clase java<br> 
+ <br>
+ Todos ellos están centralizados en un sitio (el Spring container), manejados e inicializados por Spring y accesibles desde cualquier parte de nuestra aplicación.<br>
+ El concepto principal de este funcionamiento es la Inversion Of Control : http://static.springsource.org/spring/docs/2.5.x/reference/beans.html <br>
+  
+ En este ejemplo, llamamos a un servlet (también configurado con Spring MVC en springDispatcher-servlet.xml) que utiliza el servicio Calculadora que reside en el contenedor de Spring<br>
+ <a href="calcula.do">Haz click aquí para ejecutarlo</a> <br><br>
+ VIVA SPRING !!
+</body>
+</html>
