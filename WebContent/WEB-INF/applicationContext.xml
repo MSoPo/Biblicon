@@ -14,8 +14,6 @@
 
  <!-- Busca la anotación @Autowired en todas las clases de la aplicación e inyecta el bean correspondiente si la encuentra -->
  <context:annotation-config />
- <context:component-scan base-package="modelo" />
-
- <bean id="servicioCalculadora" class="modelo.Calculadora"/>
+ <context:component-scan base-package="modelo.dao" />
  
 </beans>

@@ -3,6 +3,7 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -61,6 +62,16 @@ public class Conexion {
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	public static void cerrarResultSet(ResultSet rs){
+		if(rs != null){
+			try{
+				rs.close();
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+	}
 	}
 
 }

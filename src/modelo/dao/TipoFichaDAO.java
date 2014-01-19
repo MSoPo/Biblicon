@@ -4,30 +4,38 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Repository;
 
 import modelo.bean.TipoFicha;
+import modelo.bean.Usuario;
 import util.Conexion;
+import util.Constantes;
 
+@Repository
 public class TipoFichaDAO {
 	
 	public int insertar(TipoFicha tipo){
-		String sql = "insert into tipoficha (id_usuario, nomber_tipo) values (?, ?)";
+		String sql = "insert into tipoficha (id_usuario, nombre_tipo) values (?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
 		int id = 0;
 		try {
-			consulta = conexion.prepareStatement(sql);
-			consulta.setString(0, tipo.getUsuario().getId_usuario());
-			consulta.setString(1, tipo.getNombre_tipo());
+			consulta = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			consulta.setString(1, tipo.getUsuario().getId_usuario());
+			consulta.setString(2, tipo.getNombre_tipo());
 			consulta.execute();
 			rs = consulta.getGeneratedKeys();
 			
 			while(rs.next())
-				id = rs.getInt(0);
+				id = rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
+			Conexion.cerrarResultSet(rs);
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
@@ -37,14 +45,14 @@ public class TipoFichaDAO {
 	}
 	
 	public boolean  editar(TipoFicha tipo){
-		String sql = "update tipoficha set (id_usuario = ?, nombre_tipo = ?) where id_tipo_ficha = ?";
+		String sql = "update tipoficha set id_usuario = ?, nombre_tipo = ? where id_tipo_ficha = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
 			consulta = conexion.prepareStatement(sql);
-			consulta.setString(0, tipo.getUsuario().getId_usuario());
-			consulta.setString(1, tipo.getNombre_tipo());
-			consulta.setInt(2, tipo.getId_tipo_ficha());
+			consulta.setString(1, tipo.getUsuario().getId_usuario());
+			consulta.setString(2, tipo.getNombre_tipo());
+			consulta.setInt(3, tipo.getId_tipo_ficha());
 			return consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,12 +64,12 @@ public class TipoFichaDAO {
 	}
 	
 	public boolean delete(TipoFicha tipo){
-		String sql = "delete tipoficha where id_tipo = ?";
+		String sql = "delete from tipoficha where id_tipo_ficha = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
 			consulta = conexion.prepareStatement(sql);
-			consulta.setInt(0, tipo.getId_tipo_ficha());
+			consulta.setInt(1, tipo.getId_tipo_ficha());
 			return consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,6 +79,36 @@ public class TipoFichaDAO {
 			Conexion.cerrarConexion(conexion);
 		}
 	}
-
+	
+	public ArrayList<TipoFicha> consultarPorUsuario(String id_usuario){
+		ArrayList<TipoFicha> lista = new ArrayList<TipoFicha>();
+		String sql = "select * from tipoficha where id_usuario in ( ? , '" + Constantes.USUARIODEFAULT + "')";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setString(1, id_usuario);
+			rs = consulta.executeQuery();
+			while(rs.next()){
+				TipoFicha tipo = new TipoFicha();
+				tipo.setId_tipo_ficha(rs.getInt("id_tipo_ficha"));
+				tipo.setNombre_tipo(rs.getString("nombre_tipo"));
+				Usuario us = new Usuario();
+				us.setId_usuario(id_usuario);
+				tipo.setUsuario(us);
+				lista.add(tipo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return lista;
+		
+	}
 
 }
