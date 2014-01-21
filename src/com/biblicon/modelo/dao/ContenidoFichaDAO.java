@@ -1,4 +1,4 @@
-package modelo.dao;
+package com.biblicon.modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,14 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import util.Conexion;
-import modelo.bean.ContenidoFicha;
+import com.biblicon.modelo.bean.ContenidoFicha;
+
+
+import com.biblicon.util.Conexion;
 
 public class ContenidoFichaDAO {
 	
 	
 	public int insertar(ContenidoFicha contenidoFicha){
-		String sql = "insert into contenidoFicha (id_ficha,palabra_clave,tipo_contenido,contenido,paginas,notas) " +
+		String sql = "insert into contenidoficha (id_ficha,palabra_clave,tipo_contenido,contenido,paginas,notas) " +
 				"values (?, ?, ?, ?, ?, ?)";
 		
 		Connection conexion = Conexion.ObtenerConexion();
@@ -24,8 +26,7 @@ public class ContenidoFichaDAO {
 		try {
 			
 			consulta = conexion.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			
-			consulta.setInt(1, contenidoFicha.getFicha().getId_ficha());  // No puede venir nulo, sino no se inserta
+			consulta.setInt(1, contenidoFicha.getFicha().getId_ficha());  // No puede venir nulo, sino no se inserta			
 			consulta.setString(2, contenidoFicha.getPalabra_clave()); 	
 			consulta.setInt(3, contenidoFicha.getTipo_contenido());
 			consulta.setString(4, contenidoFicha.getContenido());
@@ -74,7 +75,7 @@ public class ContenidoFichaDAO {
 	}
 	
 	public boolean delete(ContenidoFicha contenidoFicha){
-		String sql = "delete contenidoFicha where id_contenido = ?";
+		String sql = "delete from contenidoFicha where id_contenido = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {

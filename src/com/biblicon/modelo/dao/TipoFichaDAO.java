@@ -1,4 +1,4 @@
-package modelo.dao;
+package com.biblicon.modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import modelo.bean.TipoFicha;
-import modelo.bean.Usuario;
-import util.Conexion;
-import util.Constantes;
+import com.biblicon.modelo.bean.TipoFicha;
+import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.util.Conexion;
+import com.biblicon.util.Constantes;
 
 @Repository
 public class TipoFichaDAO {

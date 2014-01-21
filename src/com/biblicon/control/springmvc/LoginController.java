@@ -1,4 +1,4 @@
-package control.springmvc;
+package com.biblicon.control.springmvc;
 
 import java.io.IOException;
 
@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import util.Constantes;
-
-import modelo.bean.Usuario;
-import modelo.dao.UsuarioDAO;
+import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.modelo.dao.UsuarioDAO;
+import com.biblicon.util.Constantes;
 
 @Controller
 public class LoginController {

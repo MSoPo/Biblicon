@@ -1,4 +1,4 @@
-package util;
+package com.biblicon.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

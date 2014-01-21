@@ -15,8 +15,9 @@
 	<nav>
 		<ul>
 			<li><a href="#">Fichas</a></li>
-			<li><a href="#">Tipo de fichas</a></li>
-			<li><a href="#">Plantilla</a></li>
+			<li><a href="#">Agregar Ficha</a></li>
+			<li><a href="#">Tipo de Fichas</a></li>
+			<li><a href="#">Plantillas</a></li>
 			<li><a href="#">Ayuda</a></li>
 			<li><a href="#">Acerca de</a></li>
 		</ul>
@@ -40,23 +41,8 @@
 					<div id="categorias"></div>
 				</div>
 			</div>
-			<div class="fichas">
-				<article>
-					<p>Titulo: <span>Titulo del libro</span></p>
-					<p>Autor: <span>Anonimo</span></p>
-					<p>Edicion: <span>2da</span></p>
-					<p>Año de edicion: <span>2010</span></p>
-					<p>Paginas: <span>120 pag</span></p>
-					<div class="acciones"><a href="">Compartir(0)</a><a href="">Fichas de Contenido(1)</a><a href="#">Editar</a><a href="#">Borrar</a></div>
-				</article>
-				<article>
-					<p>Titulo: <span>Titulo del libro</span></p>
-					<p>Autor: <span>Anonimo</span></p>
-					<p>Edicion: <span>2da</span></p>
-					<p>Año de edicion: <span>2010</span></p>
-					<p>Paginas: <span>120 pag</span></p>
-					<div class="acciones"><a href="">Compartir(0)</a><a href="">Fichas de Contenido(1)</a><a href="#">Editar</a><a href="#">Borrar</a></div>
-				</article>
+			<div class="fichas" id="fichas">
+				
 			</div>
 		</div>
 	</section>
@@ -67,7 +53,9 @@
 	<script type="text/javascript">
 		$(function() {
 			var tipos = JSON.parse('<%= request.getAttribute("tipos") %>');
-			var categorias = JSON.parse('<%= request.getAttribute("categoria") %>');
+			var categorias = JSON.parse('<%= request.getAttribute("categorias") %>');
+			var fichas = JSON.parse('<%= request.getAttribute("fichas") %>');
+		
 			var output = "";
 			
 			for(var i = 0; i < tipos.length; i++){
@@ -80,6 +68,31 @@
 				 var template = '<div><input type="checkbox" value="{{id_tipo}}" id="tipo_{{id_tipo}}"/><label for = "{{id_tipo}}">  {{nombre}}</label></div>';
 				output += Mustache.render(template,view);
 			}
+			
+			var outputCate = "";
+			for(var i = 0; i < categorias.length; i++){
+				var tipo = categorias[0];
+				var view = {
+						nombre: tipo
+				};
+				
+				 var template = '<div><input type="checkbox" value="{{nombre}}" id="tipo_{{nombre}}"/><label for = "{{nombre}}">  {{nombre}}</label></div>';
+				 outputCate += Mustache.render(template,view);
+			}
+			
+			var outputFichas = "";
+			for(var i = 0; i < fichas.length; i++){
+				var ficha = fichas[i];
+				var campos = ficha.campos;
+				var template = '<article>';
+				for(var j in campos){
+					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
+				}
+				template += '<div class="acciones"><a href="">Compartir(0)</a><a href="">Fichas de Contenido(1)</a><a href="#">Editar</a><a href="#">Borrar</a></div></article>';
+				outputFichas += template;
+			}
+			$("#categorias").html(outputCate);
+			$("#fichas").html(outputFichas);
 			$("#tipos").html(output);
 
 		});

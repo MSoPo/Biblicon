@@ -1,4 +1,4 @@
-package modelo.bean;
+package com.biblicon.modelo.bean;
 
 public class ContenidoFicha {
 	
@@ -9,6 +9,21 @@ public class ContenidoFicha {
 	private String contenido;
 	private String paginas;
 	private String notas;
+	
+	
+	public ContenidoFicha(){
+		
+		id_contenido = 0;
+		ficha = new Ficha();
+		palabra_clave = "";
+		tipo_contenido = 0;
+		contenido = "";
+		paginas = "";
+		notas = "";
+		
+	}
+	
+	
 
 	public Integer getId_contenido() {
 		return id_contenido;
@@ -16,6 +31,14 @@ public class ContenidoFicha {
 
 	public void setId_contenido(Integer id_contenido) {
 		this.id_contenido = id_contenido;
+	}
+
+	public Ficha getFicha() {
+		return ficha;
+	}
+
+	public void setFicha(Ficha ficha) {
+		this.ficha = ficha;
 	}
 
 	public String getPalabra_clave() {
@@ -56,13 +79,5 @@ public class ContenidoFicha {
 
 	public void setNotas(String notas) {
 		this.notas = notas;
-	}
-
-	public Ficha getFicha() {
-		return ficha;
-	}
-
-	public void setFicha(Ficha ficha) {
-		this.ficha = ficha;
 	}
 }

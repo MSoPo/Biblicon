@@ -1,4 +1,4 @@
-package modelo.bean;
+package com.biblicon.modelo.bean;
 
 public class Plantilla {
 	

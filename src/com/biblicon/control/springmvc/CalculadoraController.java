@@ -1,4 +1,4 @@
-package control.springmvc;
+package com.biblicon.control.springmvc;
 
 import java.io.IOException;
 

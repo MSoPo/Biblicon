@@ -13,7 +13,7 @@ nav:before{border-bottom:20px solid transparent;border-left:7px solid #fff;borde
 nav ul{height:40px;line-height:40px;margin:0;padding:0;overflow-x:auto;white-space:nowrap;}
 nav ul::-webkit-scrollbar{display:none}
 nav ul li{display:inline-block;}
-nav ul li a{color:#fff;display:block;margin:0 .5em;padding:0 .2em;}
+nav ul li a{color:#fff;display:block;margin:0 .5em;padding:0 .2em;text-decoration:none;}
 nav ul li a:hover{background:rgba(0,0,0,0.1)}
 section{display:table;height:85%}
 span{font-weight:bold;font-size:1.2em}

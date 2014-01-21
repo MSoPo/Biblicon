@@ -1,4 +1,4 @@
-package modelo.dao;
+package com.biblicon.modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,12 @@ import java.sql.SQLException;
 
 
 
-import modelo.bean.Usuario;
-import util.Conexion;
+
 
 import org.springframework.stereotype.Repository;
+
+import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.util.Conexion;
 
 @Repository
 public class UsuarioDAO {

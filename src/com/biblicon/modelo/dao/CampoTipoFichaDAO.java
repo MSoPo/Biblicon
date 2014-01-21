@@ -1,26 +1,28 @@
-package modelo.dao;
+package com.biblicon.modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 import java.sql.Statement;
 
-import modelo.bean.Plantilla;
-import util.Conexion;
+import com.biblicon.modelo.bean.CampoTipoFicha;
+import com.biblicon.util.Conexion;
 
-public class PlantillaDAO {
+public class CampoTipoFichaDAO {
 	
-	public int insertar(Plantilla plantilla){
-		String sql = "insert into plantilla (plantilla, id_usuario) values (?, ?)";
+	public int insertar(CampoTipoFicha campo){
+		String sql = "insert into campotipoficha (nombre_campo, id_tipo_ficha) values (?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
 		int id = 0;
 		try {
 			consulta = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			consulta.setString(1, plantilla.getPlantilla());
-			consulta.setString(2, plantilla.getUsuario().getId_usuario());
+			consulta.setString(1, campo.getNombre_campo());
+			consulta.setInt(2, campo.getTipo_ficha().getId_tipo_ficha());
 			consulta.execute();
 			rs = consulta.getGeneratedKeys();
 			
@@ -38,15 +40,15 @@ public class PlantillaDAO {
 		
 	}
 	
-	public boolean  editar(Plantilla plantilla){
-		String sql = "update plantilla set id_usuario = ?, plantilla = ? where id_plantilla = ?";
+	public boolean  editar(CampoTipoFicha campo){
+		String sql = "update campotipoficha set nombre_campo = ?, id_tipo_ficha = ? where id_campo = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
 			consulta = conexion.prepareStatement(sql);
-			consulta.setString(1, plantilla.getUsuario().getId_usuario());
-			consulta.setString(2, plantilla.getPlantilla());
-			consulta.setInt(3, plantilla.getId_platilla());
+			consulta.setString(1, campo.getNombre_campo());
+			consulta.setInt(2, campo.getTipo_ficha().getId_tipo_ficha());
+			consulta.setInt(3, campo.getId_campo());
 			return consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -57,13 +59,13 @@ public class PlantillaDAO {
 		}
 	}
 	
-	public boolean delete(Plantilla plantilla){
-		String sql = "delete from plantilla where id_plantilla = ?";
+	public boolean delete(CampoTipoFicha campo){
+		String sql = "delete from campotipoficha where id_campo = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
 			consulta = conexion.prepareStatement(sql);
-			consulta.setInt(1, plantilla.getId_platilla());
+			consulta.setInt(1, campo.getId_campo());
 			return consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

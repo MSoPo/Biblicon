@@ -1,4 +1,4 @@
-package control.springmvc;
+package com.biblicon.control.springmvc;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.biblicon.modelo.bean.Ficha;
+import com.biblicon.modelo.bean.TipoFicha;
+import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.modelo.dao.FichaDAO;
+import com.biblicon.modelo.dao.TipoFichaDAO;
 import com.google.gson.Gson;
-
-import modelo.bean.TipoFicha;
-import modelo.bean.Usuario;
-import modelo.dao.TipoFichaDAO;
 
 @Controller
 public class PrincipalController {
@@ -24,14 +25,29 @@ public class PrincipalController {
 	
  @Autowired
  private TipoFichaDAO tipofichaDAO;
+ @Autowired
+ private FichaDAO fichaDAO;
  
  @RequestMapping("principal.htm")
- public String calcula(HttpServletRequest request, HttpServletResponse response) throws IOException {
+ public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 	 Gson gson = new Gson();
 	 ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
+	 ArrayList<Ficha> listafichas = fichaDAO.consultarFichasUsuarioBusqueda(usuario.getId_usuario(), "");
+	 for (Ficha ficha : listafichas) {
+		 ficha.setCampos(fichaDAO.llenarCampos(ficha));
+	}
+	 
+	 ArrayList<String> listaCategorias = fichaDAO.consultarCategoriasUsuario(usuario.getId_usuario());
+	 
+	 String categorias = gson.toJson(listaCategorias);
 	 String tipos = gson.toJson(listaTipos);
+	 String fichas = gson.toJson(listafichas);
 	 request.setAttribute("tipos", tipos);
+	 request.setAttribute("fichas", fichas);
+	 request.setAttribute("categorias", categorias);
+	 
+	 System.out.println(fichas);
 	 System.out.println("Entrando en el pincipal");
 	 
 	 return "principal";

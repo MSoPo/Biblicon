@@ -1,16 +1,16 @@
 package pruebas;
 
-import modelo.bean.CampoTipoFicha;
-import modelo.bean.Ficha;
-import modelo.bean.Plantilla;
-import modelo.bean.TipoFicha;
-import modelo.bean.Usuario;
-import modelo.bean.UsuarioCompartido;
-import modelo.dao.CampoTipoFichaDAO;
-import modelo.dao.PlantillaDAO;
-import modelo.dao.TipoFichaDAO;
-import modelo.dao.UsuarioCompartidoDAO;
-import modelo.dao.UsuarioDAO;
+import com.biblicon.modelo.bean.CampoTipoFicha;
+import com.biblicon.modelo.bean.Ficha;
+import com.biblicon.modelo.bean.Plantilla;
+import com.biblicon.modelo.bean.TipoFicha;
+import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.modelo.bean.UsuarioCompartido;
+import com.biblicon.modelo.dao.CampoTipoFichaDAO;
+import com.biblicon.modelo.dao.PlantillaDAO;
+import com.biblicon.modelo.dao.TipoFichaDAO;
+import com.biblicon.modelo.dao.UsuarioCompartidoDAO;
+import com.biblicon.modelo.dao.UsuarioDAO;
 
 public class DAOS {
 	

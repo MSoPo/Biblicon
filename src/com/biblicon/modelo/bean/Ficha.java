@@ -1,6 +1,7 @@
-package modelo.bean;
+package com.biblicon.modelo.bean;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.HashMap;
 
 public class Ficha {
 	
@@ -54,6 +55,14 @@ public class Ficha {
 	private Date fecha_publicacion;
 	private String editor;
 	private String titulo_libro;
+	private HashMap<String, String> campos;
+	
+	public Ficha(){
+		usuario = new Usuario();
+		tipo_ficha = new TipoFicha();
+	
+	}
+	
 	
 	public int getId_ficha() {
 		return id_ficha;
@@ -446,6 +455,16 @@ public class Ficha {
 
 	public void setTitulo_libro(String titulo_libro) {
 		this.titulo_libro = titulo_libro;
+	}
+
+
+	public HashMap<String, String> getCampos() {
+		return campos;
+	}
+
+
+	public void setCampos(HashMap<String, String> campos) {
+		this.campos = campos;
 	}
 
 }
