@@ -56,6 +56,9 @@ public class Ficha {
 	private String editor;
 	private String titulo_libro;
 	private HashMap<String, String> campos;
+	private Integer cantidadCompartida;
+	private Integer cantidadContenido;
+	
 	
 	public Ficha(){
 		usuario = new Usuario();
@@ -466,5 +469,27 @@ public class Ficha {
 	public void setCampos(HashMap<String, String> campos) {
 		this.campos = campos;
 	}
+
+
+	public Integer getCantidadCompartida() {
+		return cantidadCompartida;
+	}
+
+
+	public void setCantidadCompartida(Integer cantidadCompartida) {
+		this.cantidadCompartida = cantidadCompartida;
+	}
+
+
+	public Integer getCantidadContenido() {
+		return cantidadContenido;
+	}
+
+
+	public void setCantidadContenido(Integer cantidadContenido) {
+		this.cantidadContenido = cantidadContenido;
+	}
+	
+	
 
 }

@@ -6,9 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.stereotype.Repository;
+
 import com.biblicon.modelo.bean.UsuarioCompartido;
 import com.biblicon.util.Conexion;
 
+@Repository
 public class UsuarioCompartidoDAO {
 	
 	public int insertar(UsuarioCompartido usuariocompartido){
@@ -54,6 +57,32 @@ public class UsuarioCompartidoDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+	}
+	
+	
+	public Integer cantidadFichaCompartida(Integer id_ficha){
+		
+		String sql = "select count(id_usuario) from usuariocompartido where id_ficha = ?";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		Integer cantidad = 0;
+		ResultSet rs = null;
+		
+		try {
+			consulta = conexion.prepareStatement(sql);			
+			consulta.setInt(1, id_ficha);
+			rs = consulta.executeQuery();
+			if(rs.next())
+				cantidad = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return cantidad;
 	}
 
 

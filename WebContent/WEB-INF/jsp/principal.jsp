@@ -7,6 +7,7 @@
    <link rel="stylesheet" href="css/estilos.css">
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/mustache.js"></script>
+   <script src="js/jquery.redirect.min.js"></script>
 </head>
 <body>
 	<header>
@@ -27,7 +28,7 @@
 			<div class="filtros">
 				<div class="filtro">
 				Buscar:<input>
-				<button>Buscar</button>
+				
 				</div>
 				
 				<div class="filtro">
@@ -39,6 +40,7 @@
 				<hr/>
 				<strong>Selecciona la categoria</strong>
 					<div id="categorias"></div>
+					<button>Buscar</button>
 				</div>
 			</div>
 			<div class="fichas" id="fichas">
@@ -51,6 +53,13 @@
 	</footer>
 	
 	<script type="text/javascript">
+	
+		function enviarContenidoFicha(idficha,apellido,ano) {
+					
+			$().redirect('contenido.htm', {'idFicha': idficha,'apellido':apellido,'ano':ano});
+		}
+		
+	
 		$(function() {
 			var tipos = JSON.parse('<%= request.getAttribute("tipos") %>');
 			var categorias = JSON.parse('<%= request.getAttribute("categorias") %>');
@@ -88,12 +97,14 @@
 				for(var j in campos){
 					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
 				}
-				template += '<div class="acciones"><a href="">Compartir(0)</a><a href="">Fichas de Contenido(1)</a><a href="#">Editar</a><a href="#">Borrar</a></div></article>';
+				template += '<div class="acciones"><a href="">Compartir('+ ficha.cantidadCompartida+')</a><a href="javascript:enviarContenidoFicha('+ficha.id_ficha+',\''+ ficha.apellido+'\',\''+ ficha.ano+'\' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a><a href="#">Editar</a><a href="#">Borrar</a></div></article>';
 				outputFichas += template;
 			}
 			$("#categorias").html(outputCate);
 			$("#fichas").html(outputFichas);
 			$("#tipos").html(output);
+			
+			
 
 		});
 	</script>

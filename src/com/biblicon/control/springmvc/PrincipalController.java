@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,28 +14,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.modelo.dao.ContenidoFichaDAO;
 import com.biblicon.modelo.dao.FichaDAO;
 import com.biblicon.modelo.dao.TipoFichaDAO;
+import com.biblicon.modelo.dao.UsuarioCompartidoDAO;
 import com.google.gson.Gson;
 
 @Controller
 public class PrincipalController {
 
-	 final Logger logger = Logger.getLogger(PrincipalController.class);
+	// final Logger logger = Logger.getLogger(PrincipalController.class);
 	
  @Autowired
  private TipoFichaDAO tipofichaDAO;
  @Autowired
- private FichaDAO fichaDAO;
+ private FichaDAO fichaDAO; 
+ @Autowired
+ private UsuarioCompartidoDAO usuarioCompartidoDAO;
+ @Autowired
+ private ContenidoFichaDAO contenidoFichaAO;
  
  @RequestMapping("principal.htm")
  public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 	 Gson gson = new Gson();
 	 ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
-	 ArrayList<Ficha> listafichas = fichaDAO.consultarFichasUsuarioBusqueda(usuario.getId_usuario(), "");
+	 ArrayList<Ficha> listafichas = fichaDAO.consultaFichasUsuario(usuario.getId_usuario());
 	 for (Ficha ficha : listafichas) {
+		 
+		 ficha.setCantidadCompartida(usuarioCompartidoDAO.cantidadFichaCompartida(ficha.getId_ficha()));
+		 ficha.setCantidadContenido(contenidoFichaAO.cantidadContenidoFicha(ficha.getId_ficha()));
 		 ficha.setCampos(fichaDAO.llenarCampos(ficha));
+		 
 	}
 	 
 	 ArrayList<String> listaCategorias = fichaDAO.consultarCategoriasUsuario(usuario.getId_usuario());

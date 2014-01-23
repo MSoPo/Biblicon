@@ -5,12 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import org.springframework.stereotype.Repository;
 
 import com.biblicon.modelo.bean.ContenidoFicha;
-
+import com.biblicon.modelo.bean.Ficha;
 
 import com.biblicon.util.Conexion;
+import com.biblicon.util.Constantes;
 
+@Repository
 public class ContenidoFichaDAO {
 	
 	
@@ -26,7 +32,7 @@ public class ContenidoFichaDAO {
 		try {
 			
 			consulta = conexion.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			consulta.setInt(1, contenidoFicha.getFicha().getId_ficha());  // No puede venir nulo, sino no se inserta			
+			consulta.setInt(1, contenidoFicha.getFicha().getId_ficha()); 			
 			consulta.setString(2, contenidoFicha.getPalabra_clave()); 	
 			consulta.setInt(3, contenidoFicha.getTipo_contenido());
 			consulta.setString(4, contenidoFicha.getContenido());
@@ -90,4 +96,128 @@ public class ContenidoFichaDAO {
 			Conexion.cerrarConexion(conexion);
 		}
 	}
+	
+	
+	public Integer cantidadContenidoFicha(Integer id_ficha){
+		String sql = "select count(id_contenido) from contenidoFicha where id_ficha = ?";
+		
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		Integer cantidad = 0;
+		
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, id_ficha);  					
+			 rs = consulta.executeQuery();
+			 if(rs.next())
+				 cantidad = rs.getInt(1);
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+			
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return cantidad; 
+	}
+	
+	public ArrayList<ContenidoFicha> consultarContenidoFicha(Integer id_ficha){
+		
+		String sql = "select id_contenido, id_ficha, palabra_clave, tipo_contenido, contenido, paginas, notas " +
+				"from biblicon.contenidoFicha where id_ficha = ?";
+		
+		
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		ArrayList<ContenidoFicha> contenido = new ArrayList<ContenidoFicha>();
+		
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, id_ficha);  					
+			 rs = consulta.executeQuery();
+			 while(rs.next())
+				 contenido.add(mapeoRsContenido(rs));
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return contenido; 
+	}
+	
+	
+	public ArrayList<ContenidoFicha> consultarContenidoFichaTipoBusqueda(Integer id_ficha, String busqueda, String tipo){
+		
+		String sql = "select id_contenido, id_ficha, palabra_clave, tipo_contenido, contenido, paginas, notas " +
+				"from biblicon.contenidoFicha " +
+				"where id_ficha = ? and (palabra_clave like '%"+busqueda+"%' or tipo_contenido in ("+tipo+"))";
+				
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		ArrayList<ContenidoFicha> contenido = new ArrayList<ContenidoFicha>();
+		
+		try {
+		
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, id_ficha);
+			
+			rs = consulta.executeQuery();
+			
+			while(rs.next())
+				contenido.add(mapeoRsContenido(rs));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return contenido;
+	}
+	
+	private ContenidoFicha mapeoRsContenido(ResultSet rs){
+		
+		ContenidoFicha contenido = new ContenidoFicha();
+		try {
+			
+			contenido.setContenido(rs.getString("contenido"));
+			contenido.setId_contenido(rs.getInt("id_contenido"));
+			contenido.getFicha().setId_ficha(rs.getInt("id_ficha"));
+			contenido.setNotas(rs.getString("notas"));
+			contenido.setPaginas(rs.getString("paginas"));
+			contenido.setPalabra_clave(rs.getString("palabra_clave"));
+			contenido.setTipo_contenido(rs.getInt("tipo_contenido"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally{
+			
+		}
+		return contenido;
+	}
+	
+	public LinkedHashMap<String, String> llenarCampos(ContenidoFicha contenido,String referencia){
+		
+		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
+		campos.put(Constantes.palabra_clave_cont, contenido.getPalabra_clave());
+		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1? "Cita, Resumén, Comentario o Descripción" : "Cita, Resumén, Comentario o Descripción");
+		campos.put(Constantes.contenido_cont, contenido.getContenido());
+		campos.put(Constantes.referencia_cont, referencia);
+		campos.put(Constantes.paginas_cont, contenido.getPaginas());
+		campos.put(Constantes.notas_cont, contenido.getNotas());
+		return campos;
+		
+	}
+		
+	
 }

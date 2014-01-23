@@ -1,5 +1,7 @@
 package com.biblicon.modelo.bean;
 
+import java.util.HashMap;
+
 public class ContenidoFicha {
 	
 	private Integer id_contenido;
@@ -9,6 +11,7 @@ public class ContenidoFicha {
 	private String contenido;
 	private String paginas;
 	private String notas;
+	private HashMap<String, String> campos;
 	
 	
 	public ContenidoFicha(){
@@ -79,5 +82,13 @@ public class ContenidoFicha {
 
 	public void setNotas(String notas) {
 		this.notas = notas;
+	}
+
+	public HashMap<String, String> getCampos() {
+		return campos;
+	}
+
+	public void setCampos(HashMap<String, String> campos) {
+		this.campos = campos;
 	}
 }
