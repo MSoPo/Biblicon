@@ -6,9 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.stereotype.Repository;
+
 import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.util.Conexion;
 
+@Repository
 public class PlantillaDAO {
 	
 	public int insertar(Plantilla plantilla){

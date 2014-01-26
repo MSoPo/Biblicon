@@ -1,0 +1,77 @@
+.campo
+	padding 0.5em
+	display inline-block
+	margin 0.3em
+	color #fff
+	min-width 5em
+	box-shadow inset 0 0 3px #000
+	text-align center
+	cursor move
+	background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+	background: -webkit-gradient(linear, left top, right top,
+                               color-stop(0, rgb(0,0,0)),
+                               color-stop(0.50, rgb(79,79,79)),
+                               color-stop(1, rgb(21,21,21)));
+	background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+	background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+	border-bottom 1px solid #ddd
+	border-radius 1em 1em
+
+.contenidoNotabla
+	width 100%
+	.cdisponible
+		text-align center
+		width 40%
+		display inline-block
+		padding 1.5em
+
+		button
+			font-size 0.8em
+			min-width 10em
+			border-radius 1em
+			background-color #DDD
+			color #000
+			display inline-block
+			margin .5em
+
+	.cseleccionado
+		display inline-block
+		text-align center
+		width 50%
+		border-radius 1em 1em
+		border 1px solid
+		vertical-align top
+		min-height 100px
+		margin-top 1.5em
+		background #ddd
+		.campo
+			cursor pointer
+
+	.datostipoficha
+		text-align center
+		width 100%
+		padding 1em
+
+[draggable] {
+  -moz-user-select none
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+.over
+	box-shadow 0 0 0.5em rgba(255,127,39,1)
+
+.divEliminar
+	display none
+
+.bloqueo
+	position absolute
+	width 100%
+	height 100%
+	z-index 10
+	background red
+	
