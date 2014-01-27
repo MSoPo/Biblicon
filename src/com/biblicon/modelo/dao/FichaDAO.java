@@ -188,9 +188,50 @@ public class FichaDAO {
 	}
 	
 	
+
+
+	public Ficha consultaFicha(Integer idFicha){
+		
+		String sql = "select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
+				"f.edicion, f.otros_datos, f.editorial, f.ciudad, f.ano, f.coleccion, f.paginas, f.biblioteca, f.localizacion, f.notas, f.a, f.b, f.c, f.d, f.institucion, f.pagina_ini, f.pagina_fin, f.revista, " + 
+				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
+				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
+				"from biblicon.ficha f, biblicon.tipoficha tf " +
+
+				"where f.id_ficha = ? and tf.id_usuario = f.id_usuario and tf.id_tipo_ficha = f.id_tipo_ficha";
+				
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+
+		Ficha ficha = null;
+		
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, idFicha);
+			rs = consulta.executeQuery();
+			if(rs.next())
+				ficha = mapeoRsFicha(rs);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return ficha;
+	
+	}
+	
+
+	
+
+
+
 	public ArrayList<Ficha> consultaFichasUsuario(String usuario){
 	
-		String sql = "Select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
+		String sql = "select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
 				"f.edicion, f.otros_datos, f.editorial, f.ciudad, f.ano, f.coleccion, f.paginas, f.biblioteca, f.localizacion, f.notas, f.a, f.b, f.c, f.d, f.institucion, f.pagina_ini, f.pagina_fin, f.revista, " + 
 				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
@@ -200,13 +241,16 @@ public class FichaDAO {
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
+
 		ArrayList<Ficha> fichas = new ArrayList<Ficha>();
 		
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, usuario);
+
 			rs = consulta.executeQuery();
 			while(rs.next())
+
 				fichas.add(mapeoRsFicha(rs));
 			
 		} catch (SQLException e) {
@@ -216,12 +260,23 @@ public class FichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+
 		return fichas;
 	
 	}
 	
+
 	public ArrayList<String> consultarCategoriasUsuario(String usuario){
 	
+
+
+
+
+
+
+
+
+
 		String sql = "select distinct(categoria) " +
 				"from biblicon.ficha " +
 				"where id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) order by categoria";
@@ -229,13 +284,21 @@ public class FichaDAO {
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
+
 		ArrayList<String> categorias = new ArrayList<String>();
 		
 		try {
+
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, usuario);
+
+
+
+
+
 			 rs = consulta.executeQuery();
 			while(rs.next())
+
 				categorias.add(rs.getString(1));
 			
 		} catch (SQLException e) {
@@ -245,19 +308,22 @@ public class FichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+
 		return categorias;
 	
 	}
 	
-	public ArrayList<Ficha> consultarFichasUsuarioCategoriaTipoFicha(String usuario, String categoria, Integer tipo_ficha, String busqueda){
+	public ArrayList<Ficha> consultarFichasUsuarioCategoriaTipoFicha(String usuario, String categoria, String tipo_ficha, String busqueda){
 	
-		String sql = "Select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
+		String sql = "select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
 				"f.edicion, f.otros_datos, f.editorial, f.ciudad, f.ano, f.coleccion, f.paginas, f.biblioteca, f.localizacion, f.notas, f.a, f.b, f.c, f.d, f.institucion, f.pagina_ini, f.pagina_fin, f.revista, " + 
 				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
 				"from biblicon.ficha f, biblicon.tipoficha tf " +
+
 				"where f.id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) " +
-				"and (f.categoria = ? or f.id_tipo_ficha = ? or f.nombre like '%"+busqueda+"%' or f.apellido like '%"+busqueda+"%' or f.nombre_otro like '%"+busqueda+"%' or f.apellido_otro like '%"+busqueda+"%' or f.titulo like '%"+busqueda+"%') " +
+				"and f.categoria in ("+categoria+") and f.id_tipo_ficha in ("+tipo_ficha+") " +
+				"and (UPPER(f.nombre) like UPPER('%"+busqueda+"%') or UPPER(f.apellido) like UPPER('%"+busqueda+"%') or UPPER(f.nombre_otro) like UPPER('%"+busqueda+"%') or UPPER(f.apellido_otro) like UPPER('%"+busqueda+"%') or UPPER(f.titulo) like UPPER('%"+busqueda+"%')) " +
 				"and tf.id_usuario = f.id_usuario " +
 				"and tf.id_tipo_ficha = f.id_tipo_ficha ";
 				
@@ -270,8 +336,6 @@ public class FichaDAO {
 		
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, usuario);
-			consulta.setString(2, categoria);
-			consulta.setInt(3, tipo_ficha);
 			
 			rs = consulta.executeQuery();
 			
@@ -286,44 +350,8 @@ public class FichaDAO {
 			Conexion.cerrarConexion(conexion);
 		}
 		return fichas;
+
 	}
-	
-	/*public ArrayList<Ficha> consultarFichasUsuarioBusqueda(String usuario, String busqueda){
-	
-		String sql = "Select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
-				"f.edicion, f.otros_datos, f.editorial, f.ciudad, f.ano, f.coleccion, f.paginas, f.biblioteca, f.localizacion, f.notas, f.a, f.b, f.c, f.d, f.institucion, f.pagina_ini, f.pagina_fin, f.revista, " + 
-				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
-				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
-				"from biblicon.ficha f, biblicon.tipoficha tf " +
-				"where f.id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) " + 
-				"and (f.nombre like '%"+busqueda+"%' or f.apellido like '%"+busqueda+"%' or f.nombre_otro like '%"+busqueda+"%' or f.apellido_otro like '%"+busqueda+"%' or f.titulo like '%"+busqueda+"%') " +
-				"and tf.id_usuario = f.id_usuario " +
-				"and tf.id_tipo_ficha = f.id_tipo_ficha ";
-				
-		Connection conexion = Conexion.ObtenerConexion();
-		PreparedStatement consulta = null;
-		ResultSet rs = null;
-		ArrayList<Ficha> fichas = new ArrayList<Ficha>();
-		
-		try {
-		
-			consulta = conexion.prepareStatement(sql);
-			consulta.setString(1, usuario);
-			
-			rs = consulta.executeQuery();
-			
-			while(rs.next())
-				fichas.add(mapeoRsFicha(rs));
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		}finally{
-			Conexion.cerrarPreparedStatemen(consulta);
-			Conexion.cerrarConexion(conexion);
-		}
-		return fichas;
-	}*/
 	
 	
 	private Ficha mapeoRsFicha(ResultSet rs){

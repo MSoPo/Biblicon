@@ -11,7 +11,6 @@ import java.util.LinkedHashMap;
 import org.springframework.stereotype.Repository;
 
 import com.biblicon.modelo.bean.ContenidoFicha;
-import com.biblicon.modelo.bean.Ficha;
 
 import com.biblicon.util.Conexion;
 import com.biblicon.util.Constantes;
@@ -153,11 +152,11 @@ public class ContenidoFichaDAO {
 	}
 	
 	
-	public ArrayList<ContenidoFicha> consultarContenidoFichaTipoBusqueda(Integer id_ficha, String busqueda, String tipo){
+	public ArrayList<ContenidoFicha> consultarContenidoTipoBusqueda(String busqueda, String tipo){
 		
 		String sql = "select id_contenido, id_ficha, palabra_clave, tipo_contenido, contenido, paginas, notas " +
 				"from biblicon.contenidoFicha " +
-				"where id_ficha = ? and (palabra_clave like '%"+busqueda+"%' or tipo_contenido in ("+tipo+"))";
+				"where tipo_contenido in ("+tipo+") and UPPER(palabra_clave) like UPPER('%"+busqueda+"%') ";
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -165,9 +164,8 @@ public class ContenidoFichaDAO {
 		ArrayList<ContenidoFicha> contenido = new ArrayList<ContenidoFicha>();
 		
 		try {
-		
-			consulta = conexion.prepareStatement(sql);
-			consulta.setInt(1, id_ficha);
+
+			consulta = conexion.prepareStatement(sql);			
 			
 			rs = consulta.executeQuery();
 			
@@ -210,7 +208,7 @@ public class ContenidoFichaDAO {
 		
 		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
 		campos.put(Constantes.palabra_clave_cont, contenido.getPalabra_clave());
-		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1? "Cita, Resumén, Comentario o Descripción" : "Cita, Resumén, Comentario o Descripción");
+		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1? "Cita, Resumen, Comentario o Descripción" : "Cita, Resumen, Comentario o Descripción"); // TODO PONER CORRECTO EL TIPO
 		campos.put(Constantes.contenido_cont, contenido.getContenido());
 		campos.put(Constantes.referencia_cont, referencia);
 		campos.put(Constantes.paginas_cont, contenido.getPaginas());
