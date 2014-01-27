@@ -5,17 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
 import com.biblicon.modelo.bean.Plantilla;
+import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.util.Conexion;
+import com.biblicon.util.Constantes;
 
 @Repository
 public class PlantillaDAO {
 	
 	public int insertar(Plantilla plantilla){
-		String sql = "insert into plantilla (plantilla, id_usuario) values (?, ?)";
+		String sql = "insert into plantilla (plantilla, id_usuario, nombre_plantilla) values (?, ?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
@@ -24,6 +27,7 @@ public class PlantillaDAO {
 			consulta = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			consulta.setString(1, plantilla.getPlantilla());
 			consulta.setString(2, plantilla.getUsuario().getId_usuario());
+			consulta.setString(3, plantilla.getNombrePlantilla());
 			consulta.execute();
 			rs = consulta.getGeneratedKeys();
 			
@@ -42,7 +46,7 @@ public class PlantillaDAO {
 	}
 	
 	public boolean  editar(Plantilla plantilla){
-		String sql = "update plantilla set id_usuario = ?, plantilla = ? where id_plantilla = ?";
+		String sql = "update plantilla set id_usuario = ?, plantilla = ?, nombre_plantilla = ? where id_plantilla = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
@@ -75,6 +79,37 @@ public class PlantillaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+	}
+	
+	public ArrayList<Plantilla> consultarPorUsuario(String id_usuario){
+		ArrayList<Plantilla> lista = new ArrayList<Plantilla>();
+		String sql = "select * from plantilla where id_usuario in ( ? , '" + Constantes.USUARIODEFAULT + "')";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setString(1, id_usuario);
+			rs = consulta.executeQuery();
+			while(rs.next()){
+				Plantilla plantilla = new Plantilla();
+				plantilla.setId_platilla(rs.getInt("id_plantilla"));
+				plantilla.setNombrePlantilla(rs.getString("nombre_plantilla"));
+				Usuario us = new Usuario();
+				us.setId_usuario(id_usuario);
+				plantilla.setUsuario(us);
+				lista.add(plantilla);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return lista;
+		
 	}
 
 

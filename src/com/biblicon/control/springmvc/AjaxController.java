@@ -76,6 +76,17 @@ public class AjaxController {
 			return "";
 	}
 	
+	@RequestMapping(value={"/eliminarPlantilla.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	 @ResponseBody
+	public String eliminarPlantilla(HttpServletRequest request){
+		String idPlantilla = request.getParameter("idPlantilla");
+		Plantilla plantilla = new Plantilla();
+		plantilla.setId_platilla(Integer.parseInt(idPlantilla));
+		plantillaDAO.delete(plantilla);
+		return "1";
+	}
+	
+	
 	@RequestMapping(value={"/agregarPlantilla.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
 	 @ResponseBody
 	 public String agregarPlantilla(HttpServletRequest request)
@@ -85,10 +96,29 @@ public class AjaxController {
 		String plantilla = request.getParameter("plantilla");
 		
 		Plantilla p = new Plantilla();
+		p.setPlantilla(plantilla);
+		p.setUsuario(usuario);
+		p.setNombrePlantilla(nombrePlantilla);
 		p.setId_platilla(plantillaDAO.insertar(p));
 		
 		if(p.getId_platilla() != 0){
 			return "{ \"respuesta\" : \"1\", \"id\" : \"" + p.getId_platilla() + "\"}";
+		}else {
+			return "Error";
+		}
+	}
+	
+	@RequestMapping(value={"/cambiarCampos.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	 @ResponseBody
+	 public String cambiarCampos(HttpServletRequest request)
+	{
+		String idtipo = request.getParameter("idtipo");
+		Gson gson = new Gson();
+		ArrayList<CampoTipoFicha> lista = campoFichaDAO.consultarPorTipo(new Integer(idtipo));
+		String campos = gson.toJson(lista);
+		
+		if(lista.size() != 0){
+			return "{ \"respuesta\" : \"1\", \"campos\" : " + campos + "}";
 		}else {
 			return "Error";
 		}

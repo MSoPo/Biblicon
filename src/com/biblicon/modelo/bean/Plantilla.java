@@ -5,6 +5,7 @@ public class Plantilla {
 	private int id_platilla;
 	private String plantilla;
 	private Usuario usuario;
+	private String nombrePlantilla;
 	
 	public int getId_platilla() {
 		return id_platilla;
@@ -23,6 +24,12 @@ public class Plantilla {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public String getNombrePlantilla() {
+		return nombrePlantilla;
+	}
+	public void setNombrePlantilla(String nombrePlantilla) {
+		this.nombrePlantilla = nombrePlantilla;
 	}
 
 }

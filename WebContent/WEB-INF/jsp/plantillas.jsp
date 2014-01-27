@@ -24,6 +24,18 @@
 		</ul>
 	</nav>
 	<section>
+		<div class="bloqueo" id="bloqueo">
+			<div class="divEliminar" id="divEliminar">
+				<h4>Selecciona la plantilla a eliminar</h4>
+				<div class="error" id="error2"></div>
+				<select id="listaPlantillas">
+					
+				</select>
+				<br/>
+				<input type="submit" value="Aceptar" id="borrado"/>
+				<input type="submit" value="Regresar" id="regresar"/>
+			</div>
+		</div>
 		<div class="contenidoNotabla">
 			<div class="datostipoficha">
 				<div class="error" id="error"></div>
@@ -88,8 +100,21 @@
 		
 		$("#eliminar").on('click', function(){
 			$('#error').html('');
+			$('#bloqueo').fadeIn();
+			$('#error2').html('');
+		});
+		
+		$("#listaPlantillas").on('change', function(){
+			$('#error2').html('');
+		});
+		
+		$("#regresar").on('click', function(){
+			$('#bloqueo').fadeOut();
 		});
 
+		$("#bloqueo").on('click', function(){
+			$('#bloqueo').fadeOut();
+		});
 
 		$("#negritas").on('click', 
 			function(ev) {
@@ -168,34 +193,68 @@
 		
 		$('#agregar').on('click', function() {
 
-			var nombreTipo = $.trim($("#nombrePlatilla").val());
+			var nombre = $.trim($("#nombrePlatilla").val());
 			$("#error").html('');
 			$('#error').addClass('error').removeClass('correcto');
+			var plantilla = $('#textplatilla').html();
 			
 			if($('#textplatilla div').length == 0){
 				$("#error").html("Selecciona algun campo");
 				return false;
 			}
 			
-			if(nombreTipo.length == 0){
+			if(nombre.length == 0){
 				$("#error").html("Ingresa el nombre de la ficha");
 				return false;
 			}
 			
 			
-			/*$.post("agregarTipo.htm", {"nombreTipo" : nombreTipo, "camposTipo" : JSON.stringify(camposAgregar)}	, function(respuesta){
+			$.post("agregarPlantilla.htm", {"nombrePlantilla" : nombre, "plantilla" : plantilla}	, function(respuesta){
 				var resp = JSON.parse(respuesta);
 				if(resp.respuesta == "1"){
-					$('#listaTipo').append('<option value="'+ resp.id +'">' +nombreTipo+ '</option>');
-					$('#nombreficha').val('');
-					$('#cdisponible div').css("display", "inline-block");
-					$('#cseleccionado div').remove();
-					$('#error').removeClass('error').addClass('correcto').html('Se agrego el tipo de ficha <strong>' + nombreTipo + '</strong>');
+					$('#listaPlantillas').append('<option value="'+ resp.id +'">' +nombre+ '</option>');
+					$('#nombrePlatilla').val('');
+					$('#textplatilla').html('');
+					$('#error').removeClass('error').addClass('correcto').html('Se agrego el tipo de plantolla <strong>' + nombre + '</strong>');
 				}else{
 					$('#error').html(respuesta);
 				}
-			});*/
+			});
 		});
+		
+		$("#borrado").on('click', function(){
+			$("#error").removeClass('correcto').addClass('error').html('');
+			$('#error2').html('');
+			if($('#listaPlantillas').val() == 0){
+				$('#error2').html("Selecciona un tipo");
+				return false;
+			}
+			
+			$.post("eliminarPlantilla.htm", {"idPlantilla" : $('#listaPlantillas').val()}	, function(respuesta){
+				if(respuesta == "1"){
+					$('#error').removeClass('error').addClass('correcto');
+					$('#error').html('Se elimino el tipo de ficha <strong>' + $('#listaPlantillas option[value=' + $('#listaPlantillas').val() + ']').html() + '</strong>');
+					$('#listaPlantillas option[value=' + $('#listaPlantillas').val() + ']').remove();
+					$('#bloqueo').fadeOut();
+				}else{
+					$('#error').html(respuesta);
+				}
+			});
+		});
+		
+		
+		$("#divEliminar").on('click', function(){
+			return false;
+		});
+		
+		var plantillas = JSON.parse('<%= request.getAttribute("plantillas") %>');
+		var opciones = '<option value="0">Selecciona la plantilla</option>';
+		for(var i = 0; i < plantillas.length; i++){
+			var plantilla = plantillas[i];
+			 opciones+= '<option value="' + plantilla.id_platilla + '">'+ plantilla.nombrePlantilla +'</option>';
+		}
+		$('#listaPlantillas').html(opciones);
+		
 
 	});
 	</script>

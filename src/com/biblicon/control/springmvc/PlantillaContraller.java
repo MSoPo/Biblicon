@@ -11,21 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.biblicon.modelo.bean.TipoFicha;
+import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.modelo.bean.Usuario;
-import com.biblicon.modelo.dao.TipoFichaDAO;
+import com.biblicon.modelo.dao.PlantillaDAO;
 import com.google.gson.Gson;
 
 @Controller
 public class PlantillaContraller {
 	
 @Autowired
-private TipoFichaDAO tipoDAO;
+private PlantillaDAO plantillaDAO;
 	
 	 final Logger logger = Logger.getLogger(PrincipalController.class);
 
 @RequestMapping("plantillas.htm")
 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+	ArrayList<Plantilla> listaPlantillas = plantillaDAO.consultarPorUsuario(usuario.getId_usuario());
+	Gson gson = new Gson();
+	String plantillas = gson.toJson(listaPlantillas);
+	request.setAttribute("plantillas", plantillas);
 	 return "plantillas";
 }
 

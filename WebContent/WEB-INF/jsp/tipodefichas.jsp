@@ -154,7 +154,7 @@
 				$('#error').removeClass('error').addClass('correcto');
 				$('#error').html('Se elimino el tipo de ficha <strong>' + $('#listaTipo option[value=' + $('#listaTipo').val() + ']').html() + '</strong> y todas sus fichas');
 				$('#listaTipo option[value=' + $('#listaTipo').val() + ']').remove();
-				$('#bloqueo').hide();
+				$('#bloqueo').fadeOut();
 			}else{
 				$('#error').html(respuesta);
 			}

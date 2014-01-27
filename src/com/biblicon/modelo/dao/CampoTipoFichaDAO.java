@@ -7,10 +7,17 @@ import java.sql.SQLException;
 
 
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Repository;
 
 import com.biblicon.modelo.bean.CampoTipoFicha;
+import com.biblicon.modelo.bean.TipoFicha;
+import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.util.Conexion;
+import com.biblicon.util.Constantes;
 
+@Repository
 public class CampoTipoFichaDAO {
 	
 	public int insertar(CampoTipoFicha campo){
@@ -76,5 +83,33 @@ public class CampoTipoFichaDAO {
 		}
 	}
 
+	public ArrayList<CampoTipoFicha> consultarPorTipo(int i){
+		ArrayList<CampoTipoFicha> lista = new ArrayList<CampoTipoFicha>();
+		String sql = "select * from campotipoficha where id_tipo_ficha = ?";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, i);
+			rs = consulta.executeQuery();
+			while(rs.next()){
+				CampoTipoFicha campo = new CampoTipoFicha();
+				campo.setId_campo(rs.getInt("id_campo"));
+				campo.setNombre_campo(rs.getString("nombre_campo"));
+				campo.setTipo_ficha(new TipoFicha());
+				campo.getTipo_ficha().setId_tipo_ficha(i);;
+				lista.add(campo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return lista;
+	}
 
 }
