@@ -8,9 +8,12 @@ import java.sql.SQLException;
 
 import java.sql.Statement;
 
+import org.springframework.stereotype.Repository;
+
 import com.biblicon.modelo.bean.CampoTipoFicha;
 import com.biblicon.util.Conexion;
 
+@Repository
 public class CampoTipoFichaDAO {
 	
 	public int insertar(CampoTipoFicha campo){

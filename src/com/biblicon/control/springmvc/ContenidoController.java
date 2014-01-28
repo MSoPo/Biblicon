@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.biblicon.modelo.bean.ContenidoFicha;
-import com.biblicon.modelo.bean.Usuario;
+import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.dao.ContenidoFichaDAO;
 import com.biblicon.modelo.dao.FichaDAO;
 import com.google.gson.Gson;
