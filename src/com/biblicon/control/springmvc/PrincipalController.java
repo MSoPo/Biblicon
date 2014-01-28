@@ -62,4 +62,37 @@ public class PrincipalController {
 	 
 	 return "principal";
  }
+ 
+  @RequestMapping("principalBusqueda.htm")
+	 public String busqueda(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 
+		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		 Gson gson = new Gson();
+		 
+		 String categoria = request.getParameter("categoria");
+		 String tipo_ficha = request.getParameter("tipo_ficha");
+		 String busqueda = request.getParameter("busqueda");
+		 
+		 ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
+		 ArrayList<Ficha> listafichas = fichaDAO.consultarFichasUsuarioCategoriaTipoFicha(usuario.getId_usuario(), categoria, tipo_ficha, busqueda);
+		 for (Ficha ficha : listafichas) {
+			 
+			 ficha.setCantidadCompartida(usuarioCompartidoDAO.cantidadFichaCompartida(ficha.getId_ficha()));
+			 ficha.setCantidadContenido(contenidoFichaAO.cantidadContenidoFicha(ficha.getId_ficha()));
+			 ficha.setCampos(fichaDAO.llenarCampos(ficha));
+		}
+		 
+		 ArrayList<String> listaCategorias = fichaDAO.consultarCategoriasUsuario(usuario.getId_usuario());
+		 
+		 String categorias = gson.toJson(listaCategorias);
+		 String tipos = gson.toJson(listaTipos);
+		 String fichas = gson.toJson(listafichas);
+		 request.setAttribute("tipos", tipos);
+		 request.setAttribute("fichas", fichas);
+		 request.setAttribute("categorias", categorias);
+		 
+		 System.out.println("Saliendo de busqueda pincipal");
+		 
+		 return "principal";
+	 }
 }

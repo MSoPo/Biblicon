@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
+import org.springframework.stereotype.Repository;
+
 import com.biblicon.modelo.bean.CampoTipoFicha;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
