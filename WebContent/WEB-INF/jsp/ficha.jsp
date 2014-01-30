@@ -5,6 +5,7 @@
    <title>Biblicon Fichas</title>
    <link rel="stylesheet" href="css/normalize.css">
    <link rel="stylesheet" href="css/estilos.css">
+   <link rel="stylesheet" href="css/ficha.css">
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/mustache.js"></script>
 </head>
@@ -31,10 +32,13 @@
 					<select id="tipos"></select>
 				</div>
 				<hr/>
-				<input type="submit" value="Guardar"/>
+				<input class="btnGuardar" id="guardarFicha" type="submit" value="Guardar"/>
+				
+				<div class="error" id="error"></div>
 			</div>
 			<div class="fichas" id="fichas">
-				<article></article>
+				<article class="agregrarFicha">
+				</article>
 			</div>
 		</div>
 	</section>
@@ -44,6 +48,27 @@
 	
 	<script type="text/javascript">
 		$(function() {
+			
+			$('#guardarFicha').on('click', function(){
+				var ficha = [];
+				$('.nomCampo').each(function(indice, elemento){
+					var c = $(elemento).html();
+					var campos = { c : $('#' + c.replace(' ', '_')).val() };
+					ficha.push(campos);
+				});
+				
+				$.post('agregarFicha.htm',{ 'campos' : JSON.stringify(ficha)}, function(respuesta){
+					if(respuesta == '1'){
+						$('.lineaCampo input').each(function(indice, elemento){
+							$(elemento).val('');
+						});
+						$('#error').html('Se agrego la ficha').addClass('correcto').removeClass('error');
+					}else{
+						
+					}
+				});
+			});
+			
 			$('#tipos').on('change', function(){
 				$.post("cambiarCampos.htm", {"idtipo" : $(this).val()}	, function(respuesta){
 					var resp = JSON.parse(respuesta);
@@ -53,7 +78,7 @@
 						var output2 = "";
 						for(var i = 0; i < campos.length; i++){
 							var campo = campos[i];
-							var template = '<p><strong>' + campo.nombre_campo + ':<strong> <input/></p>';
+							var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + campo.nombre_campo + '</div></strong><input id="' + campo.nombre_campo.replace(' ', '_') + '" /></div>';
 							output2 += template;
 						}
 						$("#fichas article").html(output2);
@@ -86,7 +111,7 @@
 						id_tipo: campo.nombre_campo,
 						nombre: campo.nombre_tipo
 				};
-				var template = '<p><strong>' + campo.nombre_campo + ':</strong> <input/></p>';
+				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + campo.nombre_campo + '</div></strong><input id="' + campo.nombre_campo.replace(' ', '_') + '" /></div>';
 				output2 += Mustache.render(template,view);
 			}
 			$("#fichas article").html(output2);

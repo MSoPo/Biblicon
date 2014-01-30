@@ -44,6 +44,10 @@
 				<input type="submit" value="Eliminar" id="eliminar"/>
 			</div>
 			<div class="cdisponible" id="cAgregar">
+				<button>,</button>
+				<button>.</button>
+				<button>;</button>
+				<hr/>
 				<button>Nombre</button>
 				<button>Nombre_Otro</button>
 				<button>Apellido</button>
@@ -180,7 +184,7 @@
 
 		$('.cdisponible button').on('click', function(e){
 			$('#error').html('');
-			$('#textplatilla').append('<div>'+ $(this).html() +'</div><br/>');
+			$('#textplatilla').append('<div>'+ $(this).html() +'</div>');
 		});
 
 		$('#textplatilla').on('click', 'div', function(){

@@ -124,5 +124,17 @@ public class AjaxController {
 		}
 	}
 	
+	@RequestMapping(value={"/agregarFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	 @ResponseBody
+	 public String agregarFicha(HttpServletRequest request)
+	{
+		Gson gson = new Gson();
+		String campos = request.getParameter("campos");
+		System.out.println(campos);
+		ArrayList lstCampos = gson.fromJson(campos, ArrayList.class);
+		
+		return "1";
+	}
+	
 }	
 

@@ -1,0 +1,5 @@
+.agregrarFicha{width:80%;text-align:left;}
+.agregrarFicha input{width:70%;margin-left:2em}
+.agregrarFicha div div{display:inline-block;width:20%}
+.btnGuardar{margin-top:0 !important;float:right}
+.lineaCampo{display:block !important;width:100%;margin:.5em} 

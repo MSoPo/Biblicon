@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta charset="UTF-8">
-   <title>Biblicon</title>
+   <title>Biblicon Fichas</title>
    <link rel="stylesheet" href="css/normalize.css">
    <link rel="stylesheet" href="css/estilos.css">
    <script src="js/jquery-2.0.3.min.js"></script>
@@ -17,7 +17,7 @@
 		<ul>
 			<li><a href="#">Fichas</a></li>
 			<li><a href="#">Agregar Ficha</a></li>
-			<li><a href="#">Tipo de Fichas</a></li>
+			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="#">Plantillas</a></li>
 			<li><a href="#">Ayuda</a></li>
 			<li><a href="#">Acerca de</a></li>
@@ -68,7 +68,7 @@
 			var output = "";
 			
 			for(var i = 0; i < tipos.length; i++){
-				var tipo = tipos[0];
+				var tipo = tipos[i];
 				var view = {
 						id_tipo: tipo.id_tipo_ficha,
 						nombre: tipo.nombre_tipo
@@ -80,7 +80,7 @@
 			
 			var outputCate = "";
 			for(var i = 0; i < categorias.length; i++){
-				var tipo = categorias[0];
+				var tipo = categorias[i];
 				var view = {
 						nombre: tipo
 				};
