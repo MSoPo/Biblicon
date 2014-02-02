@@ -1,5 +1,6 @@
 @font-face{font-family:'circula';src:local('circula'),url("fuentes/circula.otf");font-family:'AmericanCaptain';src:local('AmericanCaptain'),url("fuentes/AmericanCaptain.ttf") format('truetype')}
-article{border:1px solid;padding:1em;padding-bottom:.5em;margin:2em;text-align:center;background-color:#eee;border-radius:3px;display:inline-block;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15)}
+article{border:1px solid;padding:1em;padding-bottom:.5em;margin:2em;text-align:center;background-color:#eee;border-radius:3px;display:inline-block;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);}
+article .tipoficha{margin:0 !important;padding:0 !important;position:absolute}
 body{background-color:#fff;margin:0 auto;font-family:circula;color:#555;font-size:16px;height:100%}
 footer{color:#eee;background-color:#555;text-align:center;font-size:.8em;padding:.5em;position:fixed;bottom:0;width:100%}
 h1{font-family:AmericanCaptain;text-align:center;border:1px solid #fff;border-right-style:dotted;border-left-style:dotted;margin:1em}
@@ -22,11 +23,11 @@ span{font-weight:bold;font-size:1.2em}
 .acciones a:hover{color:#333}
 .contenido{display:table-row}
 .error{font-size:.8em;color:#c01212;font-weight:bold}
-.correcto{font-size:.8em;color:#070} 
+.correcto{font-size:.8em;color:#070}
 .fichas{display:table-cell;vertical-align:top;width:80%;min-width:400px;margin:0 auto}
 .filtros{display:table-cell;width:20%;height:100%;border-right:2px solid;padding:1em;padding-bottom:2em;}
 .filtros .filtro{margin-top:1em;}
 .filtros .filtro button{margin-top:.5em}
 .login{position:relative;text-align:center;width:60%;height:50%;font-size:20px;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);background:none repeat scroll 0 0 #eee;margin:2em auto;overflow:hidden;padding:1em 1.5em;width:480px;}
 .login input{display:block;margin:.5em auto}
-.login:before{border-color:#fff #999;border-style:solid;border-width:20px 20px 0 0;content:"";display:block;position:absolute;left:0;top:0;width:0}
+.login:before{border-color:#fff #999;border-style:solid;border-width:20px 20px 0 0;content:"";display:block;position:absolute;left:0;top:0;w idth:0}

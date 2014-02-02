@@ -50,14 +50,15 @@
 		$(function() {
 			
 			$('#guardarFicha').on('click', function(){
-				var ficha = [];
+				var guardarcampos = {};
 				$('.nomCampo').each(function(indice, elemento){
 					var c = $(elemento).html();
-					var campos = { c : $('#' + c.replace(' ', '_')).val() };
-					ficha.push(campos);
+					guardarcampos[c] =  $('#' + c.replace(' ', '_')).val();
 				});
 				
-				$.post('agregarFicha.htm',{ 'campos' : JSON.stringify(ficha)}, function(respuesta){
+				guardarcampos['tipo_ficha'] = $('#tipos').val();
+				
+				$.post('agregarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos)}, function(respuesta){
 					if(respuesta == '1'){
 						$('.lineaCampo input').each(function(indice, elemento){
 							$(elemento).val('');
