@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -162,7 +163,7 @@ public class FichaDAO {
 			consulta.setString(49, ficha.getTitulo_libro());
 			consulta.setInt(50, ficha.getId_ficha());
 			
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -170,6 +171,7 @@ public class FichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 	
 	public boolean delete(Ficha ficha){
@@ -179,7 +181,7 @@ public class FichaDAO {
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setInt(1, ficha.getId_ficha());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -187,9 +189,13 @@ public class FichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		
+		return true;
 	}
 	
 	
+
+
 	public Ficha consultaFicha(Integer idFicha){
 		
 		String sql = "select f.id_ficha, f.id_tipo_ficha, f.id_usuario, f.categoria, f.apellido, f.nombre, f.tipo, f.apellido_otro, f.nombre_otro, f.et_al, f.titulo, f.edicion_de, f.traduccion, f.prologo, " +
@@ -266,7 +272,7 @@ public class FichaDAO {
 	}
 	
 
-	public ArrayList<String> consultarCategoriasUsuario(String usuario){	
+	public ArrayList<String> consultarCategoriasUsuario(String usuario){
 
 		String sql = "select distinct(categoria) " +
 				"from biblicon.ficha " +
@@ -282,10 +288,6 @@ public class FichaDAO {
 
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, usuario);
-
-
-
-
 
 			 rs = consulta.executeQuery();
 			while(rs.next())
@@ -462,5 +464,73 @@ public class FichaDAO {
 		campos.put(Constantes.url, ficha.getUrl());		
 		
 		return campos;
+	}
+	
+	
+	public Ficha llenarFicha(HashMap<String,String> camposMap)throws ParseException{
+		
+		Ficha ficha = new Ficha();
+				
+		SimpleDateFormat sdf = new SimpleDateFormat(Constantes.formato_fecha); 
+		
+		ficha.setA(camposMap.get(Constantes.a));
+		ficha.setAno(camposMap.get(Constantes.ano));
+		ficha.setApellido(camposMap.get(Constantes.apellido));
+		ficha.setApellido_editor(camposMap.get(Constantes.apellido_editor));
+		ficha.setApellido_editor_otro(camposMap.get(Constantes.apellido_editor_otro));
+		ficha.setApellido_otro(camposMap.get(Constantes.apellido_otro));		
+		ficha.setB(camposMap.get(Constantes.b));
+		ficha.setBiblioteca(camposMap.get(Constantes.biblioteca));		
+		ficha.setC(camposMap.get(Constantes.c));
+		ficha.setCategoria(camposMap.get(Constantes.categoria));
+		ficha.setCiudad(camposMap.get(Constantes.ciudad));
+		ficha.setColeccion(camposMap.get(Constantes.coleccion));
+		ficha.setD(camposMap.get(Constantes.d));
+		ficha.setDia(camposMap.get(Constantes.dia));
+		ficha.setEdicion(camposMap.get(Constantes.edicion));
+		ficha.setEdicion_de(camposMap.get(Constantes.edicion_de));
+		ficha.setEditor(camposMap.get(Constantes.editor));
+		ficha.setEditorial(camposMap.get(Constantes.editorial));
+		ficha.setEt_al(camposMap.get(Constantes.et_al).equals("1")?true:false);		
+		ficha.setEt_al_editor(camposMap.get(Constantes.et_al_editor).equals("1")?true:false);
+		
+		java.util.Date date1 = sdf.parse(camposMap.get(Constantes.fecha_acceso));
+		ficha.setFecha_acceso(new java.sql.Date(date1.getTime()));		
+		
+		java.util.Date date2 = sdf.parse(camposMap.get(Constantes.fecha_publicacion));
+		ficha.setFecha_publicacion(new java.sql.Date(date2.getTime()));
+		
+		ficha.setInstitucion(camposMap.get(Constantes.institucion));		
+		ficha.setLocalizacion(camposMap.get(Constantes.localizacion));
+		ficha.setMes(camposMap.get(Constantes.mes));
+		ficha.setNombre(camposMap.get(Constantes.nombre));
+		ficha.setNombre_editor(camposMap.get(Constantes.nombre_editor));
+		ficha.setNombre_editor_otro(camposMap.get(Constantes.nombre_editor_otro));
+		ficha.setNombre_otro(camposMap.get(Constantes.nombre_otro));
+		ficha.setNotas(camposMap.get(Constantes.notas));		
+		ficha.setNumero(camposMap.get(Constantes.numero));		
+		ficha.setOtros_datos(camposMap.get(Constantes.otros_datos));		
+		ficha.setPagina_fin(camposMap.get(Constantes.pagina_fin));
+		ficha.setPagina_ini(camposMap.get(Constantes.pagina_ini));
+		ficha.setPaginas(camposMap.get(Constantes.paginas));
+		ficha.setPeriodico(camposMap.get(Constantes.periodico));
+		ficha.setPortal(camposMap.get(Constantes.portal));
+		ficha.setPrologo(camposMap.get(Constantes.prologo));
+		ficha.setRevista(camposMap.get(Constantes.revista));		
+		ficha.setSeccion(camposMap.get(Constantes.seccion));
+		ficha.setSemana(camposMap.get(Constantes.semana));		
+		ficha.setTipo(Integer.parseInt(camposMap.get(Constantes.tipo)));
+		ficha.getTipo_ficha().setId_tipo_ficha(Integer.parseInt(camposMap.get(Constantes.tipo_ficha)));		
+		ficha.setTitulo(camposMap.get(Constantes.titulo));
+		ficha.setTitulo_libro(camposMap.get(Constantes.titulo_libro));
+		ficha.setTomo(camposMap.get(Constantes.tomo));
+		ficha.setTraduccion(camposMap.get(Constantes.traduccion));		
+		ficha.setUrl(camposMap.get(Constantes.url));
+		ficha.getUsuario().setId_usuario(camposMap.get(Constantes.usuario));
+		
+		
+		
+		return ficha;
+		
 	}
 }

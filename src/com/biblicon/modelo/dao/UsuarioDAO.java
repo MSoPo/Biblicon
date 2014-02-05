@@ -30,7 +30,7 @@ public class UsuarioDAO {
 			consulta.setString(4, usuario.getApellido_materno());
 			consulta.setString(5, usuario.getContrasena());
 			consulta.setString(6, usuario.getCorreo());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -38,6 +38,7 @@ public class UsuarioDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 		
 	}
 	
@@ -53,7 +54,7 @@ public class UsuarioDAO {
 			consulta.setString(4, usuario.getContrasena());
 			consulta.setString(5, usuario.getCorreo());
 			consulta.setString(6, usuario.getId_usuario());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -61,6 +62,7 @@ public class UsuarioDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 	
 	public boolean delete(Usuario usuario){
@@ -70,7 +72,7 @@ public class UsuarioDAO {
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, usuario.getId_usuario());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -78,6 +80,7 @@ public class UsuarioDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 
 	public Usuario consultarPorId(String id){

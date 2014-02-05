@@ -49,7 +49,7 @@ public class UsuarioCompartidoDAO {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, usuariocompartido.getUsuario().getId_usuario());
 			consulta.setInt(2, usuariocompartido.getFicha().getId_ficha());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -57,6 +57,8 @@ public class UsuarioCompartidoDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		
+		return true;
 	}
 	
 	

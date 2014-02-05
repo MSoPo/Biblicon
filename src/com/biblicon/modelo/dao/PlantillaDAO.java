@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
+import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.util.Conexion;
@@ -54,7 +58,7 @@ public class PlantillaDAO {
 			consulta.setString(1, plantilla.getUsuario().getId_usuario());
 			consulta.setString(2, plantilla.getPlantilla());
 			consulta.setInt(3, plantilla.getId_platilla());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -62,6 +66,7 @@ public class PlantillaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 	
 	public boolean delete(Plantilla plantilla){
@@ -111,6 +116,5 @@ public class PlantillaDAO {
 		return lista;
 		
 	}
-
 
 }
