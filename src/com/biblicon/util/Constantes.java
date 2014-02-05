@@ -54,7 +54,13 @@ public class Constantes {
 	final static public String fecha_acceso = "Fecha de acceso";
 	final static public String fecha_publicacion = "Fecha de publicación";
 	final static public String editor = "Editor";
-	final static public String titulo_libro = "Título del libro";
+	final static public String titulo_libro = "Título del libro";	
+	final static public String categoria = "Categoria";
+	
+	final static public String tipo_ficha = "tipo_ficha";
+	final static public String tipo = "tipo";
+	final static public String usuario = "usuario";
+	
 	
 	//Campos Contenido
 	
@@ -64,5 +70,8 @@ public class Constantes {
 	final static public String referencia_cont = "Referencia bibliográfica";
 	final static public String paginas_cont = "Págs.";
 	final static public String notas_cont = "Notas";
+	
+	final static public String formato_fecha = "dd-MM-yyyy"; //TODO definir formato
+	
 	
 }

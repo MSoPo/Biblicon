@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.springframework.stereotype.Repository;
@@ -69,7 +71,8 @@ public class ContenidoFichaDAO {
 			consulta.setString(6, contenidoFicha.getNotas());
 			consulta.setInt(7, contenidoFicha.getId_contenido());
 			
-			return consulta.execute();
+			consulta.execute();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -77,6 +80,8 @@ public class ContenidoFichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		
+		return true;
 	}
 	
 	public boolean delete(ContenidoFicha contenidoFicha){
@@ -86,7 +91,7 @@ public class ContenidoFichaDAO {
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setInt(1, contenidoFicha.getId_contenido());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -94,6 +99,7 @@ public class ContenidoFichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 	
 	
@@ -208,7 +214,7 @@ public class ContenidoFichaDAO {
 		
 		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
 		campos.put(Constantes.palabra_clave_cont, contenido.getPalabra_clave());
-		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1? "Cita, Resumen, Comentario o DescripciÃ³n" : "Cita, Resumen, Comentario o DescripciÃ³n"); // TODO PONER CORRECTO EL TIPO
+		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1? "Cita, Resumen, Comentario o Descripción" : "Cita, Resumen, Comentario o Descripción"); // TODO PONER CORRECTO EL TIPO
 		campos.put(Constantes.contenido_cont, contenido.getContenido());
 		campos.put(Constantes.referencia_cont, referencia);
 		campos.put(Constantes.paginas_cont, contenido.getPaginas());
@@ -216,6 +222,20 @@ public class ContenidoFichaDAO {
 		return campos;
 		
 	}
+	
+	public ContenidoFicha llenarContenidoFicha(HashMap<String,String> camposMap)throws ParseException{
+		
+		ContenidoFicha contenidoFicha = new ContenidoFicha();
+				
+		
+		contenidoFicha.setContenido(camposMap.get(Constantes.contenido_cont));
+		
+		
+		
+		return contenidoFicha;
+		
+	}
+
 		
 	
 }

@@ -53,7 +53,7 @@ public class TipoFichaDAO {
 			consulta.setString(1, tipo.getUsuario().getId_usuario());
 			consulta.setString(2, tipo.getNombre_tipo());
 			consulta.setInt(3, tipo.getId_tipo_ficha());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -61,6 +61,8 @@ public class TipoFichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		
+		return true;
 	}
 	
 	public boolean delete(TipoFicha tipo){
@@ -70,7 +72,7 @@ public class TipoFichaDAO {
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setInt(1, tipo.getId_tipo_ficha());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -78,6 +80,7 @@ public class TipoFichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 	
 	public ArrayList<TipoFicha> consultarPorUsuario(String id_usuario){

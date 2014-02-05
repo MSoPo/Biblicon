@@ -10,12 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
-
 import com.biblicon.modelo.bean.CampoTipoFicha;
 import com.biblicon.modelo.bean.TipoFicha;
-import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.util.Conexion;
-import com.biblicon.util.Constantes;
+
 
 @Repository
 public class CampoTipoFichaDAO {
@@ -56,14 +54,15 @@ public class CampoTipoFichaDAO {
 			consulta.setString(1, campo.getNombre_campo());
 			consulta.setInt(2, campo.getTipo_ficha().getId_tipo_ficha());
 			consulta.setInt(3, campo.getId_campo());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}finally{
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
-		}
+		}		
+		return true;
 	}
 	
 	public boolean delete(CampoTipoFicha campo){
@@ -73,7 +72,7 @@ public class CampoTipoFichaDAO {
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setInt(1, campo.getId_campo());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -81,6 +80,7 @@ public class CampoTipoFichaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 
 	public ArrayList<CampoTipoFicha> consultarPorTipo(int i){

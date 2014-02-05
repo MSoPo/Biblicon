@@ -1,6 +1,7 @@
 package com.biblicon.control.springmvc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biblicon.modelo.bean.CampoTipoFicha;
+import com.biblicon.modelo.bean.ContenidoFicha;
+import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.modelo.dao.CampoTipoFichaDAO;
+import com.biblicon.modelo.dao.ContenidoFichaDAO;
+import com.biblicon.modelo.dao.FichaDAO;
 import com.biblicon.modelo.dao.PlantillaDAO;
 import com.biblicon.modelo.dao.TipoFichaDAO;
 import com.biblicon.util.Constantes;
+
 import com.google.gson.Gson;
 
 @Controller
@@ -28,6 +34,10 @@ public class AjaxController {
 	private CampoTipoFichaDAO campoFichaDAO;
 	@Autowired
 	private PlantillaDAO plantillaDAO;
+	@Autowired
+	private FichaDAO fichaDAO;	
+	@Autowired
+	private ContenidoFichaDAO contenidoFichaDAO;
 
 	
 	@RequestMapping(value={"/agregarTipo.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
@@ -68,8 +78,7 @@ public class AjaxController {
 		String idTipo = request.getParameter("idTipo");
 		TipoFicha tipo = new TipoFicha();
 		tipo.setId_tipo_ficha(Integer.parseInt(idTipo));
-		if(true)
-			return "1";
+		
 		if(tipoFichaDAO.delete(tipo))
 			return "1";
 		else 
@@ -125,15 +134,81 @@ public class AjaxController {
 	}
 	
 	@RequestMapping(value={"/agregarFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-	 @ResponseBody
-	 public String agregarFicha(HttpServletRequest request)
+	@ResponseBody
+	public String agregarFicha(HttpServletRequest request)
 	{
-		Gson gson = new Gson();
-		String campos = request.getParameter("campos");
-		System.out.println(campos);
-		ArrayList lstCampos = gson.fromJson(campos, ArrayList.class);
 		
-		return "1";
+		Ficha ficha = null;
+		String respuesta = "";
+		try{
+			
+			Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+			Gson json= new Gson();			
+			HashMap<String,String> camposMap = (HashMap<String,String>)json.fromJson(request.getParameter("campos"),HashMap.class);			
+			camposMap.put(Constantes.usuario, usuario.getId_usuario());			
+			ficha = fichaDAO.llenarFicha(camposMap);			
+			fichaDAO.insertar(ficha);
+			
+			if(ficha.getId_ficha() != 0){
+				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + ficha.getId_ficha() + "\"}";
+			}else {
+				respuesta = "Error";
+			}
+			
+		}catch(Exception e){
+			
+		}
+		
+		return respuesta;
+		
+	}
+	
+	@RequestMapping(value={"/agregarContenidoFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String agregarContenidoFicha(HttpServletRequest request)
+	{	
+		
+		String respuesta = "";
+		try{
+			
+			Gson json= new Gson();
+			
+			ContenidoFicha contenidoFicha = (ContenidoFicha)json.fromJson(request.getParameter("contenidoFicha"),ContenidoFicha.class);
+						
+			contenidoFichaDAO.insertar(contenidoFicha);
+			
+			if(contenidoFicha.getId_contenido() != 0){
+				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + contenidoFicha.getId_contenido() + "\"}";
+			}else {
+				respuesta = "Error";
+			}
+			
+		}catch(Exception e){
+			
+		}
+		
+		return respuesta;
+		
+	}
+	
+	
+	@RequestMapping(value={"/eliminarFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String eliminarFicha(HttpServletRequest request)
+	{	
+		
+		String idFicha = request.getParameter("id");
+		Ficha ficha = new Ficha();
+		ficha.setId_ficha(Integer.parseInt(idFicha));
+		
+		boolean result = fichaDAO.delete(ficha);
+		
+		if(result){
+			return "{ \"respuesta\" : \"1\" }";
+		}else {
+			return "{ \"respuesta\" : \"0\" , \"error\" : \"Error al borrar\"}";
+		}
+		
 	}
 	
 }	
