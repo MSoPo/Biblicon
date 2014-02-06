@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
@@ -85,6 +86,45 @@ public class UsuarioCompartidoDAO {
 			Conexion.cerrarConexion(conexion);
 		}
 		return cantidad;
+	}
+	
+	public ArrayList<UsuarioCompartido> consultarUsuariosFicha(Integer id_ficha){
+		
+		String sql = "select a.id_ficha, b.id_usuario, b.nombre, b.apellido_paterno, b.apellido_materno " +
+				"from biblicon.usuariocompartido a, biblicon.usuario b " +
+				"where id_ficha = ? and a.id_usuario=b.id_usuario ";
+		
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;		
+		ResultSet rs = null;
+		
+		ArrayList<UsuarioCompartido> usuariosCompartido = new ArrayList<UsuarioCompartido>();
+		
+		try {
+			consulta = conexion.prepareStatement(sql);			
+			consulta.setInt(1, id_ficha);
+			rs = consulta.executeQuery();
+			UsuarioCompartido usuarioCompartido = null;
+			while(rs.next()){
+				usuarioCompartido = new UsuarioCompartido();
+				usuarioCompartido.getFicha().setId_ficha(rs.getInt("id_ficha"));
+				usuarioCompartido.getUsuario().setId_usuario(rs.getString("id_usuario"));
+				usuarioCompartido.getUsuario().setNombre(rs.getString("nombre"));
+				usuarioCompartido.getUsuario().setApellido_paterno(rs.getString("apellido_paterno"));
+				usuarioCompartido.getUsuario().setApellido_materno(rs.getString("apellido_materno"));
+				
+				usuariosCompartido.add(usuarioCompartido);
+			}
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return usuariosCompartido;
 	}
 
 
