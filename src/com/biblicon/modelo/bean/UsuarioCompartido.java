@@ -4,6 +4,12 @@ public class UsuarioCompartido {
 	private Usuario usuario;
 	private Ficha ficha;
 	
+	public UsuarioCompartido(){
+		usuario = new Usuario();
+		ficha = new Ficha();
+	
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
