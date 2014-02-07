@@ -30,4 +30,6 @@ span{font-weight:bold;font-size:1.2em}
 .filtros .filtro button{margin-top:.5em}
 .login{position:relative;text-align:center;width:60%;height:50%;font-size:20px;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);background:none repeat scroll 0 0 #eee;margin:2em auto;overflow:hidden;padding:1em 1.5em;width:480px;}
 .login input{display:block;margin:.5em auto}
-.login:before{border-color:#fff #999;border-style:solid;border-width:20px 20px 0 0;content:"";display:block;position:absolute;left:0;top:0;w idth:0}
+.login:before{border-color:#fff #999;border-style:solid;border-width:20px 20px 0 0;content:"";display:block;position:absolute;left:0;top:0;width:0}
+#cantidadCompartida{display:inline-block;text-decoration:inherit}
+ 
