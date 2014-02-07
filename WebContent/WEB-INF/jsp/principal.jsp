@@ -32,6 +32,7 @@
 				<input type="submit" value="Aceptar" id="borrado"/>
 				<input type="submit" value="Compartir" id="compartir" />
 				<input type="submit" value="Regresar" id="regresar"/>
+				<div id="error"></div>
 			</div>
 		</div>
 		<div class="contenido">
@@ -107,7 +108,7 @@
 				for(var j in campos){
 					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
 				}
-				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir('+ ficha.cantidadCompartida+')</a>';
+				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir(<div id="cantidadCompartida">'+ ficha.cantidadCompartida+'</div>)</a>';
 				template += (ficha.cantidadContenido ? '<a href="javascript:enviarContenidoFicha('+ficha.id_ficha+',\''+ ficha.apellido+'\',\''+ ficha.ano+'\' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a>' :
 					'<a href="">Agregar Fichas de Contenido</a>'); 
 				template += '<a href="#">Editar</a><a href="#" class="borrarficha">Borrar</a>'+
@@ -120,14 +121,39 @@
 			
 			$('.fichas').on('click', '.compartirficha', function(ev){
 				ev.preventDefault();
-				$('#bloqueo').fadeIn();
-				$($('#divEliminar div')[0]).html('<ul><li>Usuario1 <a href="#">x</a></li><li>Usuario2 <a href="#">x</a></li><li>Usuario3 <a href="#">x</a></li><li>Usuario4 <a href="#">x</a></li><li>Usuairo5 <a href="#">x</a></li>' +
-						'<li>Usuario1 <a href="#">x</a></li><li>Usuario2 <a href="#">x</a></li><li>Usuario3 <a href="#">x</a></li><li>Usuario4 <a href="#">x</a></li><li>Usuairo5 <a href="#">x</a></li></ul>'+
-						'<h4>Ingresa el nombre del usuario para compartir</h4> <input value="" id="usuariocompartir" />');
 				$('#id_ficha').val($(this).parent().children('input').val());
-				$('#borrado').hide();
-				$('#compartir').show();
+				$.post("consultarUsuariosFicha.htm", { 'id' : $('#id_ficha').val()}, function(respuesta){
+					var resp = JSON.parse(respuesta);
+					var lstUsuario = "";
+					if(resp.respuesta == "1"){
+						$('#bloqueo').fadeIn();
+						lstUsuario += "<ul>";
+						for(var i = 0; i < resp.usuarios.length; i++){
+							var usuario = resp.usuarios[i].usuario;
+							lstUsuario += '<li>' + usuario.id_usuario + ' <a href="#" id="' + usuario.id_usuario + '">x</a></li>';
+						}
+						lstUsuario += '</ul>';
+						
+						$($('#divEliminar div')[0]).html(lstUsuario + '<h4>Ingresa el nombre del usuario para compartir</h4> <input value="" id="usuariocompartir" />');
+						$('#borrado').hide();
+						$('#compartir').show();
+					}else{
+						$('#error').html(resp.error);
+					}
+				});
 				
+			});
+			
+			$('#divEliminar div').on('click', 'a', function(ev){
+				$.post("borrarUsuarioCompartido.htm", { 'id' : $('#id_ficha').val(), 'usuariocompartir' : ev.currentTarget.id}, function(respuesta){
+					var resp = JSON.parse(respuesta);
+					if(resp.respuesta == "1"){
+						$(ev.currentTarget).parent().remove();
+						$("#cantidadCompartida").html($("#cantidadCompartida").html() - 1);
+					}else{
+						$('#error').html(resp.error);
+					}
+				});
 			});
 			
 			$('.fichas').on('click', '.borrarficha', function(ev){
@@ -146,13 +172,34 @@
 						$('#listaPlantillas option[value=' + $('#listaPlantillas').val() + ']').remove();
 						$('#bloqueo').fadeOut();
 					}else{
-						$('#error').html(respuesta);
+						$('#error').html(respuesta.error);
 					}
 				});
 			});
 			
 			$('#compartir').on('click', function(){
-				
+				var existe = false;
+				$('#divEliminar li a').each(function(indice, elemento){
+					if(elemento.id.toUpperCase() == $('#usuariocompartir').val().toUpperCase()){
+						$('#error').html("Ya se comparte con este usuario.");
+						existe = true;
+						return;
+					}
+				});
+					
+				if(!existe){
+					$.post("compartirFicha.htm", { 'id' : $('#id_ficha').val(), 'usuariocompartir' : $('#usuariocompartir').val()}, function(respuesta){
+						var resp = JSON.parse(respuesta);
+						$('#divEliminar ul').append('<li>' + $('#usuariocompartir').val() + ' <a href="#" id="' + $('#usuariocompartir').val() + '">x</a></li>');
+						$("#cantidadCompartida").html(parseInt($("#cantidadCompartida").html()) + 1);
+						if(resp.respuesta == "1"){
+							$('#divEliminar ul').append('<li>' + $('#usuariocompartir').val() + ' <a href="#" id="' + $('#usuariocompartir').val() + '">x</a></li>');
+							$("#cantidadCompartida").html(parseInt($("#cantidadCompartida").html()) + 1);
+						}else{
+							$('#error').html(resp.error);
+						}
+					});
+				}
 			});
 			
 			$("#regresar").on('click', function(){
