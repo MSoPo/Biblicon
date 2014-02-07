@@ -85,8 +85,7 @@ public class UsuarioDAO {
 
 	public Usuario consultarPorId(String id){
 		Usuario us = null;
-		String sql = "select * from usuario "
-				+ "where id_usuario = ?";
+		String sql = "select * from usuario where id_usuario = ?";
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
 		Connection conexion = Conexion.ObtenerConexion();
