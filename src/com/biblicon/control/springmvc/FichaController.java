@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biblicon.modelo.bean.Ficha;
-import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.modelo.bean.UsuarioCompartido;
@@ -22,6 +21,7 @@ import com.biblicon.modelo.dao.CampoTipoFichaDAO;
 import com.biblicon.modelo.dao.FichaDAO;
 import com.biblicon.modelo.dao.TipoFichaDAO;
 import com.biblicon.modelo.dao.UsuarioCompartidoDAO;
+import com.biblicon.modelo.dao.UsuarioDAO;
 import com.biblicon.util.Constantes;
 import com.google.gson.Gson;
 
@@ -38,6 +38,8 @@ public class FichaController {
 	 private FichaDAO fichaDAO;
 	 @Autowired
 	 private UsuarioCompartidoDAO usuarioCompartidoDAO;
+	 @Autowired
+	 private UsuarioDAO usuarioDAO;
 	 
 	 @RequestMapping("ficha.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -112,19 +114,24 @@ public class FichaController {
 		
 		String respuesta = "";
 		try{
-			String idusuario = request.getParameter("id_usuario"); 	//TODO poner valor correcto	
-			String idficha = request.getParameter("id");			//TODO poner valor correcto	
+			String idusuario = request.getParameter("usuariocompartir");	
+			String idficha = request.getParameter("id");				
 			
-			UsuarioCompartido usuarioCompartido = new UsuarioCompartido();			
-			usuarioCompartido.getFicha().setId_ficha(Integer.parseInt(idficha));			
-			usuarioCompartido.getUsuario().setId_usuario(idusuario);
+			if(usuarioDAO.consultarPorId(idusuario)!=null){
 			
-			int cant = usuarioCompartidoDAO.insertar(usuarioCompartido);
-			
-			if(cant != 0){
-				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + idficha + "\"}";
-			}else {
-				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al compartir\"}";
+				UsuarioCompartido usuarioCompartido = new UsuarioCompartido();			
+				usuarioCompartido.getFicha().setId_ficha(Integer.parseInt(idficha));			
+				usuarioCompartido.getUsuario().setId_usuario(idusuario);
+				
+				usuarioCompartidoDAO.insertar(usuarioCompartido);
+				
+				if(usuarioCompartidoDAO.insertar(usuarioCompartido)){
+					respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + idficha + "\"}";
+				}else {
+					respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al compartir\"}";
+				}
+			}else{
+				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"El usuario no existe\"}";
 			}
 		}catch(Exception e){
 			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al compartir catch\"}";
