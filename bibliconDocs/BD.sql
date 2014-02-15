@@ -1,6 +1,6 @@
 CREATE DATABASE biblicon CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE USUARIO(
+CREATE TABLE BIBLICON.USUARIO(
 id_usuario varchar(20),
 nombre varchar(30),
 apellido_paterno varchar(30),
@@ -9,7 +9,7 @@ contrasena varchar(50),
 correo varchar(50),
 PRIMARY KEY(id_usuario))ENGINE=INNODB;
 
-CREATE TABLE PLANTILLA(
+CREATE TABLE BIBLICON.PLANTILLA(
 id_plantilla INTEGER auto_increment,
 nombre_plantilla varchar(50),
 plantilla text,
@@ -17,18 +17,20 @@ id_usuario varchar(20),
 PRIMARY KEY(id_plantilla),
 INDEX  (id_usuario),
 FOREIGN KEY (id_usuario)
-    REFERENCES USUARIO(id_usuario))ENGINE=INNODB;
+    REFERENCES USUARIO(id_usuario)
+	ON DELETE CASCADE)ENGINE=INNODB;
 
-CREATE TABLE TIPOFICHA(
+CREATE TABLE BIBLICON.TIPOFICHA(
 id_tipo_ficha INTEGER auto_increment,
 id_usuario varchar(20),
 nombre_tipo varchar(30),
 PRIMARY KEY(id_tipo_ficha),
 INDEX  (id_usuario),
 FOREIGN KEY (id_usuario)
-    REFERENCES USUARIO(id_usuario))ENGINE=INNODB;
+    REFERENCES USUARIO(id_usuario)
+	ON DELETE CASCADE)ENGINE=INNODB;
 
-CREATE TABLE FICHA(
+CREATE TABLE BIBLICON.FICHA(
 id_ficha INTEGER auto_increment,
 id_tipo_ficha INTEGER, 
 id_usuario varchar(20),
@@ -82,34 +84,41 @@ titulo_libro	varchar(50),
 PRIMARY KEY(id_ficha),
 INDEX  (id_tipo_ficha),
 FOREIGN KEY (id_tipo_ficha)
-    REFERENCES TIPOFICHA(id_tipo_ficha),
+    REFERENCES TIPOFICHA(id_tipo_ficha)
+	ON DELETE CASCADE,
 INDEX  (id_usuario),
 FOREIGN KEY (id_usuario)
     REFERENCES USUARIO(id_usuario)
-	)ENGINE=INNODB;
+	ON DELETE CASCADE)ENGINE=INNODB;
 
-CREATE TABLE USUARIOCOMPARTIDO(
+CREATE TABLE BIBLICON.USUARIOCOMPARTIDO(
 id_ficha INTEGER,
 id_usuario varchar(20),
 PRIMARY KEY(id_ficha,id_usuario),
 INDEX  (id_ficha),
 FOREIGN KEY (id_ficha)
-    REFERENCES FICHA(id_ficha),
+    REFERENCES FICHA(id_ficha)
+	ON DELETE CASCADE,
 INDEX  (id_usuario),
 FOREIGN KEY (id_usuario)
-    REFERENCES USUARIO(id_usuario));
+    REFERENCES USUARIO(id_usuario)
+	ON DELETE CASCADE);
 
-CREATE TABLE CAMPOTIPOFICHA(
+CREATE TABLE BIBLICON.CAMPOTIPOFICHA(
 id_campo INTEGER auto_increment,
 id_tipo_ficha INTEGER,
 nombre_campo varchar(50),
+requerido varchar(1),
+tipo_entrada varchar(40),
+seccion varchar(40),
 PRIMARY KEY(id_campo),
 INDEX (id_tipo_ficha),
 FOREIGN KEY (id_tipo_ficha)
-    REFERENCES TIPOFICHA(id_tipo_ficha))ENGINE=INNODB;
+	REFERENCES TIPOFICHA(id_tipo_ficha)
+	ON DELETE CASCADE)ENGINE=INNODB;
 
 
-CREATE TABLE CONTENIDOFICHA(
+CREATE TABLE BIBLICON.CONTENIDOFICHA(
 id_contenido INTEGER auto_increment,
 id_ficha INTEGER,
 palabra_clave varchar(50),
@@ -119,9 +128,9 @@ paginas varchar(20),
 notas text,
 PRIMARY KEY(id_contenido),
 INDEX (id_ficha),
-FOREIGN KEY (id_ficha)
-    REFERENCES FICHA(id_ficha))ENGINE=INNODB;
-
+FOREIGN KEY (id_ficha)	
+    REFERENCES FICHA(id_ficha)
+	ON DELETE CASCADE)ENGINE=INNODB;
 
 
 

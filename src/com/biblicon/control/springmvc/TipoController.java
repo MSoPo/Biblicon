@@ -61,10 +61,18 @@ public class TipoController {
 		
 		tipo.setId_tipo_ficha(tipoFichaDAO.insertar(tipo));
 		if(tipo.getId_tipo_ficha() != 0){
-			for(String campo : camposTipo){
+			for(String campo : camposTipo)
+			{
 				CampoTipoFicha campoficha = new CampoTipoFicha();
 				campoficha.setNombre_campo(campo);
 				campoficha.setTipo_ficha(tipo);
+				/*
+				 * TODO ver de donde se obtendrá los valores
+				  campoficha.setRequerido(requerido);
+				  campoficha.setTipo_entrada(tipo_entrada);
+				  campoficha.setSeccion(seccion);
+				*/
+				
 				campoficha.setId_campo(campoFichaDAO.insertar(campoficha));
 			}
 			return "{ \"respuesta\" : \"1\", \"id\" : \"" + tipo.getId_tipo_ficha() + "\"}";
