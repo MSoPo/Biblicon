@@ -19,7 +19,7 @@ import com.biblicon.util.Conexion;
 public class CampoTipoFichaDAO {
 	
 	public int insertar(CampoTipoFicha campo){
-		String sql = "insert into campotipoficha (nombre_campo, id_tipo_ficha) values (?, ?)";
+		String sql = "insert into campotipoficha (nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion) values (?, ?, ?, ?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
@@ -28,6 +28,9 @@ public class CampoTipoFichaDAO {
 			consulta = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			consulta.setString(1, campo.getNombre_campo());
 			consulta.setInt(2, campo.getTipo_ficha().getId_tipo_ficha());
+			consulta.setString(3, campo.getRequerido());
+			consulta.setString(4, campo.getTipo_entrada());
+			consulta.setString(5, campo.getSeccion());
 			consulta.execute();
 			rs = consulta.getGeneratedKeys();
 			
@@ -46,14 +49,17 @@ public class CampoTipoFichaDAO {
 	}
 	
 	public boolean  editar(CampoTipoFicha campo){
-		String sql = "update campotipoficha set nombre_campo = ?, id_tipo_ficha = ? where id_campo = ?";
+		String sql = "update campotipoficha set nombre_campo = ?, id_tipo_ficha = ?, requerido = ?, tipo_entrada = ?, seccion = ? where id_campo = ? ";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, campo.getNombre_campo());
 			consulta.setInt(2, campo.getTipo_ficha().getId_tipo_ficha());
-			consulta.setInt(3, campo.getId_campo());
+			consulta.setString(3, campo.getRequerido());
+			consulta.setString(4, campo.getTipo_entrada());
+			consulta.setString(5, campo.getSeccion());
+			consulta.setInt(6, campo.getId_campo());
 			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,7 +91,7 @@ public class CampoTipoFichaDAO {
 
 	public ArrayList<CampoTipoFicha> consultarPorTipo(int i){
 		ArrayList<CampoTipoFicha> lista = new ArrayList<CampoTipoFicha>();
-		String sql = "select * from campotipoficha where id_tipo_ficha = ?";
+		String sql = "select id_campo, nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion from campotipoficha where id_tipo_ficha = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
@@ -99,6 +105,9 @@ public class CampoTipoFichaDAO {
 				campo.setNombre_campo(rs.getString("nombre_campo"));
 				campo.setTipo_ficha(new TipoFicha());
 				campo.getTipo_ficha().setId_tipo_ficha(i);;
+				campo.setRequerido(rs.getString("requerido"));
+				campo.setTipo_entrada(rs.getString("tipo_entrada"));
+				campo.setSeccion(rs.getString("seccion"));
 				lista.add(campo);
 			}
 		} catch (SQLException e) {
