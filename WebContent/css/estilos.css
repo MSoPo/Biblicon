@@ -25,7 +25,7 @@ span{font-weight:bold;font-size:1.2em}
 .error{font-size:.8em;color:#c01212;font-weight:bold}
 .correcto{font-size:.8em;color:#070}
 .fichas{display:table-cell;vertical-align:top;width:80%;min-width:400px;margin:0 auto}
-.filtros{display:table-cell;width:20%;height:100%;border-right:2px solid;padding:1em;padding-bottom:2em;}
+.filtros{display:table-cell;width:20%;height:100%;border-right:2px solid;padding:1em;padding-bottom:2em;vertical-align:top;}
 .filtros .filtro{margin-top:1em;}
 .filtros .filtro button{margin-top:.5em}
 .login{position:relative;text-align:center;width:60%;height:50%;font-size:20px;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);background:none repeat scroll 0 0 #eee;margin:2em auto;overflow:hidden;padding:1em 1.5em;width:480px;}

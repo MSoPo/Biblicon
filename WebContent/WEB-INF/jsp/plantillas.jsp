@@ -11,20 +11,7 @@
    <script src="js/jquery-2.0.3.min.js"></script>
 </head>
 <body>
-	<header>
-		<h1>Biblicon</h1>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="#">Fichas</a></li>
-			<li><a href='#'>Tipo de fichas</a></li>
-			<li><a href="#">Plantilla</a></li>
-			<li><a href="#">Ayuda</a></li>
-			<li><a href="#">Acerca de</a></li>
-		</ul>
-	</nav>
-	<section>
-		<div class="bloqueo" id="bloqueo">
+	<div class="bloqueo" id="bloqueo">
 			<div class="divEliminar" id="divEliminar">
 				<h4>Selecciona la plantilla a eliminar</h4>
 				<div class="error" id="error2"></div>
@@ -36,6 +23,18 @@
 				<input type="submit" value="Regresar" id="regresar"/>
 			</div>
 		</div>
+	<header>
+		<h1>Biblicon</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="ficha.htm">Agregar Ficha</a></li>
+			<li><a href="tipos.htm">Tipo de Fichas</a></li>
+			<li><a href="plantillas.htm">Plantillas</a></li>
+		</ul>
+	</nav>
+	<section>
 		<div class="contenidoNotabla">
 			<div class="datostipoficha">
 				<div class="error" id="error"></div>

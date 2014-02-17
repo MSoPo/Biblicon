@@ -83,23 +83,10 @@
 				
 				guardarcampos['tipo_ficha'] = $('#tipos').val();
 				
-				$.post('agregarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos)}, function(respuesta){
+				$.post('editarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos)}, function(respuesta){
 					var resp = JSON.parse(respuesta);
 					if(resp.respuesta == '1'){
-						$('.lineaCampo input').each(function(indice, elemento){
-							if($($(elemento).children()[0]).val() != "chk"){
-								if($(elemento).hasClass('datepicker')){
-									var today = new Date();
-									$(elemento).val(ceros(today.getDate(), 2, "0") + "/" + ceros((today.getMonth() + 1), 2, "0") + "/" + ceros(today.getFullYear(), 2, "0"));
-								}else
-									$(elemento).val('');
-							}else
-								$(elemento).attr("checked",false);
-						});
-						$('.lineaCampo textarea').each(function(indice, elemento){
-							$(elemento).val('');
-						});
-						$('#error').html('Se agrego la ficha').addClass('correcto').removeClass('error');
+						$('#error').html('Se modifico la ficha').addClass('correcto').removeClass('error');
 					}else{
 						$('#error').html(resp.error).addClass('error').removeClass('correcto');
 					}
@@ -157,19 +144,20 @@
 				if(campo.requerido == 1) requerido = "requerido";
 
 				var tipoInput = "";
-				var today = new Date();
-				var fecha = ceros(today.getDate(), 2, "0") + "/" + ceros((today.getMonth() + 1), 2, "0") + "/" + ceros(today.getFullYear(), 2, "0");
-				var idCampo = 'id="' + campo.nombre_campo.replace(' ', '_') + '"';
-				if(campo.tipo_entrada == "varchar")
-					tipoInput = '<input class=" ' + requerido + '" '+ idCampo +' />';
+				var valor = 'value = "' + compo.valor + '"';
+				var idCampo = 'id="' + campo.nombre_campo.replace(' ', '_') + '" ';
+				if(campo.nombre_campo = "id_tipo")
+					$('#tipos').val(campo.valor);
+				else if(campo.tipo_entrada == "varchar")
+					tipoInput = '<input '+valor+' class=" ' + requerido + '" '+ idCampo +' />';
 				else if(campo.tipo_entrada == "text")
-					tipoInput = '<textarea class=" ' + requerido + '" '+ idCampo +' />';
+					tipoInput = '<textarea '+valor+' class=" ' + requerido + '" '+ idCampo +' />';
 				else if(campo.tipo_entrada == "boolean")
-					tipoInput = '<input value="chk" class=" ' + requerido + '" type="checkbox" '+ idCampo +' />';
+					tipoInput = '<input value="chk" class=" ' + requerido + '" type="checkbox" '+ idCampo + (campo.valor ? "checked" : "") +' />';
 				else if(campo.tipo_entrada == "date")
-					tipoInput = '<input type="text" '+ idCampo +' class="datepicker  ' + requerido + '" value="' + fecha + '" />';
+					tipoInput = '<input '+valor+' type="text" '+ idCampo +' class="datepicker  ' + requerido + '" />';
 				else if(campo.tipo_entrada == "int")
-					tipoInput = '<input type="number" class="numero  ' + requerido + '" '+ idCampo +' />';
+					tipoInput = '<input '+valor+' type="number" class="numero  ' + requerido + '" '+ idCampo +' />';
 
 				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + campo.nombre_campo + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
 				output2 += template;
@@ -191,13 +179,6 @@
 			});
 		}
 
-		function ceros(valor, cantidad, signo){
-			var val = String(valor);
-			while(val.length < cantidad){
-				val = signo + val;
-			}
-			return val;
-		}
 	</script>
 </body>
 </html>   

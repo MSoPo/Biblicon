@@ -65,7 +65,10 @@ public class FichaController {
 			Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 			Gson json= new Gson();			
 			HashMap<String,String> camposMap = (HashMap<String,String>)json.fromJson(request.getParameter("campos"),HashMap.class);			
-			camposMap.put(Constantes.usuario, usuario.getId_usuario());			
+			camposMap.put(Constantes.usuario, usuario.getId_usuario());
+			
+			if(true) return "{ \"respuesta\" : \"1\", \"id\" : \"1\"}";
+			
 			ficha = fichaDAO.llenarFicha(camposMap);			
 			fichaDAO.insertar(ficha);
 			

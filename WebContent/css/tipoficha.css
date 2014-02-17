@@ -12,5 +12,4 @@
 .divEliminar ul li{display:inline-block;margin:.3em;padding:.5em;border-radius:.5em;background-color:#ccc;}
 .divEliminar ul li a{text-decoration:none;color:#aaa;font-size:.9em;}
 .divEliminar ul li a:hover{background:rgba(0,0,0,0.1)}
-.bloqueo{display:none;position:absolute;width:100%;height:100%;z-index:10;background:rgba(0,0,0,0.4)}
- 
+.bloqueo{display:none;position:fixed;width:100%;height:100%;z-index:10;background:rgba(0,0,0,0.4)}
