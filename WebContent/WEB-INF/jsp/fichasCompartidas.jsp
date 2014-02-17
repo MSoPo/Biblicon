@@ -17,7 +17,7 @@
 				<div></div>
 				<input type="hidden" value="" id="id_ficha"/>
 				<input type="submit" value="Aceptar" id="borrado"/>
-				<input type="submit" value="Compartir" id="compartir" />
+				<input type="submit" value="Clonar" id="clonarFicha" />
 				<input type="submit" value="Regresar" id="regresar"/>
 				<div id="error"></div>
 			</div>
@@ -70,11 +70,6 @@
 			$().redirect('contenido.htm', {'idFicha': idficha,'apellido':apellido,'ano':ano});
 		}
 		
-		function nuevoContenidoFicha(idficha) {
-			
-			$().redirect('nuevaFichaContenido.htm', {'idFicha': idficha});
-		}
-		
 		
 	
 		$(function() {
@@ -114,10 +109,9 @@
 				for(var j in campos){
 					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
 				}
-				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir(<div id="cantidadCompartida">'+ ficha.cantidadCompartida+'</div>)</a>';
-				template += (ficha.cantidadContenido ? '<a href="javascript:enviarContenidoFicha('+ficha.id_ficha+',\''+ ficha.apellido+'\',\''+ ficha.ano+'\' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a>' :
-					'<a id="agregarFichaContenido" href="javascript:nuevoContenidoFicha('+ficha.id_ficha+')">Agregar Fichas de Contenido</a>'); 
-				template += '<a href="#">Editar</a><a href="#" class="borrarficha">Borrar</a>'+
+				template += '<div class="acciones">';
+				template += (ficha.cantidadContenido ? '<a href="javascript:enviarContenidoFicha('+ficha.id_ficha+',\''+ ficha.apellido+'\',\''+ ficha.ano+'\' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a>' : ''); 
+				template += '<a href="#" class="clonar">Clonar</a><a href="#" class="borrarficha">Borrar</a>'+
 				'<input type="hidden" value="'+ficha.id_ficha+'"/></div></article>';
 				outputFichas += template;
 			}
@@ -125,30 +119,6 @@
 			$("#fichas").html(outputFichas);
 			$("#tipos").html(output);
 			
-			$('.fichas').on('click', '.compartirficha', function(ev){
-				ev.preventDefault();
-				$('#id_ficha').val($(this).parent().children('input').val());
-				$.post("consultarUsuariosFicha.htm", { 'id' : $('#id_ficha').val()}, function(respuesta){
-					var resp = JSON.parse(respuesta);
-					var lstUsuario = "";
-					if(resp.respuesta == "1"){
-						$('#bloqueo').fadeIn();
-						lstUsuario += "<ul>";
-						for(var i = 0; i < resp.usuarios.length; i++){
-							var usuario = resp.usuarios[i].usuario;
-							lstUsuario += '<li>' + usuario.id_usuario + ' <a href="#" id="' + usuario.id_usuario + '">x</a></li>';
-						}
-						lstUsuario += '</ul>';
-						
-						$($('#divEliminar div')[0]).html(lstUsuario + '<h4>Ingresa el nombre del usuario para compartir</h4> <input value="" id="usuariocompartir" />');
-						$('#borrado').hide();
-						$('#compartir').show();
-					}else{
-						$('#error').html(resp.error);
-					}
-				});
-				
-			});
 			
 			$('#divEliminar div').on('click', 'a', function(ev){
 				$.post("borrarUsuarioCompartido.htm", { 'id' : $('#id_ficha').val(), 'usuariocompartir' : ev.currentTarget.id}, function(respuesta){
@@ -167,13 +137,23 @@
 				$('#bloqueo').fadeIn();
 				$($('#divEliminar div')[0]).html('<h4>¿Seguro que deseas eliminar la ficha?</h4>');
 				$('#id_ficha').val($(this).parent().children('input').val());
-				$('#compartir').hide();
+				$('#clonar').hide();
 				$('#borrado').show();
 				
 			});
 			
-			$("#borrado").on('click', function(){
-				$.post("eliminarFicha.htm", { 'id' : $('#id_ficha').val()}, function(respuesta){
+			$('.fichas').on('click', '.clonar', function(ev){
+				ev.preventDefault();
+				$('#bloqueo').fadeIn();
+				$($('#divEliminar div')[0]).html('<h4>¿Seguro que deseas clonar esta ficha?</h4>');
+				$('#id_ficha').val($(this).parent().children('input').val());
+				$('#borrado').hide();
+				$('#clonar').show();
+				
+			});
+			
+			$('#clonarFicha').on(function(){
+				$.post("clonarFicha.htm", { 'id' : $('#id_ficha').val()}, function(respuesta){
 					if(respuesta == "1"){
 						$('#bloqueo').fadeOut();
 					}else{
@@ -182,30 +162,16 @@
 				});
 			});
 			
-			$('#compartir').on('click', function(){
-				var existe = false;
-				$('#divEliminar li a').each(function(indice, elemento){
-					if(elemento.id.toUpperCase() == $('#usuariocompartir').val().toUpperCase()){
-						$('#error').html("Ya se comparte con este usuario.");
-						existe = true;
-						return;
+			$("#borrado").on('click', function(){
+				$.post("eliminarFichaComartida.htm", { 'id' : $('#id_ficha').val()}, function(respuesta){
+					if(respuesta == "1"){
+						$('#bloqueo').fadeOut();
+					}else{
+						$('#error').html(respuesta.error);
 					}
 				});
-					
-				if(!existe){
-					$.post("compartirFicha.htm", { 'id' : $('#id_ficha').val(), 'usuariocompartir' : $('#usuariocompartir').val()}, function(respuesta){
-						var resp = JSON.parse(respuesta);
-						$('#divEliminar ul').append('<li>' + $('#usuariocompartir').val() + ' <a href="#" id="' + $('#usuariocompartir').val() + '">x</a></li>');
-						$("#cantidadCompartida").html(parseInt($("#cantidadCompartida").html()) + 1);
-						if(resp.respuesta == "1"){
-							$('#divEliminar ul').append('<li>' + $('#usuariocompartir').val() + ' <a href="#" id="' + $('#usuariocompartir').val() + '">x</a></li>');
-							$("#cantidadCompartida").html(parseInt($("#cantidadCompartida").html()) + 1);
-						}else{
-							$('#error').html(resp.error);
-						}
-					});
-				}
 			});
+			
 			
 			$("#regresar").on('click', function(){
 				$('#bloqueo').fadeOut();
