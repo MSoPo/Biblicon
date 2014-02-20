@@ -1,12 +1,14 @@
 package com.biblicon.modelo.bean;
 
 public class Usuario {
+	
 	private String id_usuario;
 	private String nombre;
 	private String apellido_paterno;
 	private String apellido_materno;
 	private String contrasena;
 	private String correo;
+	private boolean status;
 	
 	public String getId_usuario() {
 		return id_usuario;
@@ -44,7 +46,10 @@ public class Usuario {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	
-	
-
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 }

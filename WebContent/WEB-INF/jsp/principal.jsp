@@ -9,6 +9,7 @@
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/mustache.js"></script>
    <script src="js/jquery.redirect.min.js"></script>
+   <script src="js/ficha.js"></script>
 </head>
 
 <body>
@@ -75,6 +76,19 @@
 			$().redirect('nuevaFichaContenido.htm', {'idFicha': idficha});
 		}
 		
+		function actualizarFicha(idficha) {
+					
+			$().redirect('actualizarFicha.htm', {'idFicha': idficha});
+		}
+		
+		function cargarFichaCompleta(agregar){
+			$('#bloqueo').fadeIn();
+			$($('#divEliminar div')[0]).html(agregar);
+			$('#borrado').hide();
+			$('#compartir').hide();
+			
+		}
+		
 		
 	
 		$(function() {
@@ -111,13 +125,29 @@
 				var ficha = fichas[i];
 				var campos = ficha.campos;
 				var template = '<article><div class="tipoficha acciones"><a href="#">'+ ficha.tipo_ficha.nombre_tipo +'<a></div>';
-				for(var j in campos){
-					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
+				
+				template += '<p>' + biblicon.ficha.constantes["titulo"] + ': <span>'+ campos["titulo"] +'</span></p>';
+				template += '<p>' + biblicon.ficha.constantes["apellido"] + ': <span>'+ campos["apellido"] +'</span></p>';
+				template += '<p>' + biblicon.ficha.constantes["nombre"] + ': <span>'+ campos["nomber"] +'</span></p>';
+				
+				var agregar = "";
+				var seccionVacia = 1;
+				for(var campo in campos){
+					if( campos[campo] == "#sec#"){
+						if(seccionVacia != 0)
+							agregar += '<hr/>' + campo + '<hr/>';
+						seccionVacia = 0;
+					}else{
+						seccionVacia ++;
+						agregar += '<p>' + biblicon.ficha.constantes[campo] + ': <span>'+ campos[campo] +'</span></p>';
+						}
 				}
-				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir(<div id="cantidadCompartida">'+ ficha.cantidadCompartida+'</div>)</a>';
+				
+				template += '<p><span> <a class="ver_todo" href="javascript:cargarFichaCompleta(&quot' + agregar + '&quot)"> ver todo... </a> </span></p>';
+				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir(<div class="cantidadCompartida" id="cantidadCompartida">'+ ficha.cantidadCompartida+'</div>)</a>';
 				template += (ficha.cantidadContenido ? '<a href="javascript:enviarContenidoFicha('+ficha.id_ficha+',\''+ ficha.apellido+'\',\''+ ficha.ano+'\' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a>' :
 					'<a id="agregarFichaContenido" href="javascript:nuevoContenidoFicha('+ficha.id_ficha+')">Agregar Fichas de Contenido</a>'); 
-				template += '<a href="#">Editar</a><a href="#" class="borrarficha">Borrar</a>'+
+				template += '<a href="javascript:actualizarFicha('+ficha.id_ficha+')">Editar</a><a href="#" class="borrarficha">Borrar</a>'+
 				'<input type="hidden" value="'+ficha.id_ficha+'"/></div></article>';
 				outputFichas += template;
 			}
@@ -155,7 +185,8 @@
 					var resp = JSON.parse(respuesta);
 					if(resp.respuesta == "1"){
 						$(ev.currentTarget).parent().remove();
-						$("#cantidadCompartida").html($("#cantidadCompartida").html() - 1);
+						var divCompartir = $('article input[value="'+ $('#id_ficha').val() +'"]').parent().children()[0];
+						$($(divCompartir).children()[0]).html(parseInt($($(divCompartir).children()[0]).html()) - 1);
 					}else{
 						$('#error').html(resp.error);
 					}
@@ -194,12 +225,12 @@
 					
 				if(!existe){
 					$.post("compartirFicha.htm", { 'id' : $('#id_ficha').val(), 'usuariocompartir' : $('#usuariocompartir').val()}, function(respuesta){
-						var resp = JSON.parse(respuesta);
-						$('#divEliminar ul').append('<li>' + $('#usuariocompartir').val() + ' <a href="#" id="' + $('#usuariocompartir').val() + '">x</a></li>');
-						$("#cantidadCompartida").html(parseInt($("#cantidadCompartida").html()) + 1);
+						var resp = JSON.parse(respuesta);						
 						if(resp.respuesta == "1"){
 							$('#divEliminar ul').append('<li>' + $('#usuariocompartir').val() + ' <a href="#" id="' + $('#usuariocompartir').val() + '">x</a></li>');
-							$("#cantidadCompartida").html(parseInt($("#cantidadCompartida").html()) + 1);
+							var divCompartir = $('article input[value="'+ $('#id_ficha').val() +'"]').parent().children()[0];
+							$($(divCompartir).children()[0]).html(parseInt($($(divCompartir).children()[0]).html()) + 1);
+
 						}else{
 							$('#error').html(resp.error);
 						}

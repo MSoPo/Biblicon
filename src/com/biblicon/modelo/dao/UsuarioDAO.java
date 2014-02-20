@@ -5,11 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-
-
-
-
 import org.springframework.stereotype.Repository;
 
 import com.biblicon.modelo.bean.Usuario;
@@ -19,7 +14,7 @@ import com.biblicon.util.Conexion;
 public class UsuarioDAO {
 	
 	public boolean insertar(Usuario usuario){
-		String sql = "insert into usuario (id_usuario, nombre, apellido_paterno, apellido_materno, contrasena, correo ) values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into usuario (id_usuario, nombre, apellido_paterno, apellido_materno, contrasena, correo, status ) values (?, ?, ?, ?, ?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
@@ -30,6 +25,7 @@ public class UsuarioDAO {
 			consulta.setString(4, usuario.getApellido_materno());
 			consulta.setString(5, usuario.getContrasena());
 			consulta.setString(6, usuario.getCorreo());
+			consulta.setBoolean(7, usuario.isStatus());
 			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +39,7 @@ public class UsuarioDAO {
 	}
 	
 	public boolean  editar(Usuario usuario){
-		String sql = "update usuario set nombre = ?, apellido_paterno = ?, apellido_materno = ?, contrasena = ?, correo = ? where id_usuario = ?";
+		String sql = "update usuario set nombre = ?, apellido_paterno = ?, apellido_materno = ?, contrasena = ?, correo = ?, status = ? where id_usuario = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
@@ -53,7 +49,8 @@ public class UsuarioDAO {
 			consulta.setString(3, usuario.getApellido_materno());
 			consulta.setString(4, usuario.getContrasena());
 			consulta.setString(5, usuario.getCorreo());
-			consulta.setString(6, usuario.getId_usuario());
+			consulta.setBoolean(6, usuario.isStatus());
+			consulta.setString(7, usuario.getId_usuario());			
 			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,6 +98,7 @@ public class UsuarioDAO {
 				us.setApellido_paterno(rs.getString("apellido_paterno"));
 				us.setApellido_materno(rs.getString("apellido_materno"));
 				us.setCorreo(rs.getString("correo"));
+				us.setStatus(rs.getBoolean("status"));
 			}
 		} catch(SQLException e){
 			e.printStackTrace();

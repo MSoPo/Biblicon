@@ -9,6 +9,7 @@
    <!-- Quitar despues de compilar stylus -->
    <link rel="stylesheet" href="css/tipoficha.css">
    <script src="js/jquery-2.0.3.min.js"></script>
+   <script src="js/ficha.js"></script>
 </head>
 <body>
 	<div class="bloqueo" id="bloqueo">
@@ -46,64 +47,65 @@
 			</div>
 			<div class="cdisponible" id="cdisponible">
 				<h3>Arrastra los campos que deseas agregar</h3>
-				<div id="a" class="campo"  draggable="true"><%= Constantes.a %></div>
-				<div id="ano" class="campo"  draggable="true"><%= Constantes.ano %></div>
-				<div id="apellido" class="campo"  draggable="true"><%= Constantes.apellido %></div>
-				<div id="apellido_editor" class="campo"  draggable="true"><%= Constantes.apellido_editor %></div>
-				<div id="apellido_editor_otro" class="campo"  draggable="true"><%= Constantes.apellido_editor_otro %></div>
-				<div id="apellido_otro" class="campo"  draggable="true"><%= Constantes.apellido_otro %></div>
-				<div id="b" class="campo"  draggable="true"><%= Constantes.b %></div>
-				<div id="biblioteca" class="campo"  draggable="true"><%= Constantes.biblioteca %></div>
-				<div id="c" class="campo"  draggable="true"><%= Constantes.c %></div>
-				<div id="categoria" class="campo"  draggable="true"><%= Constantes.categoria %></div>
-				<div id="ciudad" class="campo"  draggable="true"><%= Constantes.ciudad %></div>
-				<div id="coleccion" class="campo"  draggable="true"><%= Constantes.coleccion %></div>
-				<div id="contenido_cont" class="campo"  draggable="true"><%= Constantes.contenido_cont %></div>
-				<div id="d" class="campo"  draggable="true"><%= Constantes.d %></div>
-				<div id="dia" class="campo"  draggable="true"><%= Constantes.dia %></div>
-				<div id="edicion" class="campo"  draggable="true"><%= Constantes.edicion %></div>
-				<div id="edicion_de" class="campo"  draggable="true"><%= Constantes.edicion_de %></div>
-				<div id="editor" class="campo"  draggable="true"><%= Constantes.editor %></div>
-				<div id="editorial" class="campo"  draggable="true"><%= Constantes.editorial %></div>
-				<div id="et_al" class="campo"  draggable="true"><%= Constantes.et_al %></div>
-				<div id="et_al_editor" class="campo"  draggable="true"><%= Constantes.et_al_editor %></div>
-				<div id="fecha_acceso" class="campo"  draggable="true"><%= Constantes.fecha_acceso %></div>
-				<div id="fecha_publicacion" class="campo"  draggable="true"><%= Constantes.fecha_publicacion %></div>
-				<div id="institucion" class="campo"  draggable="true"><%= Constantes.institucion %></div>
-				<div id="localizacion" class="campo"  draggable="true"><%= Constantes.localizacion %></div>
-				<div id="mes" class="campo"  draggable="true"><%= Constantes.mes %></div>
-				<div id="nombre" class="campo"  draggable="true"><%= Constantes.nombre %></div>
-				<div id="nombre_editor" class="campo"  draggable="true"><%= Constantes.nombre_editor %></div>
-				<div id="nombre_editor_otro" class="campo"  draggable="true"><%= Constantes.nombre_editor_otro %></div>
-				<div id="nombre_otro" class="campo"  draggable="true"><%= Constantes.nombre_otro %></div>
-				<div id="notas" class="campo"  draggable="true"><%= Constantes.notas %></div>
-				<div id="notas_cont" class="campo"  draggable="true"><%= Constantes.notas_cont %></div>
-				<div id="numero" class="campo"  draggable="true"><%= Constantes.numero %></div>
-				<div id="otros_datos" class="campo"  draggable="true"><%= Constantes.otros_datos %></div>
-				<div id="pagina_fin" class="campo"  draggable="true"><%= Constantes.pagina_fin %></div>
-				<div id="pagina_ini" class="campo"  draggable="true"><%= Constantes.pagina_ini %></div>
-				<div id="paginas" class="campo"  draggable="true"><%= Constantes.paginas %></div>
-				<div id="paginas_cont" class="campo"  draggable="true"><%= Constantes.paginas_cont %></div>
-				<div id="palabra_clave_cont" class="campo"  draggable="true"><%= Constantes.palabra_clave_cont %></div>
-				<div id="periodico" class="campo"  draggable="true"><%= Constantes.periodico %></div>
-				<div id="portal" class="campo"  draggable="true"><%= Constantes.portal %></div>
-				<div id="prologo" class="campo"  draggable="true"><%= Constantes.prologo %></div>
-				<div id="referencia_cont" class="campo"  draggable="true"><%= Constantes.referencia_cont %></div>
-				<div id="revista" class="campo"  draggable="true"><%= Constantes.revista %></div>
-				<div id="seccion" class="campo"  draggable="true"><%= Constantes.seccion %></div>
-				<div id="semana" class="campo"  draggable="true"><%= Constantes.semana %></div>
-				<div id="tipo" class="campo"  draggable="true"><%= Constantes.tipo %></div>
-				<div id="tipo_cont" class="campo"  draggable="true"><%= Constantes.tipo_cont %></div>
-				<div id="tipo_ficha" class="campo"  draggable="true"><%= Constantes.tipo_ficha %></div>
-				<div id="titulo" class="campo"  draggable="true"><%= Constantes.titulo %></div>
-				<div id="titulo_libro" class="campo"  draggable="true"><%= Constantes.titulo_libro %></div>
-				<div id="tomo" class="campo"  draggable="true"><%= Constantes.tomo %></div>
-				<div id="traduccion" class="campo"  draggable="true"><%= Constantes.traduccion %></div>
-				<div id="url" class="campo"  draggable="true"><%= Constantes.url %></div>
+				<div class="campo" draggable="true" id="<%=Constantes.editorial %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.ciudad %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.ano %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.institucion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.paginas %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.revista %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.tomo %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.numero %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.pagina_ini %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.pagina_fin %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.titulo_libro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.periodico %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.seccion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.dia %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.mes %>" > </div>
+				
+				<hr/><span>Autor</span><hr/>
+				<div class="campo" draggable="true" id="<%=Constantes.a %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.b %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.c %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.d %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.apellido_otro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.nombre_otro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.edicion_de %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.traduccion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.prologo %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.et_al %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.edicion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.otros_datos %>" > </div>
 			
+				<hr/><span>Otros</span><hr/>
+				<div class="campo" draggable="true" id="<%=Constantes.coleccion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.biblioteca %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.localizacion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.notas %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.semana %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.apellido_editor %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.nombre_editor %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.apellido_editor_otro %>" > </div>
+				
+				<hr/><span>Personales</span><hr/>
+				<div class="campo" draggable="true" id="<%=Constantes.nombre_editor_otro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.et_al_editor %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.url %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.portal %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.fecha_acceso %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.fecha_publicacion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.editor %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.categoria %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.tipo_ficha %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.tipo %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.usuario %>" > </div>							
+						
 			</div>
 			<div class="cseleccionado" id="cseleccionado" draggable="true">
 				<h3>Arrastra aquì y presiona para quitar </h3>
+				<div class="campo forzoso" id="<%=Constantes.titulo %>" > </div>
+				<div class="campo forzoso" id="<%=Constantes.apellido %>" > </div>
+				<div class="campo forzoso" id="<%=Constantes.nombre %>" > </div>
 			</div>
 		</div>
 	</section>
@@ -114,6 +116,14 @@
 	<script type="text/javascript">
 	
 	$(function() {
+	
+	$('.forzoso').on('click', function(){
+		return false;
+	});
+	
+	$('.campo').each(function(i, e){
+		$(e).html(biblicon.ficha.constantes[$(e).attr('id')]);
+	});
 		
 	$('.cseleccionado').on('click', 'div', function() {
 		$(".cdisponible #" + this.id).css("display", "inline-block");

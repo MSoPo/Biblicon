@@ -9,3 +9,5 @@
 .subrayado{text-decoration:underline !important}
 .comillas:before{content:open-quote}
 .comillas:after{content:close-quote}
+#ejmplantilla {border: 1px solid; border-radius: 3px; box-shadow: 4px 4px 2px #aaa}
+#ejmplantilla div{display:inline-block; }

@@ -7,6 +7,7 @@ public class CampoTipoFicha {
 	private String requerido;
 	private String tipo_entrada;
 	private String seccion;
+	private String valor;
 	
 	public int getId_campo() {
 		return id_campo;
@@ -43,6 +44,12 @@ public class CampoTipoFicha {
 	}
 	public void setSeccion(String seccion) {
 		this.seccion = seccion;
+	}
+	public String getValor() {
+		return valor;
+	}
+	public void setValor(String valor) {
+		this.valor = valor;
 	}
 	
 	

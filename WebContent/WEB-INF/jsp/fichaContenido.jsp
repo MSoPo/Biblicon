@@ -36,6 +36,7 @@
 					</select>
 				</div>
 				<hr/>
+				<div id="error"></div>
 				<input class="btnGuardar" id="regresar" type="submit" value="Regresar"/>
 				<input class="btnGuardar" id="guardarFicha" type="submit" value="Guardar"/>
 				

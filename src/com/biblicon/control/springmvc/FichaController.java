@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.biblicon.modelo.bean.CampoTipoFicha;
 import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
@@ -67,13 +68,11 @@ public class FichaController {
 			HashMap<String,String> camposMap = (HashMap<String,String>)json.fromJson(request.getParameter("campos"),HashMap.class);			
 			camposMap.put(Constantes.usuario, usuario.getId_usuario());
 			
-			if(true) return "{ \"respuesta\" : \"1\", \"id\" : \"1\"}";
-			
 			ficha = fichaDAO.llenarFicha(camposMap);			
-			fichaDAO.insertar(ficha);
+			int id= fichaDAO.insertar(ficha);
 			
-			if(ficha.getId_ficha() != 0){
-				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + ficha.getId_ficha() + "\"}";
+			if(id != 0){
+				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + id + "\"}";
 			}else {
 				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al insertar\"}";
 			}
@@ -82,6 +81,35 @@ public class FichaController {
 			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al insertar catch\"}";
 		}
 		return respuesta;
+	}
+	
+	@RequestMapping("actualizarFicha.htm")
+	public String actualizarFicha(HttpServletRequest request)
+	{
+		
+		//idFicha
+		
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
+		Gson gson = new Gson();
+		String tipos = gson.toJson(listaTipos);
+		request.setAttribute("tipos", tipos);
+		ArrayList<CampoTipoFicha> lstCampos = camposDAO.consultarPorTipo(listaTipos.get(0).getId_tipo_ficha());
+		
+		for(CampoTipoFicha cp : lstCampos){
+			cp.setValor("123");
+		}
+		
+		/*determarCampo(cp){
+			if(cp.nombre == "nombre") cp.valor = ficha.nombre;
+			else if(cp.nombre == "apellido") cp.valor = ficha.apellido;
+			
+		}*/
+		
+		
+		String campos = gson.toJson(lstCampos);
+		request.setAttribute("campos", campos);
+		return "actualizarficha";
 	}
 	
 	@RequestMapping(value={"/eliminarFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
@@ -125,9 +153,7 @@ public class FichaController {
 				UsuarioCompartido usuarioCompartido = new UsuarioCompartido();			
 				usuarioCompartido.getFicha().setId_ficha(Integer.parseInt(idficha));			
 				usuarioCompartido.getUsuario().setId_usuario(idusuario);
-				
-				usuarioCompartidoDAO.insertar(usuarioCompartido);
-				
+												
 				if(usuarioCompartidoDAO.insertar(usuarioCompartido)){
 					respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + idficha + "\"}";
 				}else {

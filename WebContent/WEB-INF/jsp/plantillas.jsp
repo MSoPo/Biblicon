@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<%@page import="com.biblicon.util.Constantes"%>
 <html>
 <head>
    <meta charset="UTF-8">
@@ -9,17 +10,20 @@
    <link rel="stylesheet" href="css/tipoficha.css">
    <link rel="stylesheet" href="css/plantila.css">
    <script src="js/jquery-2.0.3.min.js"></script>
+   <script src="js/ficha.js"></script>
 </head>
 <body>
 	<div class="bloqueo" id="bloqueo">
 			<div class="divEliminar" id="divEliminar">
-				<h4>Selecciona la plantilla a eliminar</h4>
+				<h4>Selecciona la plantilla</h4>
 				<div class="error" id="error2"></div>
 				<select id="listaPlantillas">
 					
 				</select>
 				<br/>
-				<input type="submit" value="Aceptar" id="borrado"/>
+				<br/>
+				<div id="ejmplantilla"></div>
+				<input type="submit" value="Eliminar" id="borrado"/>
 				<input type="submit" value="Regresar" id="regresar"/>
 			</div>
 		</div>
@@ -38,49 +42,72 @@
 		<div class="contenidoNotabla">
 			<div class="datostipoficha">
 				<div class="error" id="error"></div>
-				<label for="nombreficha" >Tipo ficha: </label><input placeholder="Ingresa el nombre" id="nombrePlatilla" value="Plantilla1" />
+				<label for="nombreficha" >Nombre de la plantilla: </label><input placeholder="Ingresa el nombre" id="nombrePlatilla" value="" />
 				<input type="submit" value="Agregar" id="agregar"/>
-				<input type="submit" value="Eliminar" id="eliminar"/>
+				<input type="submit" value="Consultar" id="eliminar"/>
 			</div>
 			<div class="cdisponible" id="cAgregar">
 				<button>,</button>
 				<button>.</button>
 				<button>;</button>
-				<hr/>
-				<button>Nombre</button>
-				<button>Nombre_Otro</button>
-				<button>Apellido</button>
-				<button>Apellido_Otro</button>
-				<button>A</button>
-				<button>B</button>
-				<button>C</button>
-				<button>D</button>
-				<button>Titulo</button>
-				<button>Autor</button>
-				<button>Editorial</button>
-				<button>Año</button>
-				<button>Fecha</button>
-				<button>Pagina</button>
-				<button>Biblioteca</button>
-				<button>Revista</button>
-				<button>url</button>
-				<button>Nombre</button>
-				<button>Nombre_Otro</button>
-				<button>Apellido</button>
-				<button>Apellido_Otro</button>
-				<button>A</button>
-				<button>B</button>
-				<button>C</button>
-				<button>D</button>
-				<button>Titulo</button>
-				<button>Autor</button>
-				<button>Editorial</button>
-				<button>Año</button>
-				<button>Fecha</button>
-				<button>Pagina</button>
-				<button>Biblioteca</button>
-				<button>Revista</button>
-				<button>url</button>
+				<div id="general">
+					<span>General</span><hr/>
+					<button id="<%=Constantes.apellido  %>"> </button>
+					<button id="<%=Constantes.nombre  %>"> </button>
+					<button id="<%=Constantes.editorial %>"> </button>
+					<button id="<%=Constantes.ciudad  %>"> </button>
+					<button id="<%=Constantes.ano %>"> </button>
+					<button id="<%=Constantes.titulo  %>"> </button>
+					<button id="<%=Constantes.institucion %>"> </button>
+					<button id="<%=Constantes.paginas %>"> </button>
+					<button id="<%=Constantes.revista %>"> </button>
+					<button id="<%=Constantes.tomo  %>"> </button>
+					<button id="<%=Constantes.numero  %>"> </button>
+					<button id="<%=Constantes.pagina_ini  %>"> </button>
+					<button id="<%=Constantes.pagina_fin  %>"> </button>
+					<button id="<%=Constantes.titulo_libro  %>"> </button>
+					<button id="<%=Constantes.periodico %>"> </button>
+					<button id="<%=Constantes.seccion %>"> </button>
+					<button id="<%=Constantes.dia %>"> </button>
+					<button id="<%=Constantes.mes %>"> </button>
+				</div>
+				<div id="personales">
+					<span>Personales</span><hr/>
+					<button id="<%=Constantes.a %>"> </button>
+					<button id="<%=Constantes.b %>"> </button>
+					<button id="<%=Constantes.c %>"> </button>
+					<button id="<%=Constantes.d %>"> </button>
+				</div>
+				<div id="otros">
+					<span>Otros</span><hr/>
+					<button id="<%=Constantes.apellido_otro %>"> </button>
+					<button id="<%=Constantes.nombre_otro %>"> </button>
+					<button id="<%=Constantes.edicion_de  %>"> </button>
+					<button id="<%=Constantes.traduccion  %>"> </button>
+					<button id="<%=Constantes.prologo %>"> </button>
+					<button id="<%=Constantes.et_al %>"> </button>
+					<button id="<%=Constantes.edicion %>"> </button>
+					<button id="<%=Constantes.otros_datos %>"> </button>
+					<button id="<%=Constantes.coleccion %>"> </button>
+					<button id="<%=Constantes.biblioteca  %>"> </button>
+					<button id="<%=Constantes.localizacion  %>"> </button>
+					<button id="<%=Constantes.notas %>"> </button>
+					<button id="<%=Constantes.semana  %>"> </button>
+					<button id="<%=Constantes.apellido_editor %>"> </button>
+					<button id="<%=Constantes.nombre_editor %>"> </button>
+					<button id="<%=Constantes.apellido_editor_otro  %>"> </button>
+					<button id="<%=Constantes.nombre_editor_otro  %>"> </button>
+					<button id="<%=Constantes.et_al_editor  %>"> </button>
+					<button id="<%=Constantes.url %>"> </button>
+					<button id="<%=Constantes.portal  %>"> </button>
+					<button id="<%=Constantes.fecha_acceso  %>"> </button>
+					<button id="<%=Constantes.fecha_publicacion %>"> </button>
+					<button id="<%=Constantes.editor %>"> </button>
+					<button id="<%=Constantes.categoria %>"> </button>
+					<button id="<%=Constantes.tipo_ficha  %>"> </button>
+					<button id="<%=Constantes.tipo  %>"> </button>
+					<button id="<%=Constantes.usuario %>"> </button>
+				</div>
 			</div>
 			<div class="panel" id="cplantilla" >
 				<div class="controles">
@@ -109,6 +136,18 @@
 		
 		$("#listaPlantillas").on('change', function(){
 			$('#error2').html('');
+			var encontrada = false;
+			for(var i = 0; i < plantillas.length; i++){
+				if(plantillas[i].id_platilla == $(this).val()){
+					$('#ejmplantilla').html(plantillas[i] ? plantillas[i].plantilla : "");
+					encontrada = true;
+					break;
+				}
+			}
+			
+			if(!encontrada)
+				$('#ejmplantilla').html("No se encontro la plantilla");
+			
 		});
 		
 		$("#regresar").on('click', function(){
@@ -183,7 +222,7 @@
 
 		$('.cdisponible button').on('click', function(e){
 			$('#error').html('');
-			$('#textplatilla').append('<div>'+ $(this).html() +'</div>');
+			$('#textplatilla').append('<div>'+ (this.id ? this.id : $(this).html()) +'</div>');
 		});
 
 		$('#textplatilla').on('click', 'div', function(){
@@ -216,9 +255,14 @@
 				var resp = JSON.parse(respuesta);
 				if(resp.respuesta == "1"){
 					$('#listaPlantillas').append('<option value="'+ resp.id +'">' +nombre+ '</option>');
+					plantillas.push({
+						id_platilla : resp.id,
+						nombrePlantilla : nombre,
+						plantilla : plantilla
+					});
 					$('#nombrePlatilla').val('');
 					$('#textplatilla').html('');
-					$('#error').removeClass('error').addClass('correcto').html('Se agrego el tipo de plantolla <strong>' + nombre + '</strong>');
+					$('#error').removeClass('error').addClass('correcto').html('Se agrego el tipo de plantilla <strong>' + nombre + '</strong>');
 				}else{
 					$('#error').html(respuesta);
 				}
@@ -251,12 +295,17 @@
 		});
 		
 		var plantillas = JSON.parse('<%= request.getAttribute("plantillas") %>');
-		var opciones = '<option value="0">Selecciona la plantilla</option>';
+		var opciones = "";
 		for(var i = 0; i < plantillas.length; i++){
 			var plantilla = plantillas[i];
 			 opciones+= '<option value="' + plantilla.id_platilla + '">'+ plantilla.nombrePlantilla +'</option>';
 		}
 		$('#listaPlantillas').html(opciones);
+		$('#ejmplantilla').html(plantillas[0] ? plantillas[0].plantilla : "");
+		
+		$('.cdisponible div button').each(function(i, e){
+			$(e).html(biblicon.ficha.constantes[e.id]);
+		});
 		
 
 	});
