@@ -242,7 +242,9 @@ public class FichaDAO {
 				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
 				"from biblicon.ficha f, biblicon.tipoficha tf " +
-				"where f.id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) and tf.id_usuario = f.id_usuario and tf.id_tipo_ficha = f.id_tipo_ficha";
+				"where f.id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) " +
+				"and tf.id_usuario in ('"+Constantes.USUARIODEFAULT+"', f.id_usuario) " +
+				"and tf.id_tipo_ficha = f.id_tipo_ficha";
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -313,7 +315,6 @@ public class FichaDAO {
 				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
 				"from biblicon.ficha f, biblicon.tipoficha tf " +
-
 				"where f.id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) " +
 				"and f.categoria in ("+categoria+") and f.id_tipo_ficha in ("+tipo_ficha+") " +
 				"and (UPPER(f.nombre) like UPPER('%"+busqueda+"%') or UPPER(f.apellido) like UPPER('%"+busqueda+"%') or UPPER(f.nombre_otro) like UPPER('%"+busqueda+"%') or UPPER(f.apellido_otro) like UPPER('%"+busqueda+"%') or UPPER(f.titulo) like UPPER('%"+busqueda+"%')) " +
@@ -417,11 +418,6 @@ public class FichaDAO {
 	
 	public LinkedHashMap<String, String> llenarCampos(Ficha ficha){
 		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
-		campos.put(Constantes.a, ficha.getA());
-		campos.put(Constantes.ano, ficha.getAno());
-		campos.put(Constantes.apellido, ficha.getApellido());
-		campos.put(Constantes.apellido_editor, ficha.getApellido_editor());
-		campos.put(Constantes.apellido_editor_otro, ficha.getApellido_editor_otro());
 		campos.put(Constantes.apellido_otro, ficha.getApellido_otro());
 		campos.put(Constantes.b, ficha.getB());
 		campos.put(Constantes.biblioteca, ficha.getBiblioteca());
@@ -432,6 +428,7 @@ public class FichaDAO {
 		campos.put(Constantes.dia, ficha.getDia());
 		campos.put(Constantes.edicion, ficha.getEdicion());
 		campos.put(Constantes.edicion_de, ficha.getEdicion_de());
+		campos.put("Seccion 1", "#sec#");
 		campos.put(Constantes.editor, ficha.getEditor());
 		campos.put(Constantes.editorial, ficha.getEditorial());
 		campos.put(Constantes.et_al, ficha.isEt_al() ? "1" : "2" );
@@ -445,6 +442,7 @@ public class FichaDAO {
 		campos.put(Constantes.nombre_editor, ficha.getNombre_editor());
 		campos.put(Constantes.nombre_editor_otro, ficha.getNombre_editor_otro());
 		campos.put(Constantes.nombre_otro, ficha.getNombre_otro());
+		campos.put("Seccion 2", "#sec#");
 		campos.put(Constantes.notas, ficha.getNotas());
 		campos.put(Constantes.numero, ficha.getNumero());
 		campos.put(Constantes.otros_datos, ficha.getOtros_datos());
@@ -457,11 +455,17 @@ public class FichaDAO {
 		campos.put(Constantes.revista, ficha.getRevista());
 		campos.put(Constantes.seccion, ficha.getSeccion());
 		campos.put(Constantes.semana, ficha.getSemana());
+		campos.put("Seccion 3", "#sec#");
 		campos.put(Constantes.titulo, ficha.getTitulo());
 		campos.put(Constantes.titulo_libro, ficha.getTitulo_libro());
 		campos.put(Constantes.tomo, ficha.getTomo());
 		campos.put(Constantes.traduccion, ficha.getTraduccion());
-		campos.put(Constantes.url, ficha.getUrl());		
+		campos.put(Constantes.url, ficha.getUrl());
+		campos.put(Constantes.a, ficha.getA());
+		campos.put(Constantes.ano, ficha.getAno());
+		campos.put(Constantes.apellido, ficha.getApellido());
+		campos.put(Constantes.apellido_editor, ficha.getApellido_editor());
+		campos.put(Constantes.apellido_editor_otro, ficha.getApellido_editor_otro());
 		
 		return campos;
 	}
@@ -491,14 +495,28 @@ public class FichaDAO {
 		ficha.setEdicion_de(camposMap.get(Constantes.edicion_de));
 		ficha.setEditor(camposMap.get(Constantes.editor));
 		ficha.setEditorial(camposMap.get(Constantes.editorial));
-		ficha.setEt_al(camposMap.get(Constantes.et_al).equals("1")?true:false);		
-		ficha.setEt_al_editor(camposMap.get(Constantes.et_al_editor).equals("1")?true:false);
 		
-		java.util.Date date1 = sdf.parse(camposMap.get(Constantes.fecha_acceso));
-		ficha.setFecha_acceso(new java.sql.Date(date1.getTime()));		
+		if(camposMap.get(Constantes.et_al) != null)		
+			ficha.setEt_al(camposMap.get(Constantes.et_al).equals("1")?true:false);
+		else		
+			ficha.setEt_al(false);
+				
+		if(camposMap.get(Constantes.et_al_editor) != null)
+			ficha.setEt_al_editor(camposMap.get(Constantes.et_al_editor).equals("1")?true:false);
+		else
+			ficha.setEt_al_editor(false);
 		
-		java.util.Date date2 = sdf.parse(camposMap.get(Constantes.fecha_publicacion));
-		ficha.setFecha_publicacion(new java.sql.Date(date2.getTime()));
+		
+		if(camposMap.get(Constantes.fecha_acceso)!=null)
+		{
+			java.util.Date date1 = sdf.parse(camposMap.get(Constantes.fecha_acceso));
+			ficha.setFecha_acceso(new java.sql.Date(date1.getTime()));
+		}
+		
+		if(camposMap.get(Constantes.fecha_publicacion)!=null){
+			java.util.Date date2 = sdf.parse(camposMap.get(Constantes.fecha_publicacion));
+			ficha.setFecha_publicacion(new java.sql.Date(date2.getTime()));
+		}
 		
 		ficha.setInstitucion(camposMap.get(Constantes.institucion));		
 		ficha.setLocalizacion(camposMap.get(Constantes.localizacion));
@@ -520,15 +538,18 @@ public class FichaDAO {
 		ficha.setSeccion(camposMap.get(Constantes.seccion));
 		ficha.setSemana(camposMap.get(Constantes.semana));		
 		ficha.setTipo(Integer.parseInt(camposMap.get(Constantes.tipo)));
-		ficha.getTipo_ficha().setId_tipo_ficha(Integer.parseInt(camposMap.get(Constantes.tipo_ficha)));		
+		
+		if(camposMap.get(Constantes.tipo_ficha)!=null)		
+			ficha.getTipo_ficha().setId_tipo_ficha(Integer.parseInt(camposMap.get(Constantes.tipo_ficha)));
+		else
+			ficha.getTipo_ficha().setId_tipo_ficha(1);
+			
 		ficha.setTitulo(camposMap.get(Constantes.titulo));
 		ficha.setTitulo_libro(camposMap.get(Constantes.titulo_libro));
 		ficha.setTomo(camposMap.get(Constantes.tomo));
 		ficha.setTraduccion(camposMap.get(Constantes.traduccion));		
 		ficha.setUrl(camposMap.get(Constantes.url));
 		ficha.getUsuario().setId_usuario(camposMap.get(Constantes.usuario));
-		
-		
 		
 		return ficha;
 		

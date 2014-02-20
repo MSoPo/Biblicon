@@ -1,0 +1,25 @@
+----- Filtros Front-end, back probar
+----- Mostrar los datos en Ficha contenido, cambiar la funcion y consulta para obtener la referencia bibliografica desde el back
+----- Metodo para cargar los datos en actualizarFicha back
+----- Metodo para guarlos los cambios en actualizar la Ficha back
+----- Funcion de borrado en back
+----- Falta consulta que regresen las fichas que te estan compartiendo back
+----- Metodo para borrar al usuario de la tabla usuario compartido back
+----- Metodo para clonar ficha back
+----- Botonos y llamados a controles de clonar y borrar en fichas compartidas front
+----- Link para mostrar las fichas de contenido en las fichas compartidas front
+----- Borrar ficha de contenido back 
+----- Editar ficha de contenido back
+----- Filtros ficha de contenido back y front
+----- Corregir tipo ficha y label mostrados front
+----- Corriger la forma de guardar el tipo ficha front y back
+----- Metodo para obtener los tipo fichas de un usuario back
+----- Consulta de plantillas por usuario logeado back
+----- Acomodar elementos de plantilla, acomodar la forma en q se muestran las plantillas front
+----- Terminar fron de administracion de usuarios front
+----- Metodos para agregar, editar, desactavidar y consultar usuario back
+
+/////////////////////////////****************************************////////////////////////////
+Exportar
+Validacion de login
+Cerrar sesion

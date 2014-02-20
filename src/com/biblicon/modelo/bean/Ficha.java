@@ -460,17 +460,6 @@ public class Ficha {
 		this.titulo_libro = titulo_libro;
 	}
 
-
-	public HashMap<String, String> getCampos() {
-		return campos;
-	}
-
-
-	public void setCampos(HashMap<String, String> campos) {
-		this.campos = campos;
-	}
-
-
 	public Integer getCantidadCompartida() {
 		return cantidadCompartida;
 	}
@@ -488,6 +477,16 @@ public class Ficha {
 
 	public void setCantidadContenido(Integer cantidadContenido) {
 		this.cantidadContenido = cantidadContenido;
+	}
+
+
+	public HashMap<String, String> getCampos() {
+		return campos;
+	}
+
+
+	public void setCampos(HashMap<String, String> campos) {
+		this.campos = campos;
 	}
 	
 	

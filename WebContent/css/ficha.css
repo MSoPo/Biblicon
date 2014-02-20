@@ -8,4 +8,8 @@
 .lineaCampo div{display:inline-block}
 #ui-datepicker-div{font-size:62.5%}
 .requerido{box-shadow:0 0 4px #ff7f27}
- 
+.seccion{width:100%; text-align:center;font-size:1.2em;font-style:italic; font-weight:bold}
+.usuario {width:100%; font-size:0.9em}
+.usuario .nomCampo{display:inline-block;width:30%}
+.usuario input{width:55%;margin-left:2em}
+.botonUsuario {width: 100%; text-align: center;}

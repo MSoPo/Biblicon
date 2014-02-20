@@ -9,6 +9,7 @@
    <link rel="stylesheet" href="css/jquery-ui-1.10.4.custom.min.css">
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+   <script src="js/ficha.js"></script>
    <script src="js/mustache.js"></script>
 </head>
 <body>
@@ -27,9 +28,9 @@
 		<div class="contenido">
 			<div class="filtros">
 				<div class="filtro">
-					<strong>Selecciona el tipo</strong>
+					<strong>Tipo de ficha</strong>
 					<br>
-					<select id="tipos"></select>
+					<select id="tipos"  disabled="disabled"></select>
 				</div>
 				<hr/>
 				<input class="btnGuardar" id="guardarFicha" type="submit" value="Guardar"/>
@@ -52,7 +53,7 @@
 			$('#guardarFicha').on('click', function(){
 				var requerido = false;
 				$('.requerido').each(function (i, e){
-					if($.trim($(e).trim.val()) == "" ){
+					if($.trim($(e).val()) == "" ){
 						$('#error').html('Falto ingresar algun campo requerido').addClass('error').removeClass('correcto');
 						requerido =  true;
 						return;
@@ -93,19 +94,6 @@
 				});
 			});
 			
-			$('#tipos').on('change', function(){
-				$.post("cambiarCampos.htm", {"idtipo" : $(this).val()}	, function(respuesta){
-					var resp = JSON.parse(respuesta);
-					if(resp.respuesta == "1"){
-						var campos = resp.campos;
-						tipoCampos(campos);
-						
-					}else{
-						alert(respuesta);
-					}
-				});
-			});
-			
 			var tipos = JSON.parse('<%= request.getAttribute("tipos") %>');
 			var output = "";
 			
@@ -138,20 +126,20 @@
 				var campo = campos[i]; requerido = "";
 				var seccion = campo.seccion;
 				if(seccion != seccionAnterior){
-					output2 += campo.seccion.toUpperCase() + "<hr/>";
+					output2 += "<div class='seccion'>" + campo.seccion + "</div><hr/>";
 				}
 
 				if(campo.requerido == 1) requerido = "requerido";
 
 				var tipoInput = "";
-				var valor = 'value = "' + compo.valor + '"';
-				var idCampo = 'id="' + campo.nombre_campo.replace(' ', '_') + '" ';
-				if(campo.nombre_campo = "id_tipo")
+				var valor = 'value = "' + campo.valor + '"';
+				var idCampo = 'id="' + campo.nombre_campo + '" ';
+				if(campo.nombre_campo == "id_tipo")
 					$('#tipos').val(campo.valor);
 				else if(campo.tipo_entrada == "varchar")
 					tipoInput = '<input '+valor+' class=" ' + requerido + '" '+ idCampo +' />';
 				else if(campo.tipo_entrada == "text")
-					tipoInput = '<textarea '+valor+' class=" ' + requerido + '" '+ idCampo +' />';
+					tipoInput = '<textarea class=" ' + requerido + '" '+ idCampo +' >'+campo.valor+'</textarea>';
 				else if(campo.tipo_entrada == "boolean")
 					tipoInput = '<input value="chk" class=" ' + requerido + '" type="checkbox" '+ idCampo + (campo.valor ? "checked" : "") +' />';
 				else if(campo.tipo_entrada == "date")
@@ -159,7 +147,7 @@
 				else if(campo.tipo_entrada == "int")
 					tipoInput = '<input '+valor+' type="number" class="numero  ' + requerido + '" '+ idCampo +' />';
 
-				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + campo.nombre_campo + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
+				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + biblicon.ficha.constantes[campo.nombre_campo] + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
 				output2 += template;
 
 				if(seccion != seccionAnterior){

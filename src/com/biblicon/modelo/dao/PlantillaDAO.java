@@ -100,6 +100,9 @@ public class PlantillaDAO {
 				Plantilla plantilla = new Plantilla();
 				plantilla.setId_platilla(rs.getInt("id_plantilla"));
 				plantilla.setNombrePlantilla(rs.getString("nombre_plantilla"));
+				plantilla.setPlantilla(rs.getString("plantilla"));
+				System.out.println(rs.getString("plantilla"));
+				System.out.println(rs.getString("id_plantilla"));
 				Usuario us = new Usuario();
 				us.setId_usuario(id_usuario);
 				plantilla.setUsuario(us);

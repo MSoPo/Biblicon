@@ -10,57 +10,59 @@ public class Constantes {
 	final static public int ERRCONTRASENA = -3;
 
 	//Campos Ficha
-	final static public String apellido = "Apellido(s)";
-	final static public String nombre = "Nombre(s)";
-	final static public String apellido_otro = "Apellido(s) Otro";
-	final static public String nombre_otro = "Nombre(s) Otro";
-	final static public String titulo = "T’tulo";
-	final static public String edicion_de = "Edici—n de";
-	final static public String traduccion = "Traducci—n de";
-	final static public String prologo = "Pr—logo de";
-	final static public String et_al = "et al";
-	final static public String edicion = "Edici—n";
-	final static public String otros_datos = "Otros datos";
-	final static public String editorial = "Editorial";
-	final static public String ciudad = "Ciudad";
-	final static public String ano = "A–o";
-	final static public String coleccion = "Colecci—n";
-	final static public String paginas = "P‡gs.";
-	final static public String biblioteca = "Biblioteca";
-	final static public String localizacion = "Localizaci—n";
-	final static public String notas = "Notas";
-	final static public String a = "A";
-	final static public String b = "B";
-	final static public String c = "C";
-	final static public String d = "D";
-	final static public String institucion = "Instituci—n";
-	final static public String pagina_ini = "P‡ginas de la";
-	final static public String pagina_fin = "a la";
-	final static public String revista = "Revista";
-	final static public String tomo = "Tomo";
-	final static public String numero = "Nœm.";
-	final static public String mes = "Mes";
-	final static public String semana = "Semana";
-	final static public String apellido_editor = "Apellido(s) Editor";
-	final static public String nombre_editor = "Nombre(s) Editor";
-	final static public String apellido_editor_otro = "Apellido(s) Editor Otro";
-	final static public String nombre_editor_otro = "Nombre(s) Editor Otro";
-	final static public String et_al_editor = "et al";
-	final static public String periodico = "Peri—dico";
-	final static public String seccion = "Secci—n";
-	final static public String dia = "D’a";
-	final static public String url = "Direcci—n WWW";
-	final static public String portal = "Portal";
-	final static public String fecha_acceso = "Fecha de acceso";
-	final static public String fecha_publicacion = "Fecha de publicaci—n";
-	final static public String editor = "Editor";
-	final static public String titulo_libro = "T’tulo del libro";	
-	final static public String categoria = "Categoria";
-
+	
+	//Generales
+	final static public String apellido = "apellido";
+	final static public String nombre = "nombre";
+	final static public String editorial = "editorial";
+	final static public String ciudad = "ciudad";
+	final static public String ano = "ano";
+	final static public String titulo = "titulo";
+	final static public String institucion = "institucion";
+	final static public String paginas = "paginas";
+	final static public String revista = "revista";
+	final static public String tomo = "tomo";
+	final static public String numero = "numero";
+	final static public String pagina_ini = "pagina_ini";
+	final static public String pagina_fin = "pagina_fin";
+	final static public String titulo_libro = "titulo_libro";
+	final static public String periodico = "periodico";
+	final static public String seccion = "seccion";
+	final static public String dia = "dia";
+	final static public String mes = "mes";
+	
+	//Personales
+	final static public String a = "a";
+	final static public String b = "b";
+	final static public String c = "c";
+	final static public String d = "d";
+	final static public String apellido_otro = "apellido_otro";
+	final static public String nombre_otro = "nombre_otro";
+	final static public String edicion_de = "edicion_de";
+	final static public String traduccion = "traduccion";
+	final static public String prologo = "prologo";
+	final static public String et_al = "et_al";
+	final static public String edicion = "edicion";
+	final static public String otros_datos = "otros_datos";
+	final static public String coleccion = "coleccion";
+	final static public String biblioteca = "biblioteca";
+	final static public String localizacion = "localizacion—n";
+	final static public String notas = "notas";
+	final static public String semana = "semana";
+	final static public String apellido_editor = "apellido_editor";
+	final static public String nombre_editor = "nombre_editor";
+	final static public String apellido_editor_otro = "apellido_editor_otro";
+	final static public String nombre_editor_otro = "nombre_editor_otro";
+	final static public String et_al_editor = "et_al_editor";
+	final static public String url = "url";
+	final static public String portal = "portal";
+	final static public String fecha_acceso = "fecha_acceso";
+	final static public String fecha_publicacion = "fecha_publicacion";
+	final static public String editor = "editor";	
+	final static public String categoria = "categoria";
 	final static public String tipo_ficha = "tipo_ficha";
 	final static public String tipo = "tipo";
 	final static public String usuario = "usuario";
-
 
 	//Campos Contenido
 

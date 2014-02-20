@@ -10,6 +10,7 @@
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
    <script src="js/mustache.js"></script>
+   <script src="js/ficha.js"></script>
 </head>
 <body>
 	<header>
@@ -52,7 +53,7 @@
 			$('#guardarFicha').on('click', function(){
 				var requerido = false;
 				$('.requerido').each(function (i, e){
-					if($.trim($(e).trim.val()) == "" ){
+					if($.trim($(e).val()) == "" ){
 						$('#error').html('Falto ingresar algun campo requerido').addClass('error').removeClass('correcto');
 						requerido =  true;
 						return;
@@ -66,12 +67,11 @@
 					var c = $(elemento);
 					var nomCampo = "";
 					c.children().each(function(i, e){
-						if(i == 0)
-							nomCampo = $($(e).children()[0]).html();
-						else if(i == 1){
+						if(i == 1){
+							nomCampo = $($(e).children()[0])[0].id;
 							var valor = "";
 							if($($(e).children()[0]).val() == "chk"){
-								valor = $($(e).children()[0]).is(':checked');
+								valor = $($(e).children()[0]).is(':checked') ? "1" : "0";
 							}else{
 								valor = $($(e).children()[0]).val();
 							}
@@ -151,7 +151,7 @@
 				var campo = campos[i]; requerido = "";
 				var seccion = campo.seccion;
 				if(seccion != seccionAnterior){
-					output2 += campo.seccion.toUpperCase() + "<hr/>";
+					output2 += "<div class='seccion'>" + campo.seccion + "</div><hr/>";
 				}
 
 				if(campo.requerido == 1) requerido = "requerido";
@@ -159,7 +159,7 @@
 				var tipoInput = "";
 				var today = new Date();
 				var fecha = ceros(today.getDate(), 2, "0") + "/" + ceros((today.getMonth() + 1), 2, "0") + "/" + ceros(today.getFullYear(), 2, "0");
-				var idCampo = 'id="' + campo.nombre_campo.replace(' ', '_') + '"';
+				var idCampo = 'id="' + campo.nombre_campo + '" ';
 				if(campo.tipo_entrada == "varchar")
 					tipoInput = '<input class=" ' + requerido + '" '+ idCampo +' />';
 				else if(campo.tipo_entrada == "text")
@@ -171,9 +171,12 @@
 				else if(campo.tipo_entrada == "int")
 					tipoInput = '<input type="number" class="numero  ' + requerido + '" '+ idCampo +' />';
 
-				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + campo.nombre_campo + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
+				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + biblicon.ficha.constantes[campo.nombre_campo] + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
 				output2 += template;
-
+				
+				if(biblicon.ficha.constantes[campo.nombre_campo] == undefined)
+					console.log(campo.nombre_campo);
+				
 				if(seccion != seccionAnterior){
 					seccionAnterior = seccion;
 				}

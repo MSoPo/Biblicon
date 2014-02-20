@@ -91,7 +91,7 @@ public class CampoTipoFichaDAO {
 
 	public ArrayList<CampoTipoFicha> consultarPorTipo(int i){
 		ArrayList<CampoTipoFicha> lista = new ArrayList<CampoTipoFicha>();
-		String sql = "select id_campo, nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion from campotipoficha where id_tipo_ficha = ?";
+		String sql = "select id_campo, nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion from campotipoficha where id_tipo_ficha = ? order by seccion";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;

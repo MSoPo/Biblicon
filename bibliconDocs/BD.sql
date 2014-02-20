@@ -7,6 +7,7 @@ apellido_paterno varchar(30),
 apellido_materno varchar(30),
 contrasena varchar(50),
 correo varchar(50),
+status boolean,
 PRIMARY KEY(id_usuario))ENGINE=INNODB;
 
 CREATE TABLE BIBLICON.PLANTILLA(
@@ -111,6 +112,7 @@ nombre_campo varchar(50),
 requerido varchar(1),
 tipo_entrada varchar(40),
 seccion varchar(40),
+orden integer,
 PRIMARY KEY(id_campo),
 INDEX (id_tipo_ficha),
 FOREIGN KEY (id_tipo_ficha)
