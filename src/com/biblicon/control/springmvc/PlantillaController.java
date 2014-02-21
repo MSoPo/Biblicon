@@ -41,12 +41,14 @@ public class PlantillaController {
 		String idPlantilla = request.getParameter("idPlantilla");
 		Plantilla plantilla = new Plantilla();
 		plantilla.setId_platilla(Integer.parseInt(idPlantilla));
-		plantillaDAO.delete(plantilla);
-		return "1";
+		if(plantillaDAO.delete(plantilla))
+			return "1";
+		else
+			return "0";
 	}
 	
 	
-	@RequestMapping(value={"/agregarPlantilla.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@RequestMapping(value={"/guardarPlantilla.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
 	@ResponseBody
 	public String agregarPlantilla(HttpServletRequest request)
 	{
@@ -64,6 +66,24 @@ public class PlantillaController {
 			return "{ \"respuesta\" : \"1\", \"id\" : \"" + p.getId_platilla() + "\"}";
 		}else {
 			return "Error";
+		}
+	}
+	
+	@RequestMapping(value={"/obtenerPlantillas.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String obtenerPlantillas(HttpServletRequest request)
+	{
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		Gson gson = new Gson();		
+		ArrayList<Plantilla> listPlantillas = plantillaDAO.consultarPorUsuario(usuario.getId_usuario());
+		
+		String plantillas = gson.toJson(listPlantillas);
+		request.setAttribute("plantillas", plantillas);
+		
+		if(listPlantillas != null && !listPlantillas.isEmpty()){
+			return "{ \"respuesta\" : \"1\", \"cantidad\" : \"" +listPlantillas.size() + "\"}";
+		}else {
+			return "{ \"respuesta\" : \"0\", \"error\" : \"Error al obtener las plantillas\"}";
 		}
 	}
 

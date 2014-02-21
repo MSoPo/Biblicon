@@ -19,7 +19,7 @@ import com.biblicon.util.Conexion;
 public class CampoTipoFichaDAO {
 	
 	public int insertar(CampoTipoFicha campo){
-		String sql = "insert into campotipoficha (nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion) values (?, ?, ?, ?, ?)";
+		String sql = "insert into campotipoficha (nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion, orden) values (?, ?, ?, ?, ?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
@@ -31,6 +31,7 @@ public class CampoTipoFichaDAO {
 			consulta.setString(3, campo.getRequerido());
 			consulta.setString(4, campo.getTipo_entrada());
 			consulta.setString(5, campo.getSeccion());
+			consulta.setInt(6, campo.getOrden());
 			consulta.execute();
 			rs = consulta.getGeneratedKeys();
 			
@@ -91,7 +92,7 @@ public class CampoTipoFichaDAO {
 
 	public ArrayList<CampoTipoFicha> consultarPorTipo(int i){
 		ArrayList<CampoTipoFicha> lista = new ArrayList<CampoTipoFicha>();
-		String sql = "select id_campo, nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion from campotipoficha where id_tipo_ficha = ? order by seccion";
+		String sql = "select id_campo, nombre_campo, id_tipo_ficha, requerido, tipo_entrada, seccion from campotipoficha where id_tipo_ficha = ? order by orden";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;

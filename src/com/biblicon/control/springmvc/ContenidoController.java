@@ -29,10 +29,12 @@ public class ContenidoController {
  	 @RequestMapping("contenido.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		 
-		 //Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		 Gson gson = new Gson();		 
 		 Integer id_ficha = new Integer (request.getParameter("idFicha"));
-		 String referencia = request.getParameter("apellido") + ", " + request.getParameter("ano");		 
+		 
+		 Ficha ficha = fichaDAO.consultaFicha(id_ficha);
+		 
+		 String referencia = ficha.getApellido() + ", " + ficha.getAno();		 
 		 ArrayList<ContenidoFicha> listaContenidos = contenidoFichaDAO.consultarContenidoFicha(id_ficha);
 		 
 		 for (ContenidoFicha contenido : listaContenidos) {
@@ -70,113 +72,87 @@ public class ContenidoController {
 		 String contenidos = gson.toJson(listaContenidos);	 
 		 request.setAttribute("contenidos", contenidos);
 		 	 
-		 System.out.println("Saliendo de busqueda Contenido");
+		 
 		 
 		 return "contenido";
 	 }
 	 
-	 @RequestMapping(value={"/editarContenidoFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-		@ResponseBody
-		public String editarContenidoFicha(HttpServletRequest request)
-		{	
+	@RequestMapping(value={"/editarFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String editarFichaContenido(HttpServletRequest request)
+	{	
 			
-			String respuesta = "";
-			try{
-				
-				Gson json= new Gson();
-				
-				ContenidoFicha contenidoFicha = (ContenidoFicha)json.fromJson(request.getParameter("contenidoFicha"),ContenidoFicha.class);
-							
-				if(contenidoFichaDAO.editar(contenidoFicha)){
-					respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + contenidoFicha.getId_contenido() + "\"}";
-				}else {
-					respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha \"}";
-				}
-				
-			}catch(Exception e){
-				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha catch\"}";
+		String respuesta = "";
+		try{
+			
+			Gson json= new Gson();
+			
+			ContenidoFicha contenidoFicha = (ContenidoFicha)json.fromJson(request.getParameter("contenidoFicha"),ContenidoFicha.class);
+						
+			if(contenidoFichaDAO.editar(contenidoFicha)){
+				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + contenidoFicha.getId_contenido() + "\"}";
+			}else {
+				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha \"}";
 			}
 			
-			return respuesta;
-			
+		}catch(Exception e){
+			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha catch\"}";
 		}
-	 
-	 @RequestMapping(value={"/agregarContenidoFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-		@ResponseBody
-		public String agregarContenidoFicha(HttpServletRequest request)
-		{	
+		
+		return respuesta;
 			
-			String respuesta = "";
-			try{
-				
-				Gson json= new Gson();
-				
-				ContenidoFicha contenidoFicha = (ContenidoFicha)json.fromJson(request.getParameter("contenidoFicha"),ContenidoFicha.class);
-							
-				contenidoFicha.setId_contenido(contenidoFichaDAO.insertar(contenidoFicha));
-				
-				if(contenidoFicha.getId_contenido() != 0){
-					respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + contenidoFicha.getId_contenido() + "\"}";
-				}else {
-					respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha \"}";
-				}
-				
-			}catch(Exception e){
-				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha catch\"}";
+	}
+	 
+	@RequestMapping(value={"/agregarContenidoFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String agregarContenidoFicha(HttpServletRequest request)
+	{	
+			
+		String respuesta = "";
+		try{
+			
+			Gson json= new Gson();
+			
+			ContenidoFicha contenidoFicha = (ContenidoFicha)json.fromJson(request.getParameter("contenidoFicha"),ContenidoFicha.class);
+						
+			contenidoFicha.setId_contenido(contenidoFichaDAO.insertar(contenidoFicha));
+			
+			if(contenidoFicha.getId_contenido() != 0){
+				respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + contenidoFicha.getId_contenido() + "\"}";
+			}else {
+				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha \"}";
 			}
 			
-			return respuesta;
+		}catch(Exception e){
+			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha catch\"}";
+		}
+		
+		return respuesta;
 			
-		}
+	}
 	 
-	 @RequestMapping(value={"/editarFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-		public String editarFichaContenido(HttpServletRequest request)
-		{
-		 String id_contenido = request.getParameter("id_contenido");
-		 //Consulta x id_cotenido
-		 ContenidoFicha contenido = new ContenidoFicha();
-		 contenido.setContenido("Contenido");
-		 Ficha ficha = new Ficha();
-		 ficha.setId_ficha(1);
-		 ficha.setAno("2014");
-		 ficha.setApellido("Sosa");
-		 contenido.setFicha(ficha);
-		 contenido.setId_contenido(Integer.parseInt(id_contenido));
-		 contenido.setNotas("Notas");
-		 contenido.setPaginas("Paginas");
-		 contenido.setPalabra_clave("Palabras Clave");
-		 contenido.setTipo_contenido(2);
-		 Gson gson = new Gson();
-		 request.setAttribute("ficha_contenido", gson.toJson(contenido));
-		 
-		 return "actualizarfichaContenido";
-		}
 	 
-	 @RequestMapping(value={"/nuevaFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-		public String nuevaFichaContenido(HttpServletRequest request)
-		{
-		 String id_ficha = request.getParameter("idFicha");
-		 request.setAttribute("id_ficha", id_ficha);
-		 return "fichaContenido";
-		}
-	 
-	 @RequestMapping(value={"/eliminarFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-		@ResponseBody
-		public String eliminarFichaContenido(HttpServletRequest request)
-		{	
+	@RequestMapping(value={"/eliminarFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String eliminarFichaContenido(HttpServletRequest request)
+	{				
+		String respuesta = "";
+		try{
 			
-			String respuesta = "";
-			try{
-				
-				System.out.println(request.getParameter("id_contenido"));
+			ContenidoFicha contenidoFicha = new ContenidoFicha();			
+			contenidoFicha.setId_contenido(Integer.parseInt(request.getParameter("id_contenido")));					
+			
+			if(contenidoFichaDAO.delete(contenidoFicha))				
 				respuesta = "{ \"respuesta\" : \"1\" }";
-				
-			}catch(Exception e){
-				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha catch\"}";
-			}
+			else
+				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha\"}";
 			
-			return respuesta;
-			
+		}catch(Exception e){
+			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al agregarContenidoFicha catch\"}";
 		}
+		
+		return respuesta;
+			
+	}
  
 }

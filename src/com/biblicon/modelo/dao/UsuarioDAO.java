@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
@@ -110,6 +111,67 @@ public class UsuarioDAO {
 		
 		return us;
 	}
+	
+	
+	public boolean cambiarStatus(String id, String status){
+		
+		String sql = "update usuario set status = ? where id_usuario = ?";
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		Connection conexion = Conexion.ObtenerConexion();
+		
+		try{
+			consulta = conexion.prepareStatement(sql);
+			consulta.setBoolean(1, status.equals("1")?true:false);
+			consulta.setString(2, id);
+			consulta.execute();
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return true;
+	}
+	
+	public ArrayList<Usuario> obtenerUsuarios()
+	{
+		Usuario us = null;
+		String sql = "select * from usuario";
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		Connection conexion = Conexion.ObtenerConexion();
+		ArrayList<Usuario> lstUsuario = new ArrayList<Usuario>();
+		try{
+			consulta = conexion.prepareStatement(sql);
+			rs = consulta.executeQuery();
+			while(rs.next())
+			{
+				us = new Usuario();
+				us.setId_usuario("id_usuario");
+				us.setContrasena(rs.getString("contrasena"));
+				us.setNombre(rs.getString("nombre"));
+				us.setApellido_paterno(rs.getString("apellido_paterno"));
+				us.setApellido_materno(rs.getString("apellido_materno"));
+				us.setCorreo(rs.getString("correo"));
+				us.setStatus(rs.getBoolean("status"));
+				lstUsuario.add(us);
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return lstUsuario;
+	}
+	
 	
 
 }

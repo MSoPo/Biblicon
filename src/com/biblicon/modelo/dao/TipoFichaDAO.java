@@ -93,11 +93,47 @@ public class TipoFichaDAO {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, id_usuario);
 			rs = consulta.executeQuery();
+			TipoFicha tipo = null;
+			Usuario us = null;
 			while(rs.next()){
-				TipoFicha tipo = new TipoFicha();
+				tipo = new TipoFicha();
 				tipo.setId_tipo_ficha(rs.getInt("id_tipo_ficha"));
 				tipo.setNombre_tipo(rs.getString("nombre_tipo"));
-				Usuario us = new Usuario();
+				us = new Usuario();
+				us.setId_usuario(id_usuario);
+				tipo.setUsuario(us);
+				lista.add(tipo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return lista;
+		
+	}
+	
+	public ArrayList<TipoFicha> consultarPorUsuarioLogeado(String id_usuario){
+		ArrayList<TipoFicha> lista = new ArrayList<TipoFicha>();
+		String sql = "select * from tipoficha where id_usuario in ( ?)";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setString(1, id_usuario);
+			rs = consulta.executeQuery();
+			TipoFicha tipo = null;
+			Usuario us = null;
+			while(rs.next())
+			{
+				tipo = new TipoFicha();
+				tipo.setId_tipo_ficha(rs.getInt("id_tipo_ficha"));
+				tipo.setNombre_tipo(rs.getString("nombre_tipo"));
+				us = new Usuario();
 				us.setId_usuario(id_usuario);
 				tipo.setUsuario(us);
 				lista.add(tipo);

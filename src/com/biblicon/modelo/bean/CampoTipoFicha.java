@@ -8,6 +8,7 @@ public class CampoTipoFicha {
 	private String tipo_entrada;
 	private String seccion;
 	private String valor;
+	private int orden;
 	
 	public int getId_campo() {
 		return id_campo;
@@ -50,6 +51,12 @@ public class CampoTipoFicha {
 	}
 	public void setValor(String valor) {
 		this.valor = valor;
+	}
+	public int getOrden() {
+		return orden;
+	}
+	public void setOrden(int orden) {
+		this.orden = orden;
 	}
 	
 	

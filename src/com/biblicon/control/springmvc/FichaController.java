@@ -17,7 +17,6 @@ import com.biblicon.modelo.bean.CampoTipoFicha;
 import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
-import com.biblicon.modelo.bean.UsuarioCompartido;
 import com.biblicon.modelo.dao.CampoTipoFichaDAO;
 import com.biblicon.modelo.dao.FichaDAO;
 import com.biblicon.modelo.dao.TipoFichaDAO;
@@ -136,39 +135,6 @@ public class FichaController {
 		
 		return respuesta;
 		
-	}
-	
-	@RequestMapping(value={"/compartirFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-	@ResponseBody
-	public String compartirFicha(HttpServletRequest request)
-	{
-		
-		String respuesta = "";
-		try{
-			String idusuario = request.getParameter("usuariocompartir");	
-			String idficha = request.getParameter("id");				
-			
-			if(usuarioDAO.consultarPorId(idusuario)!=null){
-			
-				UsuarioCompartido usuarioCompartido = new UsuarioCompartido();			
-				usuarioCompartido.getFicha().setId_ficha(Integer.parseInt(idficha));			
-				usuarioCompartido.getUsuario().setId_usuario(idusuario);
-												
-				if(usuarioCompartidoDAO.insertar(usuarioCompartido)){
-					respuesta = "{ \"respuesta\" : \"1\", \"id\" : \"" + idficha + "\"}";
-				}else {
-					respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al compartir\"}";
-				}
-			}else{
-				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"El usuario no existe\"}";
-			}
-		}catch(Exception e){
-			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al compartir catch\"}";
-		}
-		
-		return respuesta;
-	}
-	
-		
+	}	
 	
 }
