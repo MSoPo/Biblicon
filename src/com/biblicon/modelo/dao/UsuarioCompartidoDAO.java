@@ -124,5 +124,4 @@ public class UsuarioCompartidoDAO {
 		return usuariosCompartido;
 	}
 
-
 }

@@ -63,7 +63,7 @@ public class ContenidoFichaDAO {
 		PreparedStatement consulta = null;
 		try {
 			consulta = conexion.prepareStatement(sql);
-			consulta.setInt(1, contenidoFicha.getFicha().getId_ficha());  // No puede venir nulo, sino no se inserta
+			consulta.setInt(1, contenidoFicha.getFicha().getId_ficha());  
 			consulta.setString(2, contenidoFicha.getPalabra_clave()); 
 			consulta.setInt(3, contenidoFicha.getTipo_contenido());
 			consulta.setString(4, contenidoFicha.getContenido());
@@ -214,7 +214,7 @@ public class ContenidoFichaDAO {
 		
 		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
 		campos.put(Constantes.palabra_clave_cont, contenido.getPalabra_clave());
-		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1? "Cita, Resumen, Comentario o Descripción" : "Cita, Resumen, Comentario o Descripción"); // TODO PONER CORRECTO EL TIPO
+		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1?"Cita": contenido.getTipo_contenido()==2?"Resumen":  contenido.getTipo_contenido()==3?"Comentario":  contenido.getTipo_contenido()==4?"Comentario":"ERROR"); // TODO PONER CORRECTO EL TIPO
 		campos.put(Constantes.contenido_cont, contenido.getContenido());
 		campos.put(Constantes.referencia_cont, referencia);
 		campos.put(Constantes.paginas_cont, contenido.getPaginas());

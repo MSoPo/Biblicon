@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.modelo.bean.UsuarioCompartido;
 import com.biblicon.modelo.dao.UsuarioCompartidoDAO;
 
@@ -46,11 +47,11 @@ public class UsuarioCompartidoController {
 		String respuesta = "";
 		try{		 
 			 String idFicha = request.getParameter("id");				 
-			 String idUsuario = request.getParameter("usuariocompartir");		
+			 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");		
 			 
 			 UsuarioCompartido usuariocompartido = new UsuarioCompartido();
 			 usuariocompartido.getFicha().setId_ficha(Integer.parseInt(idFicha));
-			 usuariocompartido.getUsuario().setId_usuario(idUsuario);
+			 usuariocompartido.setUsuario(usuario);
 
 			 if(usuarioCompartidoDAO.delete(usuariocompartido)){
 				respuesta = "{ \"respuesta\" : \"1\" }";
@@ -62,8 +63,6 @@ public class UsuarioCompartidoController {
 		}
 		
 		return respuesta;
-		 
-		 
 		 
 	}
 	

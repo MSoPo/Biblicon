@@ -46,7 +46,7 @@ public class Constantes {
 	final static public String otros_datos = "otros_datos";
 	final static public String coleccion = "coleccion";
 	final static public String biblioteca = "biblioteca";
-	final static public String localizacion = "localizacion—n";
+	final static public String localizacion = "localizacion";
 	final static public String notas = "notas";
 	final static public String semana = "semana";
 	final static public String apellido_editor = "apellido_editor";
@@ -69,8 +69,8 @@ public class Constantes {
 	final static public String palabra_clave_cont = "Palabras clave";
 	final static public String tipo_cont = "Tipo de contenido";
 	final static public String contenido_cont = "Contenido";
-	final static public String referencia_cont = "Referencia bibliogr‡fica";
-	final static public String paginas_cont = "P‡gs.";
+	final static public String referencia_cont = "Referencia bibliográfica";
+	final static public String paginas_cont = "Págs.";
 	final static public String notas_cont = "Notas";
 
 	final static public String formato_fecha = "dd-MM-yyyy"; //TODO definir formato

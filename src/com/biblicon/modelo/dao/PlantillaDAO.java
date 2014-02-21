@@ -5,14 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
-import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.util.Conexion;
@@ -76,7 +72,7 @@ public class PlantillaDAO {
 		try {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setInt(1, plantilla.getId_platilla());
-			return consulta.execute();
+			consulta.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -84,6 +80,7 @@ public class PlantillaDAO {
 			Conexion.cerrarPreparedStatemen(consulta);
 			Conexion.cerrarConexion(conexion);
 		}
+		return true;
 	}
 	
 	public ArrayList<Plantilla> consultarPorUsuario(String id_usuario){
@@ -96,13 +93,12 @@ public class PlantillaDAO {
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, id_usuario);
 			rs = consulta.executeQuery();
-			while(rs.next()){
+			while(rs.next())
+			{
 				Plantilla plantilla = new Plantilla();
 				plantilla.setId_platilla(rs.getInt("id_plantilla"));
 				plantilla.setNombrePlantilla(rs.getString("nombre_plantilla"));
-				plantilla.setPlantilla(rs.getString("plantilla"));
-				System.out.println(rs.getString("plantilla"));
-				System.out.println(rs.getString("id_plantilla"));
+				plantilla.setPlantilla(rs.getString("plantilla"));				
 				Usuario us = new Usuario();
 				us.setId_usuario(id_usuario);
 				plantilla.setUsuario(us);

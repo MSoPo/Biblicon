@@ -112,7 +112,7 @@ nombre_campo varchar(50),
 requerido varchar(1),
 tipo_entrada varchar(40),
 seccion varchar(40),
-orden integer,
+orden INTEGER,
 PRIMARY KEY(id_campo),
 INDEX (id_tipo_ficha),
 FOREIGN KEY (id_tipo_ficha)

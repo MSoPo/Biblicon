@@ -82,7 +82,7 @@ public class TipoController {
 	}
 	
 	@RequestMapping(value={"/eliminarTipo.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-	 @ResponseBody
+	@ResponseBody
 	public String eliminarTipoFicha(HttpServletRequest request){
 		String idTipo = request.getParameter("idTipo");
 		TipoFicha tipo = new TipoFicha();
@@ -93,5 +93,24 @@ public class TipoController {
 		else 
 			return "";
 	}
+	
+	
+	@RequestMapping(value={"/obtenerTiposUsuario.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String obtenerTiposUsuario(HttpServletRequest request){
+		
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		ArrayList<TipoFicha> listaTipos = tipoFichaDAO.consultarPorUsuarioLogeado(usuario.getId_usuario());
+		Gson gson = new Gson();
+		String tipos = gson.toJson(listaTipos);
+		request.setAttribute("tipos", tipos);
+		
+		
+		if(listaTipos!=null && !listaTipos.isEmpty())
+			return "{ \"respuesta\" : \"1\", \"cantidad\" : \"" +listaTipos.size() + "\"}";
+		else 
+			return "{ \"respuesta\" : \"0\", \"error\" : \"Error al obtener los Tipos\"}";
+	}
+	
 
 }
