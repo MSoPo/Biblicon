@@ -81,7 +81,7 @@
 					
 				});
 				
-				guardarcampos['tipo_ficha'] = $('#tipos').val();
+				guardarcampos['tipo'] = $('#tipos').val();
 				
 				$.post('agregarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos)}, function(respuesta){
 					var resp = JSON.parse(respuesta);

@@ -1,6 +1,7 @@
 package com.biblicon.modelo.bean;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ficha {
@@ -55,7 +56,7 @@ public class Ficha {
 	private Date fecha_publicacion;
 	private String editor;
 	private String titulo_libro;
-	private HashMap<String, String> campos;
+	private ArrayList<CampoTipoFicha> campos;
 	private Integer cantidadCompartida;
 	private Integer cantidadContenido;
 	
@@ -480,15 +481,13 @@ public class Ficha {
 	}
 
 
-	public HashMap<String, String> getCampos() {
+	public ArrayList<CampoTipoFicha> getCampos() {
 		return campos;
 	}
 
 
-	public void setCampos(HashMap<String, String> campos) {
+	public void setCampos(ArrayList<CampoTipoFicha> campos) {
 		this.campos = campos;
-	}
-	
-	
+	}	
 
 }

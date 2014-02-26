@@ -63,7 +63,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<th colspan="6">Usuario</th>
+							<th colspan="6">Lista de Usuarios en el sistema.</th>
 						</tr>
 					</tfoot>
 				</table>
@@ -74,6 +74,36 @@
 	</footer>
 	
 	<script type="text/javascript">
+	
+		function estatus(usu){
+			var usuario = {};
+			for(var i = 0; i < usuarios.length; i++){
+				if(usuarios[i].id_usuario == $.trim(usu)){
+					usuario = usuarios[i];
+					break;
+				}
+			}
+			
+			var status = (usuario.status == "1" ||usuario.status == true) ? "0" : "1";
+			
+			$.post("cambiarStatusUsuario.htm", {"id_usuario" : usuario.id_usuario, "status" : status}, function(respuesta){
+			 var resp = JSON.parse(respuesta);
+			 if(resp.respuesta == "1"){
+			 	usuario.status = usuario.status == "1" ? "0" : "1";
+			 	
+			 	var orden = "";
+				$('#' + usuario.id_usuario + " td").each(function(i,e){
+					if($(e).hasClass("sorting_1")){
+						orden = i;
+					}
+				});
+			 	
+				$('#' + usuario.id_usuario).html(filaUsuario(usuario, orden));
+			 }else{
+			 	
+			 }
+			});
+		}
 	
 		function actualizar(usu){
 			$('#bloqueo').fadeIn();
@@ -117,13 +147,15 @@
 			
 		};
 		
-		function filaUsuario(usuario){
+		function filaUsuario(usuario, orden){
+			var nomberCompleto = (usuario.nombre ? (usuario.nombre + " ") : "") + (usuario.apellido_paterno ? (usuario.apellido_paterno + " ") : "") + (usuario.apellido_materno ? usuario.apellido_materno : "");
 			var cadena = "";
-			cadena += "<td>" + usuario.id_usuario + "</td>";
-			cadena += "<td>" + usuario.correo + "</td>";
+			var classSorting = " class = sorting_1 ";
+			cadena += "<td" + (orden == 0 ? classSorting : "") + ">" + usuario.id_usuario + "</td>";
+			cadena += "<td" + (orden == 1 ? classSorting : "") + ">" + (usuario.correo ? usuario.correo : "--") + "</td>";
 			cadena += "<td>" + usuario.contrasena + "</td>";
-			cadena += "<td>" + usuario.nombre + usuario.apellido_paterno + usuario.apellido_materno + "</td>";
-			cadena += "<td class='center'><a href='#'>Estatus</a></td>";
+			cadena += "<td" + (orden == 3 ? classSorting : "") + ">" + (nomberCompleto ? nomberCompleto : "--")  + "</td>";
+			cadena += "<td class='center'><a href='javascript:estatus(&quot " + usuario.id_usuario + "&quot)'>" + (usuario.status == "1" ? "+" : "-") +"</a></td>";
 			cadena += "<td class='center'><a href='javascript:actualizar(&quot " + usuario.id_usuario + "&quot)'>Editar</a></td>";
 			return cadena;
 		}
@@ -143,6 +175,11 @@
 				$('tbody').html(cadena);
 				
 				$('#example').dataTable();
+				$('th').each(function(i,e){
+					if(i == 2 || i == 4 || i == 5){
+						$(this).removeClass("sorting");
+					}
+				})
 				$('#agregarUsuario').on('click', agregar);
 				
 				$("#regresar").on('click', function(){
@@ -170,46 +207,52 @@
 					
 					if(requerido) return false;
 					
-					/////////////Metodo para registrar////////AJAX
-					
 					var usuario = {
 						id_usuario : $('#id_usuariotxt').val(),
 						correo : $('#correotxt').val(),
 						contrasena : $('#contrasenatxt').val(),
 						nombre : $('#nombretxt').val(),
 						apellido_paterno : $('#ape_pattxt').val(),
-						apellido_materno : $('#ape_mattxt').val()
+						apellido_materno : $('#ape_mattxt').val(),
+						status : true
 						
 					};
 					
-					$('#error').html('Se agrego el usuario: <strong>' + usuario.id_usuario + '</strong>').addClass('correcto').removeClass('error');
 					
-					$('#example').dataTable().fnAddData( [
-				        usuario.id_usuario,
-				        usuario.correo,
-				        usuario.contrasena,
-				        usuario.nombre + usuario.apellido_paterno + usuario.apellido_materno,
-				        "<a href='#'>Estatus</a>",
-				        "<a href='javascript:actualizar(&quot " + usuario.id_usuario + "&quot)'>Editar</a>"
-				         ] );
-				         
-				     
-				     var lst = $('tr[class="odd"]');
-				     if(lst.length < 0){
-				     	lst = $('tr[class="even"]');
-				     }
-				     	lst.addClass("gradeA");
-				     	lst[0].attr("id", usuario.id_usuario);
-				     
-				     
-				     
-				     
-				     $('#'+ usuario.id_usuario).addClass("gradeA");
-				     $($('#'+ usuario.id_usuario + ' td')[4]).addClass("center");
-				     $($('#'+ usuario.id_usuario + ' td')[5]).addClass("center");
-				     
-				     //
-				
+					$.post("agregarUsuario.htm", { 'usuario' : JSON.stringify(usuario) }, function(respuesta){
+						
+						var resp = JSON.parse(respuesta);
+						
+						if(resp.respuesta == "1"){
+							
+							$('#error').html('Se agrego el usuario: <strong>' + usuario.id_usuario + '</strong>').addClass('correcto').removeClass('error');
+						
+							var nomberCompleto = (usuario.nombre ? (usuario.nombre + " ") : "") + (usuario.apellido_paterno ? (usuario.apellido_paterno + " ") : "") + (usuario.apellido_materno ? usuario.apellido_materno : "");
+						
+							$('#example').dataTable().fnAddData( [
+						        usuario.id_usuario,
+						        usuario.correo ? usuario.correo : "--",
+						        usuario.contrasena,
+						        nomberCompleto ? nomberCompleto : "--",
+						        "<a href='#'>" + (usuario.status == "1" ? "+" : "-") + "</a>",
+						        "<a href='javascript:actualizar(&quot " + usuario.id_usuario + "&quot)'>Editar</a>"
+						         ] );
+						     var lst = $('tr[class="odd"]');
+						     if(lst.length < 1){
+						     	lst = $('tr[class="even"]');
+						     }
+						     lst.addClass("gradeA");
+						     lst.attr("id", usuario.id_usuario);
+						     $('#'+ usuario.id_usuario).addClass("gradeA");
+						     $($('#'+ usuario.id_usuario + ' td')[4]).addClass("center");
+						     $($('#'+ usuario.id_usuario + ' td')[5]).addClass("center");
+						     
+						   }else{
+						   		$('#error').html(resp.error).addClass('error').removeClass('correcto');
+						   }
+						
+					});
+					
 				});
 				
 				$("#actualizar").on('click', function(){
@@ -225,9 +268,6 @@
 					
 					if(requerido) return false;
 					
-					/////////////Metodo para actualizar/////////AJAX
-					$('#bloqueo').fadeOut();
-					
 					var usuario = {
 						id_usuario : $('#id_usuariotxt').val(),
 						correo : $('#correotxt').val(),
@@ -238,12 +278,26 @@
 						
 					};
 					
-					var cadena = "";
-					cadena += filaUsuario(usuario);
-					$('#' + usuario.id_usuario).html(cadena);
+					$.post("editarUsuario.htm", { 'usuario' : JSON.stringify(usuario) }, function(respuesta){
 					
-					/////////////////////////////////////////////
-					
+						var resp = JSON.parse(respuesta);
+						
+						if(resp.respuesta == "1"){
+							$('#bloqueo').fadeOut();
+							var orden = "";
+							$('#' + usuario.id_usuario + " td").each(function(i,e){
+								if($(e).hasClass("sorting_1")){
+									orden = i;
+								}
+							});
+							var cadena = "";
+							
+							cadena += filaUsuario(usuario, orden);
+							$('#' + usuario.id_usuario).html(cadena);
+						}else{
+							$('#error').html(resp.error).addClass('error').removeClass('correcto');
+						}
+					});
 				});
 				
 			} );

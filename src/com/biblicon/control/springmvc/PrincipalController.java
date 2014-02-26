@@ -57,8 +57,9 @@ public class PrincipalController {
 	 request.setAttribute("fichas", fichas);
 	 request.setAttribute("categorias", categorias);
 	 
-	 System.out.println(fichas);
-	 System.out.println("Entrando en el pincipal");
+	 if(listafichas.size() < 1){
+		 return "redirect:ficha.htm";
+	 }
 	 
 	 return "principal";
  }
@@ -73,26 +74,10 @@ public class PrincipalController {
 		 String tipo_ficha = request.getParameter("tipo_ficha");
 		 String busqueda = request.getParameter("busqueda");
 		 
-		 ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
-		 ArrayList<Ficha> listafichas = fichaDAO.consultarFichasUsuarioCategoriaTipoFicha(usuario.getId_usuario(), categoria, tipo_ficha, busqueda);
-		 for (Ficha ficha : listafichas) {
-			 
-			 ficha.setCantidadCompartida(usuarioCompartidoDAO.cantidadFichaCompartida(ficha.getId_ficha()));
-			 ficha.setCantidadContenido(contenidoFichaAO.cantidadContenidoFicha(ficha.getId_ficha()));
-			 ficha.setCampos(fichaDAO.llenarCampos(ficha));
-		}
-		 
-		 ArrayList<String> listaCategorias = fichaDAO.consultarCategoriasUsuario(usuario.getId_usuario());
-		 
-		 String categorias = gson.toJson(listaCategorias);
-		 String tipos = gson.toJson(listaTipos);
+		 ArrayList<Ficha> listafichas = fichaDAO.consultaFichasUsuario(usuario.getId_usuario());
 		 String fichas = gson.toJson(listafichas);
-		 request.setAttribute("tipos", tipos);
-		 request.setAttribute("fichas", fichas);
-		 request.setAttribute("categorias", categorias);
 		 
-		 System.out.println("Saliendo de busqueda pincipal");
-		 
-		 return "principal";
+		 String respuesta = "{ \"respuesta\" : \"1\", \"fichas\" : " + fichas + "}";
+		 return respuesta;
 	 }
 }

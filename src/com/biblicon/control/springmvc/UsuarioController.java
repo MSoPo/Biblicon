@@ -51,7 +51,7 @@ public class UsuarioController {
 			String status = request.getParameter("status");
 						
 			if(usuarioDAO.cambiarStatus(id_usuario, status)){
-				respuesta = "{ \"respuesta\" : \"1  \"}";
+				respuesta = "{ \"respuesta\" : \"1\"}";
 			}else {
 				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al cambiarStatusUsuario \"}";
 			}
@@ -73,12 +73,11 @@ public class UsuarioController {
 		try{
 			
 			Gson json= new Gson();
-			HashMap<String,String> camposMap = (HashMap<String,String>)json.fromJson(request.getParameter("usuario"),HashMap.class);
+			Usuario usuario = (Usuario)json.fromJson(request.getParameter("usuario"),Usuario.class);
 						
-			Usuario usuario = usuarioDAO.llenarUsuario(camposMap);
-						
+			
 			if(usuarioDAO.insertar(usuario)){
-				respuesta = "{ \"respuesta\" : \"1  \"}";
+				respuesta = "{ \"respuesta\" : \"1\"}";
 			}else {
 				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al cambiarStatusUsuario \"}";
 			}

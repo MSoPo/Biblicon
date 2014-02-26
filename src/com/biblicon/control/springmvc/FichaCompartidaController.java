@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.biblicon.modelo.bean.ContenidoFicha;
 import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.bean.Usuario;
@@ -93,35 +94,44 @@ public class FichaCompartidaController {
 		 return respuesta;
 	 }
 	 
-	@RequestMapping(value={"/clonarFichaCompartida.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-	@ResponseBody
-	public String clonarFichaCompartida(HttpServletRequest request)
-	{		
+	 @RequestMapping(value={"/clonarFichaCompartida.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	 @ResponseBody
+	 public String clonarFichaCompartida(HttpServletRequest request)
+	 {		
 		String respuesta = "";
 		Ficha ficha = null;
 		UsuarioCompartido usuariocompartido = null; 
 		try{
 			Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");	
 			String idficha = request.getParameter("id");
-			
+				
 			ficha = fichaDAO.consultaFicha(Integer.parseInt(idficha));
 			ficha.setUsuario(usuario);
-			fichaDAO.insertar(ficha);
-			
+			int nuevaFicha = fichaDAO.insertar(ficha);
+				
+			ArrayList<ContenidoFicha> fichasContenido = contenidoFichaAO.consultarContenidoFicha(new Integer(idficha));
+			for(ContenidoFicha contenidoFicha: fichasContenido){
+					
+				contenidoFicha.getFicha().setId_ficha(nuevaFicha);
+				contenidoFichaAO.insertar(contenidoFicha);
+			}
+				
+				
 			usuariocompartido = new UsuarioCompartido();
 			usuariocompartido.setFicha(ficha);
 			usuariocompartido.setUsuario(usuario);
-			
+				
 			usuarioCompartidoDAO.delete(usuariocompartido);
-			
-			respuesta = "{ \"respuesta\" : \"1\" \"}";
-			
+				
+			respuesta = "{ \"respuesta\" : \"1\"}";
+				
 		}catch(Exception e){
 			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al clonar catch\"}";
 		}
-		
-		return respuesta;
-	}
+			
+			return respuesta;
+		}
+
 	
 	@RequestMapping(value={"/compartirFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
 	@ResponseBody

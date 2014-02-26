@@ -15,7 +15,7 @@ import com.biblicon.util.Conexion;
 public class UsuarioDAO {
 	
 	public boolean insertar(Usuario usuario){
-		String sql = "insert into usuario (id_usuario, nombre, apellido_paterno, apellido_materno, contrasena, correo, status ) values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into usuario (id_usuario, nombre, apellido_paterno, apellido_materno, contrasena, correo, status ) values (?, ?, ?, ?, ?, ?, ?)";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		try {
@@ -152,7 +152,7 @@ public class UsuarioDAO {
 			while(rs.next())
 			{
 				us = new Usuario();
-				us.setId_usuario("id_usuario");
+				us.setId_usuario(rs.getString("id_usuario"));
 				us.setContrasena(rs.getString("contrasena"));
 				us.setNombre(rs.getString("nombre"));
 				us.setApellido_paterno(rs.getString("apellido_paterno"));

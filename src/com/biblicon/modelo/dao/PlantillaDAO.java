@@ -19,13 +19,17 @@ public class PlantillaDAO {
 	
 	public int insertar(Plantilla plantilla){
 		String sql = "insert into plantilla (plantilla, id_usuario, nombre_plantilla) values (?, ?, ?)";
+		String p = plantilla.getPlantilla();
+		p = p.replace("\"", "'");
+		
+		
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
 		int id = 0;
 		try {
 			consulta = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			consulta.setString(1, plantilla.getPlantilla());
+			consulta.setString(1, p);
 			consulta.setString(2, plantilla.getUsuario().getId_usuario());
 			consulta.setString(3, plantilla.getNombrePlantilla());
 			consulta.execute();

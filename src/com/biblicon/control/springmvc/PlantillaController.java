@@ -16,6 +16,7 @@ import com.biblicon.modelo.bean.Plantilla;
 import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.modelo.dao.PlantillaDAO;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class PlantillaController {
@@ -29,7 +30,7 @@ public class PlantillaController {
 	public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		ArrayList<Plantilla> listaPlantillas = plantillaDAO.consultarPorUsuario(usuario.getId_usuario());
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String plantillas = gson.toJson(listaPlantillas);
 		request.setAttribute("plantillas", plantillas);
 		 return "plantillas";
