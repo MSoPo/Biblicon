@@ -39,7 +39,7 @@
 		<div class="contenido">
 			<div class="filtros">
 				<div class="filtro">
-				Buscar:<input>
+				Buscar:<input id="buscartxt" placeholder="Ingresa el concepto">
 				
 				</div>
 				
@@ -52,7 +52,7 @@
 				<hr/>
 				<strong>Selecciona la categoria</strong>
 					<div id="categorias"></div>
-					<button>Buscar</button>
+					<button id="Buscarbtn">Buscar</button>
 				</div>
 			</div>
 			<div class="fichas" id="fichas">
@@ -125,23 +125,41 @@
 				var ficha = fichas[i];
 				var campos = ficha.campos;
 				var template = '<article><div class="tipoficha acciones"><a href="#">'+ ficha.tipo_ficha.nombre_tipo +'<a></div>';
-				
-				template += '<p>' + biblicon.ficha.constantes["titulo"] + ': <span>'+ campos["titulo"] +'</span></p>';
-				template += '<p>' + biblicon.ficha.constantes["apellido"] + ': <span>'+ campos["apellido"] +'</span></p>';
-				template += '<p>' + biblicon.ficha.constantes["nombre"] + ': <span>'+ campos["nomber"] +'</span></p>';
-				
+				var titulo = "";
+				var nombre = "";
+				var apellido = "";
 				var agregar = "";
-				var seccionVacia = 1;
-				for(var campo in campos){
-					if( campos[campo] == "#sec#"){
-						if(seccionVacia != 0)
-							agregar += '<hr/>' + campo + '<hr/>';
-						seccionVacia = 0;
-					}else{
-						seccionVacia ++;
-						agregar += '<p>' + biblicon.ficha.constantes[campo] + ': <span>'+ campos[campo] +'</span></p>';
+				var seccionAnterior = "";
+
+				for(var i = 0; i < campos.length; i++){
+				
+					var campo = campos[i]; 
+					var seccion = campo.seccion;
+					if(seccion != seccionAnterior){
+						agregar += '<hr/>' + campo.seccion + '<hr/>';
+					}
+					
+					if(campo.nombre_campo == "titulo"){
+						titulo = campo.valor;
+					}else if(campo.nombre_campo == "nombre"){
+						nombre = campo.valor;
+					}else if(campo.nombre_campo == "apellido"){
+						apellido = campo.valor;
+					}
+					
+					if(campo.valor){
+						agregar += '<p>' + biblicon.ficha.constantes[campo.nombre_campo] + ': <span>'+ campo.valor +'</span></p>';
+					
+						if(seccion != seccionAnterior){
+							seccionAnterior = seccion;
 						}
+					}
+						
 				}
+				
+				template += '<p>' + biblicon.ficha.constantes["titulo"] + ': <span>'+ titulo +'</span></p>';
+				template += '<p>' + biblicon.ficha.constantes["apellido"] + ': <span>'+ apellido +'</span></p>';
+				template += '<p>' + biblicon.ficha.constantes["nombre"] + ': <span>'+ nombre +'</span></p>';
 				
 				template += '<p><span> <a class="ver_todo" href="javascript:cargarFichaCompleta(&quot' + agregar + '&quot)"> ver todo... </a> </span></p>';
 				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir(<div class="cantidadCompartida" id="cantidadCompartida">'+ ficha.cantidadCompartida+'</div>)</a>';
@@ -205,7 +223,9 @@
 			
 			$("#borrado").on('click', function(){
 				$.post("eliminarFicha.htm", { 'id' : $('#id_ficha').val()}, function(respuesta){
-					if(respuesta == "1"){
+					var resp = JSON.parse(respuesta);
+					if(resp.respuesta == "1"){
+						$('article input[value="'+ $('#id_ficha').val() +'"]').parent().parent().remove();
 						$('#bloqueo').fadeOut();
 					}else{
 						$('#error').html(respuesta.error);
@@ -236,6 +256,32 @@
 						}
 					});
 				}
+			});
+			
+			$("#Buscarbtn").on('click', function(){
+			
+				var lsttipos = []; 
+				var lstcategorias = [];
+				var busqueda = "";  
+				$("#tipos input[type=checkbox]:checked").each(function(i,e){
+					lsttipos.push($(e).val());
+				});
+				
+				$("#categorias input[type=checkbox]:checked").each(function(i,e){
+					lstcategorias.push($(e).val());
+				});
+				
+				busqueda = $('#buscartxt').val();
+				
+				$.post('principalBusqueda.htm', {categoria : JSON.stringify(lstcategorias), tipo_ficha : JSON.stringify(lsttipos), busqueda : busqueda}, function(respuesta){
+					var resp = JSON.parse(respuesta);
+					if(resp.respuesta == "1"){
+					
+					}else{
+					
+					} 
+				});
+			
 			});
 			
 			$("#regresar").on('click', function(){

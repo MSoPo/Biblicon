@@ -86,27 +86,11 @@ public class FichaController {
 	public String actualizarFicha(HttpServletRequest request)
 	{
 		
-		//idFicha
-		
-		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-		ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
+		Ficha ficha = fichaDAO.consultaFicha(new Integer(request.getParameter("idFicha")));
 		Gson gson = new Gson();
-		String tipos = gson.toJson(listaTipos);
-		request.setAttribute("tipos", tipos);
-		ArrayList<CampoTipoFicha> lstCampos = camposDAO.consultarPorTipo(listaTipos.get(0).getId_tipo_ficha());
-		
-		for(CampoTipoFicha cp : lstCampos){
-			cp.setValor("123");
-		}
-		
-		/*determarCampo(cp){
-			if(cp.nombre == "nombre") cp.valor = ficha.nombre;
-			else if(cp.nombre == "apellido") cp.valor = ficha.apellido;
-			
-		}*/
-		
-		
+		ArrayList<CampoTipoFicha> lstCampos = fichaDAO.llenarCampos(ficha);
 		String campos = gson.toJson(lstCampos);
+		request.setAttribute("tipos", tipos);
 		request.setAttribute("campos", campos);
 		return "actualizarficha";
 	}

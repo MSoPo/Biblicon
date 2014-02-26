@@ -11,14 +11,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.biblicon.util.Conexion;
 import com.biblicon.util.Constantes;
+import com.biblicon.modelo.bean.CampoTipoFicha;
 import com.biblicon.modelo.bean.Ficha;
 
 @Repository
 public class FichaDAO {
+	
+	@Autowired
+	 private CampoTipoFichaDAO camposDAO;
 	
 	
 	public int insertar(Ficha ficha){
@@ -311,11 +316,14 @@ public class FichaDAO {
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
 				"from biblicon.ficha f, biblicon.tipoficha tf " +
 				"where f.id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) " +
-				"and tf.id_usuario in ('"+Constantes.USUARIODEFAULT+"', f.id_usuario)" +
-				"and f.categoria in ("+categoria+") and f.id_tipo_ficha in ("+tipo_ficha+") " +
+				"and tf.id_usuario in ('"+Constantes.USUARIODEFAULT+"', f.id_usuario)"+
 				"and (UPPER(f.nombre) like UPPER('%"+busqueda+"%') or UPPER(f.apellido) like UPPER('%"+busqueda+"%') or UPPER(f.nombre_otro) like UPPER('%"+busqueda+"%') or UPPER(f.apellido_otro) like UPPER('%"+busqueda+"%') or UPPER(f.titulo) like UPPER('%"+busqueda+"%')) " +
-				"and tf.id_usuario = f.id_usuario " +
 				"and tf.id_tipo_ficha = f.id_tipo_ficha ";
+		
+		if(categoria != "")
+			sql += "and f.categoria in ("+categoria+")";
+		if(tipo_ficha != "")
+			sql += "and f.id_tipo_ficha in ("+tipo_ficha+") ";
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -448,56 +456,56 @@ public class FichaDAO {
 		
 	}
 	
-	public LinkedHashMap<String, String> llenarCampos(Ficha ficha){
-		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
-		campos.put(Constantes.apellido_otro, ficha.getApellido_otro());
-		campos.put(Constantes.b, ficha.getB());
-		campos.put(Constantes.biblioteca, ficha.getBiblioteca());
-		campos.put(Constantes.c, ficha.getC());
-		campos.put(Constantes.ciudad, ficha.getCiudad());
-		campos.put(Constantes.coleccion, ficha.getColeccion());
-		campos.put(Constantes.d, ficha.getD());
-		campos.put(Constantes.dia, ficha.getDia());
-		campos.put(Constantes.edicion, ficha.getEdicion());
-		campos.put(Constantes.edicion_de, ficha.getEdicion_de());
-		campos.put("Seccion 1", "#sec#");
-		campos.put(Constantes.editor, ficha.getEditor());
-		campos.put(Constantes.editorial, ficha.getEditorial());
-		campos.put(Constantes.et_al, ficha.isEt_al() ? "1" : "2" );
-		campos.put(Constantes.et_al_editor, ficha.isEt_al_editor() ? "1" : "2");
-		campos.put(Constantes.fecha_acceso, (ficha.getFecha_acceso() != null) ? ficha.getFecha_acceso().toString() : null);
-		campos.put(Constantes.fecha_publicacion, (ficha.getFecha_publicacion() != null) ? ficha.getFecha_publicacion().toString() : null);
-		campos.put(Constantes.institucion, ficha.getInstitucion());
-		campos.put(Constantes.localizacion, ficha.getLocalizacion());
-		campos.put(Constantes.mes, ficha.getMes());
-		campos.put(Constantes.nombre, ficha.getNombre());
-		campos.put(Constantes.nombre_editor, ficha.getNombre_editor());
-		campos.put(Constantes.nombre_editor_otro, ficha.getNombre_editor_otro());
-		campos.put(Constantes.nombre_otro, ficha.getNombre_otro());
-		campos.put("Seccion 2", "#sec#");
-		campos.put(Constantes.notas, ficha.getNotas());
-		campos.put(Constantes.numero, ficha.getNumero());
-		campos.put(Constantes.otros_datos, ficha.getOtros_datos());
-		campos.put(Constantes.pagina_fin, ficha.getPagina_fin());
-		campos.put(Constantes.pagina_ini, ficha.getPagina_ini());
-		campos.put(Constantes.paginas, ficha.getPaginas());
-		campos.put(Constantes.periodico, ficha.getPeriodico());
-		campos.put(Constantes.portal, ficha.getPortal());
-		campos.put(Constantes.prologo, ficha.getPrologo());
-		campos.put(Constantes.revista, ficha.getRevista());
-		campos.put(Constantes.seccion, ficha.getSeccion());
-		campos.put(Constantes.semana, ficha.getSemana());
-		campos.put("Seccion 3", "#sec#");
-		campos.put(Constantes.titulo, ficha.getTitulo());
-		campos.put(Constantes.titulo_libro, ficha.getTitulo_libro());
-		campos.put(Constantes.tomo, ficha.getTomo());
-		campos.put(Constantes.traduccion, ficha.getTraduccion());
-		campos.put(Constantes.url, ficha.getUrl());
-		campos.put(Constantes.a, ficha.getA());
-		campos.put(Constantes.ano, ficha.getAno());
-		campos.put(Constantes.apellido, ficha.getApellido());
-		campos.put(Constantes.apellido_editor, ficha.getApellido_editor());
-		campos.put(Constantes.apellido_editor_otro, ficha.getApellido_editor_otro());
+	public ArrayList<CampoTipoFicha> llenarCampos(Ficha ficha){
+		ArrayList<CampoTipoFicha> campos = camposDAO.consultarPorTipo(ficha.getTipo());
+		for(CampoTipoFicha c : campos){
+			if(c.getNombre_campo().equals(Constantes.apellido_otro)) c.setValor(ficha.getApellido_otro());
+			else if(c.getNombre_campo().equals(Constantes.b)) c.setValor(ficha.getB());
+			else if(c.getNombre_campo().equals(Constantes.biblioteca)) c.setValor(ficha.getBiblioteca());
+			else if(c.getNombre_campo().equals(Constantes.c)) c.setValor(ficha.getC());
+			else if(c.getNombre_campo().equals(Constantes.ciudad)) c.setValor(ficha.getCiudad());
+			else if(c.getNombre_campo().equals(Constantes.coleccion)) c.setValor(ficha.getColeccion());
+			else if(c.getNombre_campo().equals(Constantes.d)) c.setValor(ficha.getD());
+			else if(c.getNombre_campo().equals(Constantes.dia)) c.setValor(ficha.getDia());
+			else if(c.getNombre_campo().equals(Constantes.edicion)) c.setValor(ficha.getEdicion());
+			else if(c.getNombre_campo().equals(Constantes.edicion_de)) c.setValor(ficha.getEdicion_de());
+			else if(c.getNombre_campo().equals(Constantes.editor)) c.setValor(ficha.getApellido_otro());
+			else if(c.getNombre_campo().equals(Constantes.editorial)) c.setValor(ficha.getApellido_otro());
+			else if(c.getNombre_campo().equals(Constantes.et_al)) c.setValor(ficha.getApellido_otro());
+			else if(c.getNombre_campo().equals(Constantes.et_al_editor)) c.setValor(ficha.getApellido_otro());
+			else if(c.getNombre_campo().equals(Constantes.fecha_acceso)) c.setValor(ficha.getFecha_acceso().toString());
+			else if(c.getNombre_campo().equals(Constantes.fecha_publicacion)) c.setValor(ficha.getFecha_publicacion().toString());
+			else if(c.getNombre_campo().equals(Constantes.institucion)) c.setValor(ficha.getInstitucion());
+			else if(c.getNombre_campo().equals(Constantes.localizacion)) c.setValor(ficha.getLocalizacion());
+			else if(c.getNombre_campo().equals(Constantes.mes)) c.setValor(ficha.getMes());
+			else if(c.getNombre_campo().equals(Constantes.nombre)) c.setValor(ficha.getNombre());
+			else if(c.getNombre_campo().equals(Constantes.nombre_editor)) c.setValor(ficha.getNombre_editor());
+			else if(c.getNombre_campo().equals(Constantes.nombre_editor_otro)) c.setValor(ficha.getNombre_editor_otro());
+			else if(c.getNombre_campo().equals(Constantes.nombre_otro)) c.setValor(ficha.getNombre_otro());
+			else if(c.getNombre_campo().equals(Constantes.notas)) c.setValor(ficha.getNotas());
+			else if(c.getNombre_campo().equals(Constantes.numero)) c.setValor(ficha.getNumero());
+			else if(c.getNombre_campo().equals(Constantes.otros_datos)) c.setValor(ficha.getOtros_datos());
+			else if(c.getNombre_campo().equals(Constantes.pagina_fin)) c.setValor(ficha.getPagina_fin());
+			else if(c.getNombre_campo().equals(Constantes.pagina_ini)) c.setValor(ficha.getPagina_ini());
+			else if(c.getNombre_campo().equals(Constantes.paginas)) c.setValor(ficha.getPaginas());
+			else if(c.getNombre_campo().equals(Constantes.periodico)) c.setValor(ficha.getPeriodico());
+			else if(c.getNombre_campo().equals(Constantes.portal)) c.setValor(ficha.getPortal());
+			else if(c.getNombre_campo().equals(Constantes.prologo)) c.setValor(ficha.getPrologo());
+			else if(c.getNombre_campo().equals(Constantes.revista)) c.setValor(ficha.getRevista());
+			else if(c.getNombre_campo().equals(Constantes.seccion)) c.setValor(ficha.getSeccion());
+			else if(c.getNombre_campo().equals(Constantes.semana)) c.setValor(ficha.getSemana());
+			else if(c.getNombre_campo().equals(Constantes.titulo)) c.setValor(ficha.getTitulo());
+			else if(c.getNombre_campo().equals(Constantes.titulo_libro)) c.setValor(ficha.getTitulo_libro());
+			else if(c.getNombre_campo().equals(Constantes.tomo)) c.setValor(ficha.getTomo());
+			else if(c.getNombre_campo().equals(Constantes.traduccion)) c.setValor(ficha.getTraduccion());
+			else if(c.getNombre_campo().equals(Constantes.url)) c.setValor(ficha.getUrl());
+			else if(c.getNombre_campo().equals(Constantes.a)) c.setValor(ficha.getA());
+			else if(c.getNombre_campo().equals(Constantes.ano)) c.setValor(ficha.getAno());
+			else if(c.getNombre_campo().equals(Constantes.apellido)) c.setValor(ficha.getApellido());
+			else if(c.getNombre_campo().equals(Constantes.apellido_editor)) c.setValor(ficha.getApellido_editor());
+			else if(c.getNombre_campo().equals(Constantes.apellido_editor_otro)) c.setValor(ficha.getApellido_editor_otro());
+			
+		}
 		
 		return campos;
 	}

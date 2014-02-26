@@ -222,7 +222,7 @@
 
 		$('.cdisponible button').on('click', function(e){
 			$('#error').html('');
-			$('#textplatilla').append('<div>'+ (this.id ? this.id : $(this).html()) +'</div>');
+			$('#textplatilla').append('<div>'+ (this.id ? ('{{' + this.id + '}}') : $(this).html()) +'</div>');
 		});
 
 		$('#textplatilla').on('click', 'div', function(){
@@ -251,7 +251,7 @@
 			}
 			
 			
-			$.post("agregarPlantilla.htm", {"nombrePlantilla" : nombre, "plantilla" : plantilla}	, function(respuesta){
+			$.post("guardarPlantilla.htm", {"nombrePlantilla" : nombre, "plantilla" : plantilla}	, function(respuesta){
 				var resp = JSON.parse(respuesta);
 				if(resp.respuesta == "1"){
 					$('#listaPlantillas').append('<option value="'+ resp.id +'">' +nombre+ '</option>');
@@ -294,9 +294,9 @@
 			return false;
 		});
 		
-		var plantillas = JSON.parse('<%= request.getAttribute("plantillas") %>');
+		var plantillas = <%= request.getAttribute("plantillas") %>;
 		var opciones = "";
-		for(var i = 0; i < plantillas.length; i++){
+		for(var i = 0; i < plantillas.length; i++){ 	
 			var plantilla = plantillas[i];
 			 opciones+= '<option value="' + plantilla.id_platilla + '">'+ plantilla.nombrePlantilla +'</option>';
 		}

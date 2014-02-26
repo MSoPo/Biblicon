@@ -1,4 +1,4 @@
-.panel{height:100px;display:inline-block;width:50%;vertical-align:top;text-aling:center;}
+.panel{height:100px;display:inline-block;width:40%;vertical-align:top;text-aling:center;}
 .panel .controles{width:100%;}
 .panel .controles a{display:inline-block;margin:.1em;padding:0 5px;border:solid 2px #000;margin-right:.2em;border-radius:1em;text-decoration:none;color:#eee;background-color:#000}
 .panel #textplatilla{width:100%;border:1px solid;padding-left:1em;clear:both;min-height:350px;height:100%;padding-bottom:1em;overflow-x:scroll;}
