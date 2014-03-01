@@ -60,12 +60,17 @@ public class TipoController {
 		tipo.setUsuario(usuario);
 		
 		tipo.setId_tipo_ficha(tipoFichaDAO.insertar(tipo));
+		int i = 0;
 		if(tipo.getId_tipo_ficha() != 0){
 			for(String campo : camposTipo)
 			{
 				CampoTipoFicha campoficha = new CampoTipoFicha();
 				campoficha.setNombre_campo(campo);
 				campoficha.setTipo_ficha(tipo);
+				campoficha.setOrden(i++);
+				campoficha.setTipo_entrada("varchar");
+				campoficha.setRequerido("0");
+				campoficha.setSeccion("Personalizada");
 				/*
 				 * TODO ver de donde se obtendrá los valores
 				  campoficha.setRequerido(requerido);

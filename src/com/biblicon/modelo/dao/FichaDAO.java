@@ -209,7 +209,7 @@ public class FichaDAO {
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
 				"from biblicon.ficha f, biblicon.tipoficha tf " +
 
-				"where f.id_ficha = ? and tf.id_usuario = f.id_usuario and tf.id_tipo_ficha = f.id_tipo_ficha";
+				"where f.id_ficha = ? and tf.id_tipo_ficha = f.id_tipo_ficha";
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -278,7 +278,7 @@ public class FichaDAO {
 
 		String sql = "select distinct(categoria) " +
 				"from biblicon.ficha " +
-				"where id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) order by categoria";
+				"where id_usuario in ('"+Constantes.USUARIODEFAULT+"', ?) and categoria is not null order by categoria";
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -324,6 +324,8 @@ public class FichaDAO {
 			sql += "and f.categoria in ("+categoria+")";
 		if(tipo_ficha != "")
 			sql += "and f.id_tipo_ficha in ("+tipo_ficha+") ";
+		
+		System.out.println(sql);
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -457,8 +459,9 @@ public class FichaDAO {
 	}
 	
 	public ArrayList<CampoTipoFicha> llenarCampos(Ficha ficha){
-		ArrayList<CampoTipoFicha> campos = camposDAO.consultarPorTipo(ficha.getTipo());
+		ArrayList<CampoTipoFicha> campos = camposDAO.consultarPorTipo(ficha.getTipo_ficha().getId_tipo_ficha());
 		for(CampoTipoFicha c : campos){
+			SimpleDateFormat dateFormat = new SimpleDateFormat(Constantes.formato_fecha);
 			if(c.getNombre_campo().equals(Constantes.apellido_otro)) c.setValor(ficha.getApellido_otro());
 			else if(c.getNombre_campo().equals(Constantes.b)) c.setValor(ficha.getB());
 			else if(c.getNombre_campo().equals(Constantes.biblioteca)) c.setValor(ficha.getBiblioteca());
@@ -469,12 +472,12 @@ public class FichaDAO {
 			else if(c.getNombre_campo().equals(Constantes.dia)) c.setValor(ficha.getDia());
 			else if(c.getNombre_campo().equals(Constantes.edicion)) c.setValor(ficha.getEdicion());
 			else if(c.getNombre_campo().equals(Constantes.edicion_de)) c.setValor(ficha.getEdicion_de());
-			else if(c.getNombre_campo().equals(Constantes.editor)) c.setValor(ficha.getApellido_otro());
-			else if(c.getNombre_campo().equals(Constantes.editorial)) c.setValor(ficha.getApellido_otro());
-			else if(c.getNombre_campo().equals(Constantes.et_al)) c.setValor(ficha.getApellido_otro());
-			else if(c.getNombre_campo().equals(Constantes.et_al_editor)) c.setValor(ficha.getApellido_otro());
-			else if(c.getNombre_campo().equals(Constantes.fecha_acceso)) c.setValor(ficha.getFecha_acceso().toString());
-			else if(c.getNombre_campo().equals(Constantes.fecha_publicacion)) c.setValor(ficha.getFecha_publicacion().toString());
+			else if(c.getNombre_campo().equals(Constantes.editor)) c.setValor(ficha.getEditor());
+			else if(c.getNombre_campo().equals(Constantes.editorial)) c.setValor(ficha.getEditorial());
+			else if(c.getNombre_campo().equals(Constantes.et_al)) c.setValor(ficha.isEt_al() ? "Si" : "No");
+			else if(c.getNombre_campo().equals(Constantes.et_al_editor)) c.setValor(ficha.isEt_al_editor() ? "Si" : "No");
+			else if(c.getNombre_campo().equals(Constantes.fecha_acceso)) c.setValor(dateFormat.format(ficha.getFecha_acceso()));
+			else if(c.getNombre_campo().equals(Constantes.fecha_publicacion)) c.setValor(dateFormat.format(ficha.getFecha_publicacion()));
 			else if(c.getNombre_campo().equals(Constantes.institucion)) c.setValor(ficha.getInstitucion());
 			else if(c.getNombre_campo().equals(Constantes.localizacion)) c.setValor(ficha.getLocalizacion());
 			else if(c.getNombre_campo().equals(Constantes.mes)) c.setValor(ficha.getMes());
@@ -504,6 +507,7 @@ public class FichaDAO {
 			else if(c.getNombre_campo().equals(Constantes.apellido)) c.setValor(ficha.getApellido());
 			else if(c.getNombre_campo().equals(Constantes.apellido_editor)) c.setValor(ficha.getApellido_editor());
 			else if(c.getNombre_campo().equals(Constantes.apellido_editor_otro)) c.setValor(ficha.getApellido_editor_otro());
+			else if(c.getNombre_campo().equals(Constantes.tipo)) c.setValor(ficha.getTipo() == 1 ? "(ed.)" : ficha.getTipo() == 2 ? "(coord.)" : ficha.getTipo() == 3 ? "(comp.)" : ficha.getTipo() == 4 ? "(dir.)" : "(.)");
 			
 		}
 		
@@ -577,7 +581,11 @@ public class FichaDAO {
 		ficha.setRevista(camposMap.get(Constantes.revista));		
 		ficha.setSeccion(camposMap.get(Constantes.seccion));
 		ficha.setSemana(camposMap.get(Constantes.semana));		
-		ficha.setTipo(Integer.parseInt(camposMap.get(Constantes.tipo)));
+		
+		if(camposMap.get(Constantes.tipo) != null)
+			ficha.setTipo(Integer.parseInt(camposMap.get(Constantes.tipo)));
+		else
+			ficha.setTipo(0);
 		
 		if(camposMap.get(Constantes.tipo_ficha)!=null)		
 			ficha.getTipo_ficha().setId_tipo_ficha(Integer.parseInt(camposMap.get(Constantes.tipo_ficha)));

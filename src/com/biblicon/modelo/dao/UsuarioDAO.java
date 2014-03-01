@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.biblicon.modelo.bean.Usuario;
 import com.biblicon.util.Conexion;
+import com.biblicon.util.Constantes;
 
 @Repository
 public class UsuarioDAO {
@@ -39,7 +40,7 @@ public class UsuarioDAO {
 		
 	}
 	
-	public boolean  editar(Usuario usuario){
+	public boolean editar(Usuario usuario){
 		String sql = "update usuario set nombre = ?, apellido_paterno = ?, apellido_materno = ?, contrasena = ?, correo = ?, status = ? where id_usuario = ?";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -141,7 +142,7 @@ public class UsuarioDAO {
 	public ArrayList<Usuario> obtenerUsuarios()
 	{
 		Usuario us = null;
-		String sql = "select * from usuario";
+		String sql = "select * from usuario where id_usuario <> '"+ Constantes.USUARIODEFAULT + "'";
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
 		Connection conexion = Conexion.ObtenerConexion();

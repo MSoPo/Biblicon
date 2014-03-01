@@ -2,8 +2,8 @@
 article{border:1px solid;padding:1em;padding-bottom:.5em;margin:2em;text-align:center;background-color:#eee;border-radius:3px;display:inline-block;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);}
 article .tipoficha{margin:0 !important;padding:0 !important;position:absolute}
 body{background-color:#fff;margin:0 auto;font-family:circula;color:#555;font-size:16px;height:100%}
-footer{color:#eee;background-color:#555;text-align:center;font-size:.8em;padding:.5em;position:fixed;bottom:0;width:100%; z-index:1}
-h1{color:#fff;background:#555;border:0;margin-bottom:0;margin-top:10px;text-shadow:1px 1px 0 #ff7f27}
+footer{color:#eee;background-color:#555;text-align:center;font-size:.8em;padding:.5em;position:fixed;bottom:0;width:100%;z-index:1}
+h1{font-family:AmericanCaptain;text-align:center;border:1px solid #fff;border-right-style:dotted;border-left-style:dotted;margin:1em}
 header{background-color:#555;overflow:hidden;}
 header h1{color:#fff;background:#555;border:0;margin-bottom:0;margin-top:10px;text-shadow:1px 1px 0 #ff7f27}
 html{height:100%}
@@ -19,8 +19,10 @@ nav ul li a:hover{background:rgba(0,0,0,0.1)}
 section{display:table;height:85%;width:100%}
 span{font-weight:bold;font-size:1.2em}
 .acciones{text-align:right;margin-top:2em;}
-.acciones a, .ver_todo{font-family:Arial;font-size:.7em;margin-right:1em;color:#777;}
-.acciones a:hover, .ver_todo:hover{color:#333}
+.acciones a{font-family:Arial;font-size:.7em;margin-right:1em;color:#777;}
+.acciones a:hover{color:#333}
+.ver_todo font-family Arial{font-size:.7em;margin-right:1em;color:#777;}
+.ver_todo font-family Arial:hover{color:#333}
 .contenido{display:table-row}
 .error{font-size:.8em;color:#c01212;font-weight:bold}
 .correcto{font-size:.8em;color:#070}
@@ -28,7 +30,7 @@ span{font-weight:bold;font-size:1.2em}
 .filtros{display:table-cell;width:20%;height:100%;border-right:2px solid;padding:1em;padding-bottom:2em;vertical-align:top;}
 .filtros .filtro{margin-top:1em;}
 .filtros .filtro button{margin-top:.5em}
-.login{position:relative;text-align:center;font-size:20px;background:none repeat scroll 0 0 #555;margin:2em auto;overflow:hidden;padding:1em 1.5em;border-radius:10em 5em; box-shadow:10px 10px 0 #ccc; width: 500px; height: 250px}
+.login{position:relative;text-align:center;width:60%;height:50%;font-size:20px;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);background:none repeat scroll 0 0 #eee;margin:2em auto;overflow:hidden;padding:1em 1.5em;width:480px;}
 .login input{display:block;margin:.5em auto}
+.login:before{border-color:#fff #999;border-style:solid;border-width:20px 20px 0 0;content:"";display:block;position:absolute;left:0;top:0;width:0}
 #cantidadCompartida{display:inline-block;text-decoration:inherit}
- 

@@ -7,8 +7,8 @@ biblicon = {
 			nombre_otro   			: "Nombre(s)",
 			titulo					: "Título",
 			edicion_de				: "Edición de",
-			traduccion_de			: "Traducción de",
-			prologo_de				: "Prologo de",
+			traduccion				: "Traducción de",
+			prologo					: "Prologo de",
 			et_al					: "et al",
 			edicion					: "Edición",
 			otros_datos				: "Otros datos",
@@ -47,7 +47,13 @@ biblicon = {
 			editor					: "Editor",
 			titulo_libro			: "Título del libro",
 			categoria				: "Categoria",
-			tipo 					: "Tipo"
+			tipo 					: "Tipo",
+			catalogoTipo			:	{
+				1 : "(ed.)",
+				2 : "(coord.)",
+				3 : "(comp.)",
+				4 : "(dir.)"
+			}
 			
 		}
 	}

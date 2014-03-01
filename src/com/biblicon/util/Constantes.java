@@ -73,7 +73,7 @@ public class Constantes {
 	final static public String paginas_cont = "Págs.";
 	final static public String notas_cont = "Notas";
 
-	final static public String formato_fecha = "dd-MM-yyyy"; //TODO definir formato
+	final static public String formato_fecha = "dd/MM/yyyy"; //TODO definir formato
 
 
 }

@@ -33,6 +33,7 @@
 	<nav>
 		<ul>
 			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="fichasCompartidas.htm">Fichas Compartidas</a></li>
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
@@ -104,9 +105,7 @@
 					<button id="<%=Constantes.fecha_publicacion %>"> </button>
 					<button id="<%=Constantes.editor %>"> </button>
 					<button id="<%=Constantes.categoria %>"> </button>
-					<button id="<%=Constantes.tipo_ficha  %>"> </button>
 					<button id="<%=Constantes.tipo  %>"> </button>
-					<button id="<%=Constantes.usuario %>"> </button>
 				</div>
 			</div>
 			<div class="panel" id="cplantilla" >
@@ -255,6 +254,8 @@
 				var resp = JSON.parse(respuesta);
 				if(resp.respuesta == "1"){
 					$('#listaPlantillas').append('<option value="'+ resp.id +'">' +nombre+ '</option>');
+					if($('#ejmplantilla').html() == "")
+						$('#ejmplantilla').html(plantilla);
 					plantillas.push({
 						id_platilla : resp.id,
 						nombrePlantilla : nombre,
@@ -282,6 +283,15 @@
 					$('#error').removeClass('error').addClass('correcto');
 					$('#error').html('Se elimino el tipo de ficha <strong>' + $('#listaPlantillas option[value=' + $('#listaPlantillas').val() + ']').html() + '</strong>');
 					$('#listaPlantillas option[value=' + $('#listaPlantillas').val() + ']').remove();
+					var idp = $('#listaPlantillas').val();
+					$('#ejmplantilla').html('');
+					for(var i = 0; i < plantillas.length; i++){ 	
+						var plantilla = plantillas[i];
+						if(plantilla.id_platilla == idp){
+							$('#ejmplantilla').html(plantilla.plantilla);
+						}
+					}
+					
 					$('#bloqueo').fadeOut();
 				}else{
 					$('#error').html(respuesta);

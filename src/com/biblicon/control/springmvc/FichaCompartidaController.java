@@ -40,10 +40,11 @@ public class FichaCompartidaController {
 	
 	 @RequestMapping("fichasCompartidas.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 	 
 		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		 Gson gson = new Gson();
 		 
-		 ArrayList<Ficha> listafichas = fichaDAO.consultaFichasUsuario(usuario.getId_usuario());
+		 ArrayList<Ficha> listafichas = fichaDAO.consultaFichasCompartidasUsuario(usuario.getId_usuario());
 		 //Consultar las fichas con la tabla usuarioCompartido
 		 
 		 for (Ficha ficha : listafichas) {
@@ -70,29 +71,6 @@ public class FichaCompartidaController {
 		 return "fichasCompartidas";
 	 }
 	 
-	 
-	 @RequestMapping(value={"/fichasCompartidasDetalle.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-	 @ResponseBody
-	 public String fichasCompartidasDetalle(HttpServletRequest request, HttpServletResponse response) throws IOException 
-	 {
-		 String respuesta = "";
-		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-		 Gson gson = new Gson();
-		 ArrayList<Ficha> listafichasCompartidas = null;
-		 try{			 
-		 
-			 listafichasCompartidas = fichaDAO.consultaFichasCompartidasUsuario(usuario.getId_usuario());
-				
-			 String fichas = gson.toJson(listafichasCompartidas);		 
-			 request.setAttribute("fichas", fichas);
-			 
-			 
-		 }catch(Exception e){
-				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al clonar catch\"}";
-		}
-		 		 
-		 return respuesta;
-	 }
 	 
 	 @RequestMapping(value={"/clonarFichaCompartida.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
 	 @ResponseBody
@@ -163,5 +141,40 @@ public class FichaCompartidaController {
 		
 		return respuesta;
 	}
+	
+	@RequestMapping(value={"/busquedaCompartidas.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	 public String busqueda(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 
+		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		 Gson gson = new Gson();
+		 
+		 String categoria = request.getParameter("categoria");
+		 String tipo_ficha = request.getParameter("tipo_ficha");
+		 String busqueda = request.getParameter("busqueda");
+		 
+		 categoria = categoria.replace("[", " ");
+		 categoria = categoria.replace("]", " ");
+		 categoria = categoria.replace("\"", "'");
+		 
+		 tipo_ficha = tipo_ficha.replace("[", " ");
+		 tipo_ficha = tipo_ficha.replace("]", " ");
+		 tipo_ficha = tipo_ficha.replace("\"", "'");
+		 
+		 ArrayList<Ficha> listafichas = fichaDAO.consultarFichasUsuarioCategoriaTipoFicha(usuario.getId_usuario(), categoria, tipo_ficha, busqueda);
+		 
+		 for (Ficha ficha : listafichas) {
+			 
+			 ficha.setCantidadCompartida(usuarioCompartidoDAO.cantidadFichaCompartida(ficha.getId_ficha()));
+			 ficha.setCantidadContenido(contenidoFichaAO.cantidadContenidoFicha(ficha.getId_ficha()));
+			 ficha.setCampos(fichaDAO.llenarCampos(ficha));
+			 
+		}
+		 
+		 String fichas = gson.toJson(listafichas);
+		 
+		 String respuesta = "{ \"respuesta\" : \"1\", \"fichas\" : " + fichas + "}";
+		 return respuesta;
+	 }
 
 }
