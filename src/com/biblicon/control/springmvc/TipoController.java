@@ -34,7 +34,7 @@ public class TipoController {
 	@RequestMapping("tipos.htm")
 	public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-		ArrayList<TipoFicha> listaTipos = tipoFichaDAO.consultarPorUsuario(usuario.getId_usuario());
+		ArrayList<TipoFicha> listaTipos = tipoFichaDAO.consultarPorUsuarioLogeado(usuario.getId_usuario());
 		Gson gson = new Gson();
 		String tipos = gson.toJson(listaTipos);
 		request.setAttribute("tipos", tipos);

@@ -1,7 +1,7 @@
---USUARIO
+-- USUARIO
 INSERT INTO biblicon.usuario (ID_USUARIO,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,CONTRASENA,CORREO) VALUES('biblicon','biblicon','biblicon','biblicon',null,null);
 
---TIPO FICHA
+-- TIPO FICHA
 INSERT INTO biblicon.tipoficha (ID_USUARIO,NOMBRE_TIPO) VALUES('biblicon','Libro');
 INSERT INTO biblicon.tipoficha (ID_USUARIO,NOMBRE_TIPO) VALUES('biblicon','Tesis');
 INSERT INTO biblicon.tipoficha (ID_USUARIO,NOMBRE_TIPO) VALUES('biblicon','Artículo Revista');
@@ -10,181 +10,181 @@ INSERT INTO biblicon.tipoficha (ID_USUARIO,NOMBRE_TIPO) VALUES('biblicon','Peri�
 INSERT INTO biblicon.tipoficha (ID_USUARIO,NOMBRE_TIPO) VALUES('biblicon','Artículo en Internet');
 INSERT INTO biblicon.tipoficha (ID_USUARIO,NOMBRE_TIPO) VALUES('biblicon','Libro en Internet');
 
---CAMPO TIPO FICHA
+-- CAMPO TIPO FICHA
 
---LIBRO
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Tipo','0','int','tipo',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Apellido(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Nombre(s)','0','varchar','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'et al.','0','boolean','otros',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Título','1','varchar','edicion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Edición de','0','varchar','edicion',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Traducción de','0','varchar','edicion',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Prólogo de','0','varchar','edicion',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Editorial','1','varchar','edicion',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Ciudad','1','varchar','edicion',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Año','1','varchar','edicion',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Edición','0','varchar','numedicion',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Otros datos','0','varchar','numedicion',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Colección','0','varchar','coleccion',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Págs.','0','varchar','paginas',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Biblioteca','0','varchar','ubicacion',17);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Localización','0','varchar','ubicacion',18);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'Notas','0','text','notas',19);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'A','0','varchar','personales',20);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'B','0','varchar','personales',21);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'C','0','varchar','personales',22);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (1,'D','0','varchar','personales',23);
+-- LIBRO
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'tipo','0','int','Tipo',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'apellido_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'nombre_otro','0','varchar','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'et_al','0','boolean','Otros',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'titulo','1','varchar','Edición',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'edicion_de','0','varchar','Edición',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'traduccion','0','varchar','Edición',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'prologo','0','varchar','Edición',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'editorial','1','varchar','Edición',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'ciudad','1','varchar','Edición',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'ano','1','varchar','Edición',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'edicion','0','varchar','Edición',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'otros_datos','0','varchar','Edición',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'coleccion','0','varchar','Colección',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'paginas','0','varchar','Páginas',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'biblioteca','0','varchar','Ubicación',17);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'localizacion','0','varchar','Ubicación',18);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'notas','0','text','Notas',19);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'a','0','varchar','Personales',20);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'b','0','varchar','Personales',21);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'c','0','varchar','Personales',22);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (1,'d','0','varchar','Personales',23);
 
---TESIS
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Apellido(s)','0','varchar','otros',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Nombre(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'et al.','0','boolean','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Título','1','varchar','edicion',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Ciudad','1','varchar','edicion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Año','1','varchar','edicion',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Págs.','1','','edicion',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Institución','1','varchar','ubicacion',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Biblioteca','0','varchar','ubicacion',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Localización','0','varchar','ubicacion',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'Notas','0','text','notas',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'A','0','varchar','personales',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'B','0','varchar','personales',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'C','0','varchar','personales',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (2,'D','0','varchar','personales',17);
+-- TESIS
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'apellido_otro','0','varchar','Otros',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'nombre_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'et_al','0','boolean','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'titulo','1','varchar','Edición',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'ciudad','1','varchar','Edición',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'ano','1','varchar','Edición',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'paginas','1','','Edición',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'institucion','1','varchar','Ubicación',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'biblioteca','0','varchar','Ubicación',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'localizacion','0','varchar','Ubicación',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'notas','0','text','Notas',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'a','0','varchar','Personales',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'b','0','varchar','Personales',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'c','0','varchar','Personales',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (2,'d','0','varchar','Personales',17);
 
 
 -- ARTICULO REVISTA
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Apellido(s)','0','varchar','otros',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Nombre(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'et al.','0','boolean','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Título','1','varchar','edicion',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Edición de','0','varchar','edicion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Traducción de','0','varchar','edicion',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Ciudad','1','varchar','edicion',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Año','1','varchar','edicion',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Páginas de la','1','varchar','revista',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'a la','1','varchar','revista',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Revista','1','varchar','revista',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Tomo','1','varchar','revista',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Núm.','1','varchar','revista',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Mes','0','varchar','messemana',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Semana','0','varchar','messemana',17);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Biblioteca','0','varchar','ubicacion',18);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Localización','0','varchar','ubicacion',19);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'Notas','0','text','notas',20);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'A','0','varchar','personales',21);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'B','0','varchar','personales',22);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'C','0','varchar','personales',23);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (3,'D','0','varchar','personales',24);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'apellido_otro','0','varchar','Otros',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'nombre_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'et_al','0','boolean','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'titulo','1','varchar','Edición',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'edicion_de','0','varchar','Edición',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'traduccion','0','varchar','Edición',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'ciudad','1','varchar','Edición',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'ano','1','varchar','Edición',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'pagina_ini','1','varchar','Revista',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'pagina_fin','1','varchar','Revista',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'revista','1','varchar','Revista',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'tomo','1','varchar','Revista',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'numero','1','varchar','Revista',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'mes','0','varchar','Mes, semana',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'semana','0','varchar','Mes, semana',17);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'biblioteca','0','varchar','Ubicación',18);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'localizacion','0','varchar','Ubicación',19);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'notas','0','text','Notas',20);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'a','0','varchar','Personales',21);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'b','0','varchar','Personales',22);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'c','0','varchar','Personales',23);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (3,'d','0','varchar','Personales',24);
 
 
---ARTICULO LIBRO
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Apellido(s)','0','varchar','otros',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Nombre(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'et al.','0','boolean','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Título','1','varchar','edicion',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Editorial','1','varchar','edicion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Ciudad','1','varchar','edicion',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Año','1','varchar','edicion',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Páginas de la','1','varchar','edicion',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'a la','1','varchar','edicion',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Traducción de','0','varchar','traduccion',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Biblioteca','0','varchar','ubicacion',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Localización','0','varchar','ubicacion',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Apellido(s)','1','varchar','editor',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Nombre(s)','1','varchar','editor',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Apellido(s)','0','varchar','editor',17);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Nombre(s)','0','varchar','editor',18);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'et al.','0','boolean','editor',19);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Título del libro','1','varchar','libro',20);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'Notas','0','text','notas',21);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'A','0','varchar','personales',22);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'B','0','varchar','personales',23);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'C','0','varchar','personales',24);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (4,'D','0','varchar','personales',25);
+-- ARTICULO LIBRO
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'apellido_otro','0','varchar','Otros',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'nombre_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'et_al','0','boolean','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'titulo','1','varchar','Edición',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'editorial','1','varchar','Edición',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'ciudad','1','varchar','Edición',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'ano','1','varchar','Edición',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'pagina_ini','1','varchar','Edición',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'pagina_fin','1','varchar','Edición',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'traduccion','0','varchar','Traducción',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'biblioteca','0','varchar','Ubicación',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'localizacion','0','varchar','Ubicación',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'apellido_editor','1','varchar','Editor',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'nombre_editor','1','varchar','Editor',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'apellido_editor_otro','0','varchar','Editor',17);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'nombre_editor_otro','0','varchar','Editor',18);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'et_al_editor','0','boolean','Editor',19);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'titulo_libro','1','varchar','Libro',20);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'notas','0','text','Notas',21);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'a','0','varchar','Personales',22);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'b','0','varchar','Personales',23);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'c','0','varchar','Personales',24);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (4,'d','0','varchar','Personales',25);
 
 -- PERIODICO
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Apellido(s)','0','varchar','otros',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Nombre(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'et al.','0','boolean','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Título','1','varchar','edicion',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Ciudad','1','varchar','edicion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Año','1','varchar','edicion',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Traducción de','0','varchar','traduccion',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Biblioteca','0','varchar','ubicacion',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Localización','0','varchar','ubicacion',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Páginas de la','1','varchar','periodico',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'a la','1','varchar','periodico',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Tomo','1','varchar','periodico',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Núm.','1','varchar','periodico',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Mes','1','varchar','periodico',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Periódico','1','varchar','periodico',17);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Sección','1','varchar','periodico',18);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Día','1','varchar','periodico',19);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'Notas','0','text','notas',20);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'A','0','varchar','personales',21);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'B','0','varchar','personales',22);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'C','0','varchar','personales',23);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (5,'D','0','varchar','personales',24);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'apellido_otro','0','varchar','Otros',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'nombre_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'et_al','0','boolean','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'titulo','1','varchar','Edición',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'ciudad','1','varchar','Edición',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'ano','1','varchar','Edición',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'traduccion','0','varchar','Traducción',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'biblioteca','0','varchar','Ubicación',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'localizacion','0','varchar','Ubicación',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'pagina_ini','1','varchar','Periódico',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'pagina_fin','1','varchar','Periódico',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'tomo','1','varchar','Periódico',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'numero','1','varchar','Periódico',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'mes','1','varchar','Periódico',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'periodico','1','varchar','Periódico',17);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'seccion, ORDEN','1','varchar','Periódico',18);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'dia','1','varchar','Periódico',19);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'notas','0','text','Notas',20);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'a','0','varchar','Personales',21);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'b','0','varchar','Personales',22);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'c','0','varchar','Personales',23);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (5,'d','0','varchar','Personales',24);
 
 
---ARTICULO INTERNET
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Apellido(s)','0','varchar','otros',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Nombre(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'et al.','0','boolean','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Título','1','varchar','edicion',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Traducción de','0','varchar','traduccion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Tomo','0','varchar','tomo',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Número','0','varchar','tomo',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Dirección WWW','1','varchar','articulo',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Portal','1','varchar','articulo',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Fecha de acceso','1','date','articulo',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Fecha de publicación','0','date','fecha',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'Notas','0','text','notas',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'A','0','varchar','personales',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'B','0','varchar','personales',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'C','0','varchar','personales',17);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (6,'D','0','varchar','personales',18);
+-- ARTICULO INTERNET
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'apellido_otro','0','varchar','Otros',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'nombre_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'et_al','0','boolean','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'titulo','1','varchar','Edición',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'traduccion','0','varchar','Traducción',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'tomo','0','varchar','Tomo',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'numero','0','varchar','Tomo',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'url','1','varchar','Artículo',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'portal','1','varchar','Artículo',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'fecha_acceso','1','date','Artículo',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'fecha_publicacion','0','date','Fecha Publicación',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'notas','0','text','Notas',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'a','0','varchar','Personales',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'b','0','varchar','Personales',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'c','0','varchar','Personales',17);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (6,'d','0','varchar','Personales',18);
 
 
---LIBRO EN INTERNET
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Apellido(s)','1','varchar','autor',1);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Nombre(s)','1','varchar','autor',2);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Apellido(s)','0','varchar','otros',3);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Nombre(s)','0','varchar','otros',4);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'et al.','0','boolean','otros',5);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Título','1','varchar','edicion',6);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Edición de','0','varchar','edicion',7);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Traducción de','0','varchar','edicion',8);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Prólogo de','0','varchar','edicion',9);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Edición','0','varchar','numedicion',10);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Otros datos','0','varchar','numedicion',11);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Editorial','0','varchar','editorial',12);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Ciudad','0','varchar','editorial',13);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Año','0','varchar','editorial',14);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Colección','0','varchar','coleccion',15);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Págs.','0','varchar','paginas',16);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Fecha de acceso','1','date','internet',17);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Dirección WWW','1','varchar','internet',18);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Editor u otro','0','varchar','editor',19);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'Notas','0','text','notas',20);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'A','0','varchar','personales',21);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'B','0','varchar','personales',22);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'C','0','varchar','personales',23);
-INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION) VALUES (7,'D','0','varchar','personales',24);
+-- LIBRO EN INTERNET
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'apellido','1','varchar','Autor',1);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'nombre','1','varchar','Autor',2);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'apellido_otro','0','varchar','Otros',3);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'nombre_otro','0','varchar','Otros',4);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'et_al','0','boolean','Otros',5);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'titulo','1','varchar','Edición',6);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'edicion_de','0','varchar','Edición',7);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'traduccion','0','varchar','Edición',8);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'prologo','0','varchar','Edición',9);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'edicion','0','varchar','Edición',10);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'otros_datos','0','varchar','Edición',11);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'editorial','0','varchar','Editorial',12);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'ciudad','0','varchar','Editorial',13);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'ano','0','varchar','Editorial',14);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'coleccion','0','varchar','Colección',15);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'paginas','0','varchar','Páginas',16);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'fecha_acceso','1','date','Internet',17);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'url','1','varchar','Internet',18);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'editor','0','varchar','Editor',19);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'notas','0','text','Notas',20);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'a','0','varchar','Personales',21);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'b','0','varchar','Personales',22);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'c','0','varchar','Personales',23);
+INSERT INTO biblicon.campotipoficha (ID_TIPO_FICHA,NOMBRE_CAMPO,REQUERIDO,TIPO_ENTRADA,SECCION, ORDEN) VALUES (7,'d','0','varchar','Personales',24);
 
 
 
