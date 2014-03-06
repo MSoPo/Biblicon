@@ -17,6 +17,7 @@
 	<nav>
 		<ul>
 			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="fichasCompartidas.htm">Fichas Compartidas</a></li>
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
@@ -94,7 +95,7 @@
 				contenido_ficha.paginas = $("#paginas").val();
 				contenido_ficha.notas = $("#notas").val();
 				
-				$.post('editarContenidoFicha.htm',{ 'contenidoFicha' : JSON.stringify(contenido_ficha)}, function(respuesta){
+				$.post('editarFichaContenido.htm',{ 'contenidoFicha' : JSON.stringify(contenido_ficha)}, function(respuesta){
 					var resp = JSON.parse(respuesta);
 					if(resp.respuesta == "1"){
 						$('#error').html('Se modifico la ficha de contenido').addClass('correcto').removeClass('error');

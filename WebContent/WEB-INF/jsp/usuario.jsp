@@ -247,6 +247,8 @@
 						     $($('#'+ usuario.id_usuario + ' td')[4]).addClass("center");
 						     $($('#'+ usuario.id_usuario + ' td')[5]).addClass("center");
 						     
+						     usuarios.push(usuario);
+						     
 						   }else{
 						   		$('#error').html(resp.error).addClass('error').removeClass('correcto');
 						   }
@@ -263,7 +265,7 @@
 							$('#error').html('Falto ingresar algun campo requerido').addClass('error').removeClass('correcto');
 							requerido =  true;
 							return;
-						}	
+						}						
 					});
 					
 					if(requerido) return false;
@@ -278,11 +280,13 @@
 						
 					};
 					
-					$.post("editarUsuario.htm", { 'usuario' : JSON.stringify(usuario) }, function(respuesta){
+					$.post("actualizarUsuario.htm", { 'usuario' : JSON.stringify(usuario) }, function(respuesta){
 					
 						var resp = JSON.parse(respuesta);
 						
-						if(resp.respuesta == "1"){
+						if(resp.respuesta == "1"){														
+							
+							
 							$('#bloqueo').fadeOut();
 							var orden = "";
 							$('#' + usuario.id_usuario + " td").each(function(i,e){
@@ -294,6 +298,18 @@
 							
 							cadena += filaUsuario(usuario, orden);
 							$('#' + usuario.id_usuario).html(cadena);
+							
+							for(var i = 0; i < usuarios.length; i++){
+								if(usuarios[i].id_usuario == $.trim(usuario.id_usuario)){
+									usuarios[i].correo = usuario.correo;
+									usuarios[i].contrasena = usuario.contrasena;
+									usuarios[i].nombre = usuario.nombre;
+									usuarios[i].apellido_paterno = usuario.apellido_paterno;
+									usuarios[i].apellido_materno = usuario.apellido_materno;
+									break;
+								}
+							}
+							
 						}else{
 							$('#error').html(resp.error).addClass('error').removeClass('correcto');
 						}

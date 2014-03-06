@@ -1,15 +1,16 @@
 .agregrarFicha{width:80%;text-align:left;}
-.agregrarFicha input,.agregrarFicha textarea{width:70%;margin-left:2em}
+.agregrarFicha input,.agregrarFicha textarea,.agregrarFicha select{width:70%;margin-left:2em}
 .agregrarFicha div div{display:inline-block;width:20%}
 .btnGuardar{margin-top:0 !important;margin-right:2px !important;float:right}
 .lineaCampo{display:block !important;width:100%;margin:.5em;}
 .lineaCampo .valorCampo{font-size:90%}
-.lineaCampo .datepicker,.lineaCampo .numero{width:20%;min-width:100px}
+.lineaCampo .datepicker,.lineaCampo .numero,.lineaCampo select{width:20%;min-width:100px}
 .lineaCampo div{display:inline-block}
 #ui-datepicker-div{font-size:62.5%}
 .requerido{box-shadow:0 0 4px #ff7f27}
-.seccion{width:100%; text-align:center;font-size:1.2em;font-style:italic; font-weight:bold}
-.usuario {width:100%; font-size:0.9em}
+.seccion{width:100%;text-align:center;font-size:1.2em;font-style:italic;font-weight:bold}
+.usuario{width:100%;font-size:.9em;}
 .usuario .nomCampo{display:inline-block;width:30%}
 .usuario input{width:55%;margin-left:2em}
-.botonUsuario {width: 100%; text-align: center;}
+.botonUsuario{width:100%;text-align:center}
+ 

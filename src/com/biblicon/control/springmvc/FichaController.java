@@ -87,13 +87,45 @@ public class FichaController {
 	{
 		
 		Ficha ficha = fichaDAO.consultaFicha(new Integer(request.getParameter("idFicha")));
+		System.out.println(request.getParameter("idFicha"));
 		Gson gson = new Gson();
 		ArrayList<CampoTipoFicha> lstCampos = fichaDAO.llenarCampos(ficha);
+		ArrayList<TipoFicha> tipos = new ArrayList<TipoFicha>();
+		tipos.add(ficha.getTipo_ficha());
 		String campos = gson.toJson(lstCampos);
-		request.setAttribute("tipos", tipos);
+		request.setAttribute("tipos", gson.toJson(tipos));
 		request.setAttribute("campos", campos);
+		request.setAttribute("idFicha", request.getParameter("idFicha"));
 		return "actualizarficha";
 	}
+	
+	@RequestMapping(value={"/editarFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
+	public String editarFicha(HttpServletRequest request)
+	{	
+		Ficha ficha = null;
+		String respuesta = "";
+		try{
+			Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+			Gson json= new Gson();			
+			HashMap<String,String> camposMap = (HashMap<String,String>)json.fromJson(request.getParameter("campos"),HashMap.class);			
+			camposMap.put(Constantes.usuario, usuario.getId_usuario());
+			
+			ficha = fichaDAO.llenarFicha(camposMap);			
+			ficha.setId_ficha(new Integer(request.getParameter("idFicha")));
+			
+			if(fichaDAO.editar(ficha)){
+				respuesta = "{ \"respuesta\" : \"1\" }";
+			}else {
+				respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al borrar\"}";
+			}
+		}catch(Exception e){
+			respuesta = "{ \"respuesta\" : \"0\" , \"error\" : \"Error al borrar catch\"}";
+		}
+		
+		return respuesta;
+		
+	}	
 	
 	@RequestMapping(value={"/eliminarFicha.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
 	@ResponseBody
