@@ -52,60 +52,83 @@
 				<button>.</button>
 				<button>;</button>
 				<div id="general">
-					<span>General</span><hr/>
+					<span>Autor</span><hr/>
+					<button id="<%=Constantes.titulo  %>"> </button>
 					<button id="<%=Constantes.apellido  %>"> </button>
 					<button id="<%=Constantes.nombre  %>"> </button>
-					<button id="<%=Constantes.editorial %>"> </button>
+					<button id="<%=Constantes.categoria %>"> </button>
+				</div>
+				<div id="otro">
+					<span>Otro</span><hr/>
+					<button id="<%=Constantes.apellido_otro %>"> </button>
+					<button id="<%=Constantes.nombre_otro %>"> </button>
+					<button id="<%=Constantes.et_al %>"> </button>
+				</div>
+				<div id="edicion">
+					<span>Edición</span><hr/>
+					<button id="<%=Constantes.tipo  %>"> </button>
+					<button id="<%=Constantes.edicion_de  %>"> </button>
+					<button id="<%=Constantes.traduccion  %>"> </button>
+					<button id="<%=Constantes.prologo %>"> </button>					
+					<button id="<%=Constantes.editorial %>"> </button>					
 					<button id="<%=Constantes.ciudad  %>"> </button>
 					<button id="<%=Constantes.ano %>"> </button>
-					<button id="<%=Constantes.titulo  %>"> </button>
-					<button id="<%=Constantes.institucion %>"> </button>
+					<button id="<%=Constantes.edicion %>"> </button>
+					<button id="<%=Constantes.otros_datos %>"> </button>				
 					<button id="<%=Constantes.paginas %>"> </button>
 					<button id="<%=Constantes.revista %>"> </button>
-					<button id="<%=Constantes.tomo  %>"> </button>
+					<button id="<%=Constantes.tomo  %>"> </button>					
 					<button id="<%=Constantes.numero  %>"> </button>
 					<button id="<%=Constantes.pagina_ini  %>"> </button>
-					<button id="<%=Constantes.pagina_fin  %>"> </button>
+					<button id="<%=Constantes.pagina_fin  %>"> </button>					
 					<button id="<%=Constantes.titulo_libro  %>"> </button>
 					<button id="<%=Constantes.periodico %>"> </button>
 					<button id="<%=Constantes.seccion %>"> </button>
 					<button id="<%=Constantes.dia %>"> </button>
 					<button id="<%=Constantes.mes %>"> </button>
+					<button id="<%=Constantes.semana  %>"> </button>
 				</div>
+				
+				<div id="ubicacion">
+					<span>Ubicación</span><hr/>					
+					<button id="<%=Constantes.institucion %>"> </button>
+					<button id="<%=Constantes.coleccion %>"> </button>
+					<button id="<%=Constantes.biblioteca  %>"> </button>
+					<button id="<%=Constantes.localizacion  %>"> </button>
+				</div>
+				
+				<div id="editor">
+					<span>Editor</span><hr/>
+					<button id="<%=Constantes.apellido_editor %>"> </button>
+					<button id="<%=Constantes.nombre_editor %>"> </button>
+					<button id="<%=Constantes.editor %>"> </button>
+				</div>
+					
+				<div id="editor_otro">
+					<span>Editor Otro</span><hr/>
+					<button id="<%=Constantes.apellido_editor_otro  %>"> </button>
+					<button id="<%=Constantes.nombre_editor_otro  %>"> </button>
+					<button id="<%=Constantes.et_al_editor  %>"> </button>
+				</div>	
+				<div id="internet">
+					<span>Internet</span><hr/>
+					<button id="<%=Constantes.url %>"> </button>
+					<button id="<%=Constantes.portal  %>"> </button>
+					<button id="<%=Constantes.fecha_acceso  %>"> </button>
+					<button id="<%=Constantes.fecha_publicacion %>"> </button>
+				</div>
+				
+				<div id="notas">
+					<span>Notas</span><hr/>
+					<button id="<%=Constantes.notas %>"> </button>
+				</div>
+				
 				<div id="personales">
 					<span>Personales</span><hr/>
 					<button id="<%=Constantes.a %>"> </button>
 					<button id="<%=Constantes.b %>"> </button>
 					<button id="<%=Constantes.c %>"> </button>
 					<button id="<%=Constantes.d %>"> </button>
-				</div>
-				<div id="otros">
-					<span>Otros</span><hr/>
-					<button id="<%=Constantes.apellido_otro %>"> </button>
-					<button id="<%=Constantes.nombre_otro %>"> </button>
-					<button id="<%=Constantes.edicion_de  %>"> </button>
-					<button id="<%=Constantes.traduccion  %>"> </button>
-					<button id="<%=Constantes.prologo %>"> </button>
-					<button id="<%=Constantes.et_al %>"> </button>
-					<button id="<%=Constantes.edicion %>"> </button>
-					<button id="<%=Constantes.otros_datos %>"> </button>
-					<button id="<%=Constantes.coleccion %>"> </button>
-					<button id="<%=Constantes.biblioteca  %>"> </button>
-					<button id="<%=Constantes.localizacion  %>"> </button>
-					<button id="<%=Constantes.notas %>"> </button>
-					<button id="<%=Constantes.semana  %>"> </button>
-					<button id="<%=Constantes.apellido_editor %>"> </button>
-					<button id="<%=Constantes.nombre_editor %>"> </button>
-					<button id="<%=Constantes.apellido_editor_otro  %>"> </button>
-					<button id="<%=Constantes.nombre_editor_otro  %>"> </button>
-					<button id="<%=Constantes.et_al_editor  %>"> </button>
-					<button id="<%=Constantes.url %>"> </button>
-					<button id="<%=Constantes.portal  %>"> </button>
-					<button id="<%=Constantes.fecha_acceso  %>"> </button>
-					<button id="<%=Constantes.fecha_publicacion %>"> </button>
-					<button id="<%=Constantes.editor %>"> </button>
-					<button id="<%=Constantes.categoria %>"> </button>
-					<button id="<%=Constantes.tipo  %>"> </button>
 				</div>
 			</div>
 			<div class="panel" id="cplantilla" >

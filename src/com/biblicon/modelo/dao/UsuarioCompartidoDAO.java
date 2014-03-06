@@ -89,7 +89,7 @@ public class UsuarioCompartidoDAO {
 		
 		String sql = "select a.id_ficha, b.id_usuario, b.nombre, b.apellido_paterno, b.apellido_materno " +
 				"from biblicon.usuariocompartido a, biblicon.usuario b " +
-				"where id_ficha = ? and a.id_usuario=b.id_usuario ";
+				"where id_ficha = ? and a.id_usuario=b.id_usuario order by id_usuario ";
 		
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;		

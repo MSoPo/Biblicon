@@ -85,7 +85,7 @@ public class TipoFichaDAO {
 	
 	public ArrayList<TipoFicha> consultarPorUsuario(String id_usuario){
 		ArrayList<TipoFicha> lista = new ArrayList<TipoFicha>();
-		String sql = "select * from tipoficha where id_usuario in ( ? , '" + Constantes.USUARIODEFAULT + "')";
+		String sql = "select * from tipoficha where id_usuario in ( ? , '" + Constantes.USUARIODEFAULT + "') order by nombre_tipo";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
@@ -118,7 +118,7 @@ public class TipoFichaDAO {
 	
 	public ArrayList<TipoFicha> consultarPorUsuarioLogeado(String id_usuario){
 		ArrayList<TipoFicha> lista = new ArrayList<TipoFicha>();
-		String sql = "select * from tipoficha where id_usuario in ( ?)";
+		String sql = "select * from tipoficha where id_usuario in (?) order by nombre_tipo";
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
 		ResultSet rs = null;
@@ -148,6 +148,64 @@ public class TipoFichaDAO {
 		
 		return lista;
 		
+	}
+	
+	
+	public TipoFicha consultarPorId(int id_tipo_ficha){
+		TipoFicha tipoFicha = null;
+		String sql = "select * from tipoficha where id_tipo_ficha = ? ";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, id_tipo_ficha);
+			rs = consulta.executeQuery();
+						
+			if(rs.next())
+			{
+				tipoFicha = new TipoFicha();
+				tipoFicha.setId_tipo_ficha(rs.getInt("id_tipo_ficha"));
+				tipoFicha.setNombre_tipo(rs.getString("nombre_tipo"));
+								
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return tipoFicha;
+	}
+	
+	public boolean existeTipoFichaUsuario(int id_tipo_ficha, String id_usuario){
+		boolean existe = false;
+		String sql = "select * from tipoficha where id_tipo_ficha = ? and id_usuario = ? ";
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, id_tipo_ficha);
+			consulta.setString(2, id_usuario);
+			rs = consulta.executeQuery();
+						
+			if(rs.next())
+			{
+				existe = true;
+								
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Conexion.cerrarResultSet(rs);
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		
+		return existe;
 	}
 
 }

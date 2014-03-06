@@ -48,10 +48,23 @@
 			</div>
 			<div class="cdisponible" id="cdisponible">
 				<h3>Arrastra los campos que deseas agregar</h3>
+				
+				
+				<hr/><span>Otro</span><hr/>				
+				<div class="campo" draggable="true" id="<%=Constantes.apellido_otro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.nombre_otro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.et_al %>" > </div>
+								
+				<hr/><span>Edición</span><hr/>	
+				<div class="campo" draggable="true" id="<%=Constantes.tipo %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.edicion_de %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.traduccion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.prologo %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.editorial %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.ciudad %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.ano %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.institucion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.ano %>" > </div>				
+				<div class="campo" draggable="true" id="<%=Constantes.edicion %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.otros_datos %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.paginas %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.revista %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.tomo %>" > </div>
@@ -63,40 +76,39 @@
 				<div class="campo" draggable="true" id="<%=Constantes.seccion %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.dia %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.mes %>" > </div>
-				
-				<hr/><span>Autor</span><hr/>
-				<div class="campo" draggable="true" id="<%=Constantes.a %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.b %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.c %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.d %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.apellido_otro %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.nombre_otro %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.edicion_de %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.traduccion %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.prologo %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.et_al %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.edicion %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.otros_datos %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.semana %>" > </div>
 			
-				<hr/><span>Otros</span><hr/>
+				<hr/><span>Ubicación</span><hr/>
 				<div class="campo" draggable="true" id="<%=Constantes.coleccion %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.biblioteca %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.localizacion %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.notas %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.semana %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.institucion %>" > </div>
+				
+				<hr/><span>Editor</span><hr/>
 				<div class="campo" draggable="true" id="<%=Constantes.apellido_editor %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.nombre_editor %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.apellido_editor_otro %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.editor %>" > </div>
 				
-				<hr/><span>Personales</span><hr/>
+				<hr/><span>Editor Otro</span><hr/>				
+				<div class="campo" draggable="true" id="<%=Constantes.apellido_editor_otro %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.nombre_editor_otro %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.et_al_editor %>" > </div>
+				
+				<hr/><span>Internet</span><hr/>				
 				<div class="campo" draggable="true" id="<%=Constantes.url %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.portal %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.fecha_acceso %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.fecha_publicacion %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.editor %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.tipo %>" > </div>						
+										
+				<hr/><span>Notas</span><hr/>
+				<div class="campo" draggable="true" id="<%=Constantes.notas %>" > </div>
+				
+				<hr/><span>Personales</span><hr/>
+				<div class="campo" draggable="true" id="<%=Constantes.a %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.b %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.c %>" > </div>
+				<div class="campo" draggable="true" id="<%=Constantes.d %>" > </div>
+												
 						
 			</div>
 			<div class="cseleccionado" id="cseleccionado" draggable="true">

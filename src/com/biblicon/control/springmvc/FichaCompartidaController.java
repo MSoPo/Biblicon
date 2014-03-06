@@ -85,6 +85,13 @@ public class FichaCompartidaController {
 				
 			ficha = fichaDAO.consultaFicha(Integer.parseInt(idficha));
 			ficha.setUsuario(usuario);
+			
+			if(!tipofichaDAO.existeTipoFichaUsuario(ficha.getTipo_ficha().getId_tipo_ficha(),usuario.getId_usuario())){
+				
+				ficha.getTipo_ficha().setUsuario(usuario);				
+				tipofichaDAO.insertar(ficha.getTipo_ficha());
+			}
+				
 			int nuevaFicha = fichaDAO.insertar(ficha);
 				
 			ArrayList<ContenidoFicha> fichasContenido = contenidoFichaAO.consultarContenidoFicha(new Integer(idficha));
