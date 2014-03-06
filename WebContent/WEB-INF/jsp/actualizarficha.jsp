@@ -19,6 +19,7 @@
 	<nav>
 		<ul>
 			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="fichasCompartidas.htm">Fichas Compartidas</a></li>
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
@@ -67,12 +68,11 @@
 					var c = $(elemento);
 					var nomCampo = "";
 					c.children().each(function(i, e){
-						if(i == 0)
-							nomCampo = $($(e).children()[0]).html();
-						else if(i == 1){
+						if(i == 1){
+							nomCampo = $($(e).children()[0])[0].id;
 							var valor = "";
 							if($($(e).children()[0]).val() == "chk"){
-								valor = $($(e).children()[0]).is(':checked');
+								valor = $($(e).children()[0]).is(':checked') ? "1" : "0";
 							}else{
 								valor = $($(e).children()[0]).val();
 							}
@@ -84,7 +84,7 @@
 				
 				guardarcampos['tipo_ficha'] = $('#tipos').val();
 				
-				$.post('editarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos)}, function(respuesta){
+				$.post('editarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos), 'idFicha' : <%= request.getAttribute("idFicha") %>}, function(respuesta){
 					var resp = JSON.parse(respuesta);
 					if(resp.respuesta == '1'){
 						$('#error').html('Se modifico la ficha').addClass('correcto').removeClass('error');
@@ -146,6 +146,12 @@
 					tipoInput = '<input '+valor+' type="text" '+ idCampo +' class="datepicker  ' + requerido + '" />';
 				else if(campo.tipo_entrada == "int")
 					tipoInput = '<input '+valor+' type="number" class="numero  ' + requerido + '" '+ idCampo +' />';
+				else if(campo.tipo_entrada == "comboTipo")
+					tipoInput = '<select class=" ' + requerido + '" '+ idCampo +' ><option value="1" ' + (campo.valor == 1 ? 'selected' : '') + ' >(ed.)'+
+					'</option><option value="2" ' + (campo.valor == 2 ? 'selected' : '') + ' >(coord.)</option>'+
+					'<option value="3" ' + (campo.valor == 3 ? 'selected' : '') + ' >(comp.)</option>'+
+					'<option value="4" ' + (campo.valor == 4 ? 'selected' : '') + ' >(dir.)</option></select>';
+
 
 				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + biblicon.ficha.constantes[campo.nombre_campo] + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
 				output2 += template;

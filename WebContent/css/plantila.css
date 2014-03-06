@@ -4,10 +4,10 @@
 .panel #textplatilla{width:100%;border:1px solid;padding-left:1em;clear:both;min-height:350px;height:100%;padding-bottom:1em;overflow-x:scroll;}
 .panel #textplatilla div{border:1px solid;background-color:#eee;display:inline-block;padding:.3em;text-align:center !important;margin:auto auto;margin-right:1em;margin-top:1em;cursor:pointer}
 .panel #textplatilla .campoMarcado{background-color:#aaa}
+#ejmplantilla{border:1px solid;border-radius:3px;box-shadow:4px 4px 2px #aaa}
+#ejmplantilla div{display:inline-block}
 .negritas{font-weight:bold}
 .italica{font-style:italic}
 .subrayado{text-decoration:underline !important}
 .comillas:before{content:open-quote}
 .comillas:after{content:close-quote}
-#ejmplantilla {border: 1px solid; border-radius: 3px; box-shadow: 4px 4px 2px #aaa}
-#ejmplantilla div{display:inline-block; }

@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 //import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biblicon.modelo.bean.Ficha;
 import com.biblicon.modelo.bean.TipoFicha;
@@ -64,7 +66,8 @@ public class PrincipalController {
 	 return "principal";
  }
  
-  @RequestMapping("principalBusqueda.htm")
+  	@RequestMapping(value={"/principalBusqueda.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
 	 public String busqueda(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		 
 		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
@@ -74,7 +77,24 @@ public class PrincipalController {
 		 String tipo_ficha = request.getParameter("tipo_ficha");
 		 String busqueda = request.getParameter("busqueda");
 		 
-		 ArrayList<Ficha> listafichas = fichaDAO.consultaFichasUsuario(usuario.getId_usuario());
+		 categoria = categoria.replace("[", " ");
+		 categoria = categoria.replace("]", " ");
+		 categoria = categoria.replace("\"", "'");
+		 
+		 tipo_ficha = tipo_ficha.replace("[", " ");
+		 tipo_ficha = tipo_ficha.replace("]", " ");
+		 tipo_ficha = tipo_ficha.replace("\"", "'");
+		 
+		 ArrayList<Ficha> listafichas = fichaDAO.consultarFichasUsuarioCategoriaTipoFicha(usuario.getId_usuario(), categoria, tipo_ficha, busqueda);
+		 
+		 for (Ficha ficha : listafichas) {
+			 
+			 ficha.setCantidadCompartida(usuarioCompartidoDAO.cantidadFichaCompartida(ficha.getId_ficha()));
+			 ficha.setCantidadContenido(contenidoFichaAO.cantidadContenidoFicha(ficha.getId_ficha()));
+			 ficha.setCampos(fichaDAO.llenarCampos(ficha));
+			 
+		}
+		 
 		 String fichas = gson.toJson(listafichas);
 		 
 		 String respuesta = "{ \"respuesta\" : \"1\", \"fichas\" : " + fichas + "}";

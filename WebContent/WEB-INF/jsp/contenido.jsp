@@ -26,6 +26,7 @@
 	<nav>
 		<ul>
 			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="fichasCompartidas.htm">Fichas Compartidas</a></li>
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
@@ -35,25 +36,25 @@
 		<div class="contenido">
 			<div class="filtros">
 				<div class="filtro">
-					<button id="agregar">Agregar Nueva</button>
-					<button id="regresarPrincipal">Regresar</button>
+					<input type="submit" id="agregar" value="Agregar Nueva" />
+					<input type="submit" id="regresarPrincipal" value="Regresar" />
 				</div>
 				<hr/>
 				<div class="filtro">
-				Buscar:<input>
+				Buscar:<input id="txtBuscar">
 				
 				</div>
 				
-				<div class="filtro">
+				<div class="filtro" id="tipos">
 				<hr/>
 				<strong>Selecciona el tipo</strong>
-					<div><input type="checkbox" value="cita" id="tipo_cita"/><label for = "cita"> Cita</label></div>
-					<div><input type="checkbox" value="resumen" id="tipo_resumen"/><label for = "resumen"> Resumén</label></div>
-					<div><input type="checkbox" value="comentario " id="tipo_comentario"/><label for = "comentario"> Comentario </label></div>
-					<div><input type="checkbox" value="descripcion" id="tipo_descripcion"/><label for = "descripcion"> Descripción</label></div>
+					<div><input type="checkbox" value="1" id="tipo_cita"/><label for = "cita"> Cita</label></div>
+					<div><input type="checkbox" value="2" id="tipo_resumen"/><label for = "resumen"> Resumén</label></div>
+					<div><input type="checkbox" value="3 " id="tipo_comentario"/><label for = "comentario"> Comentario </label></div>
+					<div><input type="checkbox" value="4" id="tipo_descripcion"/><label for = "descripcion"> Descripción</label></div>
 				</div>	
 				
-				<button>Buscar</button>							
+				<input type="submit" value="Buscar" id="btnBuscar" />							
 			</div>
 			<div class="contenidos" id="contenidos">
 				
@@ -66,9 +67,11 @@
 	
 	<script type="text/javascript">
 	
+		var entrada = <%= request.getAttribute("entrada") %> 
+	
 		function editarFichaContenido(id_contenido) {
 			
-			$().redirect('editarFichaContenido.htm', {'id_contenido': id_contenido});
+			$().redirect('cargarFichaContenido.htm', {'id_contenido': id_contenido});
 		}
 		
 		function nuevoContenidoFicha(idficha) {
@@ -80,18 +83,8 @@
 		$(function() {			
 			var contenidos = JSON.parse('<%= request.getAttribute("contenidos") %>');
 			var ficha = '<%= request.getAttribute("id_ficha") %>';
+			cargarFichasArticle(contenidos);
 			
-			var outputContenido = "";
-			for(var i = 0; i < contenidos.length; i++){
-				var contenido = contenidos[i];
-				var campos = contenido.campos;
-				var template = '<article>';
-				for(var j in campos){
-					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
-				}
-				template += '<div class="acciones"><input type="hidden" class="contenidoFicha" value='+contenido.id_contenido+' /><a href="javascript:editarFichaContenido('+contenido.id_contenido+')">Editar</a><a href="#" class="borrarficha">Borrar</a></div></article>';
-				outputContenido += template;
-			}
 			
 			$('#agregar').on('click', function(){
 				nuevoContenidoFicha(ficha);
@@ -136,10 +129,45 @@
 				$('#bloqueo').fadeOut();
 			});
 			
-			
-			$("#contenidos").html(outputContenido);
+			$('#btnBuscar').on('click', function(){
+				var buscar = $('#txtBuscar').val();
+				var lsttipos = [];
+				$("#tipos input[type=checkbox]:checked").each(function(i,e){
+					lsttipos.push($(e).val());
+				});
+				
+				if(lsttipos.length == 0) lsttipos = "";
+				
+				$.post('contenidoBusqueda.htm', {tipo_contenido : (lsttipos == "" ? lsttipos : JSON.stringify(lsttipos)), busqueda : buscar, idFicha : ficha}, function(respuesta){
+					var resp = JSON.parse(respuesta);
+					if(resp.respuesta == "1"){
+						cargarFichasArticle(resp.contenidos);
+					}else{
+					
+					} 
+				});
+				
+			});
 
 		});
+		
+		function cargarFichasArticle(contenidos){
+			var outputContenido = "";
+			for(var i = 0; i < contenidos.length; i++){
+				var contenido = contenidos[i];
+				var campos = contenido.campos;
+				var template = '<article>';
+				for(var j in campos){
+					template += '<p>' + j + ': <span>'+ campos[j] +'</span></p>';
+				}
+				if(entrada != "1")
+					template += '<div class="acciones"><input type="hidden" class="contenidoFicha" value='+contenido.id_contenido+' /><a href="javascript:editarFichaContenido('+contenido.id_contenido+')">Editar</a><a href="#" class="borrarficha">Borrar</a></div>';
+				template += '</article>';
+				outputContenido += template;
+			}
+			
+			$("#contenidos").html(outputContenido);
+		}
 	</script>
 </body>
 </html>

@@ -44,25 +44,31 @@ public class ContenidoController {
 		 String contenidos = gson.toJson(listaContenidos);	 
 		 request.setAttribute("contenidos", contenidos);
 		 request.setAttribute("id_ficha", id_ficha);
+		 request.setAttribute("entrada", request.getParameter("entrada"));
 		 	 
 		 System.out.println("Saliendo de principal Contenido");
 		 
 		 return "contenido";
 	 }
  	 
-	 @RequestMapping("contenidoBusqueda.htm")
+ 	@RequestMapping(value={"/contenidoBusqueda.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	@ResponseBody
 	 public String busqueda(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		 
-		 //Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		 Gson gson = new Gson();
 		
 		 Ficha ficha = null;
 		 
 		 String referencia = "";
 		 String busqueda = request.getParameter("busqueda");
-		 String tipo = request.getParameter("tipo");
+		 String tipo = request.getParameter("tipo_contenido");
+		 Integer idFicha = new Integer(request.getParameter("idFicha"));
 		 
-		 ArrayList<ContenidoFicha> listaContenidos = contenidoFichaDAO.consultarContenidoTipoBusqueda(busqueda, tipo);
+		 tipo = tipo.replace("[", " ");
+		 tipo = tipo.replace("]", " ");
+		 tipo = tipo.replace("\"", "'");
+		 
+		 ArrayList<ContenidoFicha> listaContenidos = contenidoFichaDAO.consultarContenidoTipoBusqueda(busqueda, tipo, idFicha);
 		 for (ContenidoFicha contenido : listaContenidos) {
 			 ficha = fichaDAO.consultaFicha(contenido.getFicha().getId_ficha());
 			 referencia = ficha.getApellido() + ", " + ficha.getAno();
@@ -70,11 +76,9 @@ public class ContenidoController {
 			 
 		 }
 		 String contenidos = gson.toJson(listaContenidos);	 
-		 request.setAttribute("contenidos", contenidos);
-		 	 
-		 
-		 
-		 return "contenido";
+		 	 		 
+		 String respuesta = "{ \"respuesta\" : \"1\", \"contenidos\" : " + contenidos + "}";
+		 return respuesta;
 	 }
 	 
 	@RequestMapping(value={"/editarFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
@@ -154,5 +158,27 @@ public class ContenidoController {
 		return respuesta;
 			
 	}
+	
+	@RequestMapping(value={"/cargarFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	public String cargarFichaContenido(HttpServletRequest request)
+	 		{
+	 		 String id_contenido = request.getParameter("id_contenido");
+	 		 //Consulta x id_cotenido
+	 		 ContenidoFicha contenido = contenidoFichaDAO.consultarContenidoFichaXId(new Integer(id_contenido));
+	 		 Gson gson = new Gson();
+	 		 request.setAttribute("ficha_contenido", gson.toJson(contenido));
+	 		 
+			 return "actualizarfichaContenido";
+	 		}
+	 	 
+	 	 
+	@RequestMapping(value={"/nuevaFichaContenido.htm"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	public String nuevaFichaContenido(HttpServletRequest request)
+	{
+	 	 String id_ficha = request.getParameter("idFicha");
+	 	 request.setAttribute("id_ficha", id_ficha);
+	 	 return "fichaContenido";
+	 }
+	
  
 }

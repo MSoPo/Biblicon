@@ -19,6 +19,7 @@
 	<nav>
 		<ul>
 			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="fichasCompartidas.htm">Fichas Compartidas</a></li>
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
@@ -81,7 +82,7 @@
 					
 				});
 				
-				guardarcampos['tipo'] = $('#tipos').val();
+				guardarcampos['tipo_ficha'] = $('#tipos').val();
 				
 				$.post('agregarFicha.htm',{ 'campos' : JSON.stringify(guardarcampos)}, function(respuesta){
 					var resp = JSON.parse(respuesta);
@@ -168,8 +169,8 @@
 					tipoInput = '<input value="chk" class=" ' + requerido + '" type="checkbox" '+ idCampo +' />';
 				else if(campo.tipo_entrada == "date")
 					tipoInput = '<input type="text" '+ idCampo +' class="datepicker  ' + requerido + '" value="' + fecha + '" />';
-				else if(campo.tipo_entrada == "int")
-					tipoInput = '<input type="number" class="numero  ' + requerido + '" '+ idCampo +' />';
+				else if(campo.tipo_entrada == "comboTipo")
+					tipoInput = '<select class=" ' + requerido + '" '+ idCampo +' ><option value="1">(ed.)</option><option value="2">(coord.)</option><option value="3">(comp.)</option><option value="4">(dir.)</option></select>';
 
 				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + biblicon.ficha.constantes[campo.nombre_campo] + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
 				output2 += template;

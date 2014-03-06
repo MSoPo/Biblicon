@@ -31,6 +31,7 @@
 	<nav>
 		<ul>
 			<li><a href="principal.htm">Fichas</a></li>
+			<li><a href="fichasCompartidas.htm">Fichas Compartidas</a></li>
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
@@ -95,10 +96,7 @@
 				<div class="campo" draggable="true" id="<%=Constantes.fecha_acceso %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.fecha_publicacion %>" > </div>
 				<div class="campo" draggable="true" id="<%=Constantes.editor %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.categoria %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.tipo_ficha %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.tipo %>" > </div>
-				<div class="campo" draggable="true" id="<%=Constantes.usuario %>" > </div>							
+				<div class="campo" draggable="true" id="<%=Constantes.tipo %>" > </div>						
 						
 			</div>
 			<div class="cseleccionado" id="cseleccionado" draggable="true">
@@ -106,6 +104,7 @@
 				<div class="campo forzoso" id="<%=Constantes.titulo %>" > </div>
 				<div class="campo forzoso" id="<%=Constantes.apellido %>" > </div>
 				<div class="campo forzoso" id="<%=Constantes.nombre %>" > </div>
+				<div class="campo forzoso" id="<%=Constantes.categoria %>" > </div>
 			</div>
 		</div>
 	</section>
@@ -117,15 +116,13 @@
 	
 	$(function() {
 	
-	$('.forzoso').on('click', function(){
-		return false;
-	});
-	
 	$('.campo').each(function(i, e){
 		$(e).html(biblicon.ficha.constantes[$(e).attr('id')]);
 	});
 		
 	$('.cseleccionado').on('click', 'div', function() {
+		if($(this).hasClass("forzoso"))
+			return false;
 		$(".cdisponible #" + this.id).css("display", "inline-block");
 		$(this).remove();
 		
@@ -142,7 +139,7 @@
 		$('#error').addClass('error').removeClass('correcto');
 		var camposAgregar = [];
 		$('.cseleccionado div').each(function(indice, elemento){
-			camposAgregar[indice] = $(elemento).html();
+			camposAgregar[indice] = $(elemento).attr("id");
 			
 		});
 		
@@ -163,7 +160,10 @@
 				$('#listaTipo').append('<option value="'+ resp.id +'">' +nombreTipo+ '</option>');
 				$('#nombreficha').val('');
 				$('#cdisponible div').css("display", "inline-block");
-				$('#cseleccionado div').remove();
+				$('#cseleccionado div').each(function(i,e){
+					if(!$(e).hasClass('forzoso'))$(e).remove();
+				});
+				
 				$('#error').removeClass('error').addClass('correcto').html('Se agrego el tipo de ficha <strong>' + nombreTipo + '</strong>');
 			}else{
 				$('#error').html(respuesta);

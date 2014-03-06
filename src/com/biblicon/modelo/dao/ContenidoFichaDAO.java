@@ -158,11 +158,45 @@ public class ContenidoFichaDAO {
 	}
 	
 	
-	public ArrayList<ContenidoFicha> consultarContenidoTipoBusqueda(String busqueda, String tipo){
+	public ContenidoFicha consultarContenidoFichaXId(Integer id_contenido){
+		
+		String sql = "select id_contenido, id_ficha, palabra_clave, tipo_contenido, contenido, paginas, notas " +
+				"from biblicon.contenidoFicha where id_contenido = ?";
+		
+		
+		Connection conexion = Conexion.ObtenerConexion();
+		PreparedStatement consulta = null;
+		ResultSet rs = null;
+		ContenidoFicha contenido = null;
+		
+		try {
+			consulta = conexion.prepareStatement(sql);
+			consulta.setInt(1, id_contenido);  					
+			 rs = consulta.executeQuery();
+			 if(rs.next())
+				 contenido = mapeoRsContenido(rs);
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally{
+			Conexion.cerrarPreparedStatemen(consulta);
+			Conexion.cerrarConexion(conexion);
+		}
+		return contenido; 
+	}
+	
+	
+	public ArrayList<ContenidoFicha> consultarContenidoTipoBusqueda(String busqueda, String tipo, Integer id_ficha){
 		
 		String sql = "select id_contenido, id_ficha, palabra_clave, tipo_contenido, contenido, paginas, notas " +
 				"from biblicon.contenidoFicha " +
-				"where tipo_contenido in ("+tipo+") and UPPER(palabra_clave) like UPPER('%"+busqueda+"%') ";
+				"where UPPER(palabra_clave) like UPPER('%"+busqueda+"%') and id_ficha = ? ";
+		
+		if(tipo != "")
+			sql += "and tipo_contenido in ("+tipo+")";
+		
+		System.out.println(sql);
 				
 		Connection conexion = Conexion.ObtenerConexion();
 		PreparedStatement consulta = null;
@@ -172,7 +206,7 @@ public class ContenidoFichaDAO {
 		try {
 
 			consulta = conexion.prepareStatement(sql);			
-			
+			consulta.setInt(1, id_ficha);
 			rs = consulta.executeQuery();
 			
 			while(rs.next())
@@ -214,7 +248,7 @@ public class ContenidoFichaDAO {
 		
 		LinkedHashMap<String, String> campos = new LinkedHashMap<String, String>();
 		campos.put(Constantes.palabra_clave_cont, contenido.getPalabra_clave());
-		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1?"Cita": contenido.getTipo_contenido()==2?"Resumen":  contenido.getTipo_contenido()==3?"Comentario":  contenido.getTipo_contenido()==4?"Comentario":"ERROR"); // TODO PONER CORRECTO EL TIPO
+		campos.put(Constantes.tipo_cont, contenido.getTipo_contenido()==1?"Cita": contenido.getTipo_contenido()==2?"Resumen":  contenido.getTipo_contenido()==3?"Comentario":  contenido.getTipo_contenido()==4?"Descripci˜n":"ERROR"); // TODO PONER CORRECTO EL TIPO
 		campos.put(Constantes.contenido_cont, contenido.getContenido());
 		campos.put(Constantes.referencia_cont, referencia);
 		campos.put(Constantes.paginas_cont, contenido.getPaginas());
