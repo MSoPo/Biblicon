@@ -73,7 +73,14 @@ public class Constantes {
 	final static public String paginas_cont = "Págs.";
 	final static public String notas_cont = "Notas";
 
-	final static public String formato_fecha = "dd/MM/yyyy"; //TODO definir formato
+	final static public String formato_fecha = "dd/MM/yyyy";
 
-
+	final static public String tipoLibro = "Libro";
+	final static public String tipoTesis = "Tesis";
+	final static public String tipoArticuloRevista = "Artículo Revista";
+	final static public String tipoArticuloLibro = "Artículo Libro";
+	final static public String tipoPeriodico = "Periódico";
+	final static public String tipoArticuloInternet = "Artículo en Internet";
+	final static public String tipoLibroInternet = "Libro en Internet";
+	
 }
