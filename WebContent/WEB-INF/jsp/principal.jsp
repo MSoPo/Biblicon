@@ -7,6 +7,7 @@
    <link rel="stylesheet" href="css/estilos.css">
    <link rel="stylesheet" href="css/tipoficha.css">
    <link rel="stylesheet" href="css/ficha.css">
+   <link rel="stylesheet" href="css/plantila.css">
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/mustache.js"></script>
    <script src="js/jquery.redirect.min.js"></script>
@@ -298,8 +299,8 @@
 				
 				template += '<p><span> <a class="ver_todo" href="javascript:cargarFichaCompleta(&quot' + agregar + '&quot)"> ver todo... </a> </span></p>';
 				template += '<div class="acciones"><a href="#" class="compartirficha">Compartir(<div class="cantidadCompartida" id="cantidadCompartida">'+ ficha.cantidadCompartida+'</div>)</a>';
-				template += (ficha.cantidadContenido ? '<a href="javascript:enviarContenidoFicha('+ficha.id_ficha+' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a>' :
-					'<a id="agregarFichaContenido" href="javascript:nuevoContenidoFicha('+ficha.id_ficha+')">Agregar Fichas de Contenido</a>'); 
+				template += (ficha.cantidadContenido ? '<a class="negritas" href="javascript:enviarContenidoFicha('+ficha.id_ficha+' )">Fichas de Contenido('+ ficha.cantidadContenido+')</a>' :
+					'<a class="negritas" id="agregarFichaContenido" href="javascript:nuevoContenidoFicha('+ficha.id_ficha+')">Agregar Fichas de Contenido</a>'); 
 				template += '<a href="javascript:actualizarFicha('+ficha.id_ficha+')">Editar</a><a href="#" class="borrarficha">Borrar</a>'+
 				'<input type="hidden" value="'+ficha.id_ficha+'"/></div></article>';
 				outputFichas += template;

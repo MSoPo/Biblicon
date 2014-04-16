@@ -133,7 +133,7 @@
 			</div>
 			<div class="panel" id="cplantilla" >
 				<div class="controles">
-					<a href="#" class="negritas" id="negritas">B</a><a href="#" class="italica" id="italica">I</a><a href="#" class="subrayado" id="subrayado">S</a><a href="#" class="comillas" id="comillas"></a><a id="quitar" href="#">X</a>
+					<a href="#" class="negritas" id="negritas">B</a><a href="#" class="italica" id="italica">I</a><a href="#" class="subrayado" id="subrayado">S</a><a href="#" class="comillas" id="comillas"></a><a style="float: right;" id="quitar" href="#">Borrar</a>
 				</div>
 				<div id="textplatilla"></div>
 			</div>

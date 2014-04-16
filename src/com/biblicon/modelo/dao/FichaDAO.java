@@ -207,7 +207,6 @@ public class FichaDAO {
 				"f.tomo, f.numero, f.mes, f.semana, f.apellido_editor, f.nombre_editor, f.apellido_editor_otro, f.nombre_editor_otro, f.et_al_editor, f.periodico, f.seccion, f.dia, f.url, f.portal, " +  
 				"f.fecha_acceso, f.fecha_publicacion, f.editor, f.titulo_libro, tf.nombre_tipo " +
 				"from biblicon.ficha f, biblicon.tipoficha tf " +
-
 				"where f.id_ficha = ? and tf.id_tipo_ficha = f.id_tipo_ficha";
 				
 		Connection conexion = Conexion.ObtenerConexion();

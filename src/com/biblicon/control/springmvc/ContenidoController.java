@@ -1,6 +1,7 @@
 package com.biblicon.control.springmvc;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biblicon.modelo.bean.ContenidoFicha;
 import com.biblicon.modelo.bean.Ficha;
+import com.biblicon.modelo.bean.TipoFicha;
 import com.biblicon.modelo.dao.ContenidoFichaDAO;
 import com.biblicon.modelo.dao.FichaDAO;
+import com.biblicon.modelo.dao.TipoFichaDAO;
+import com.biblicon.util.Constantes;
 import com.google.gson.Gson;
 
 @Controller
@@ -25,6 +29,8 @@ public class ContenidoController {
 	 private ContenidoFichaDAO contenidoFichaDAO;
 	 @Autowired
 	 private FichaDAO fichaDAO;
+	 @Autowired
+	 private TipoFichaDAO tipoFichaDAO;
  
  	 @RequestMapping("contenido.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -34,8 +40,24 @@ public class ContenidoController {
 		 
 		 Ficha ficha = fichaDAO.consultaFicha(id_ficha);
 		 
-		 String referencia = ficha.getApellido() + ", " + ficha.getAno();		 
+		 TipoFicha tipoficha = tipoFichaDAO.consultarPorId(ficha.getTipo_ficha().getId_tipo_ficha());
+		 
+		 String referencia = "";
+		 
+		 if(tipoficha.equals(Constantes.tipoArticuloInternet) || tipoficha.equals(Constantes.tipoLibroInternet))
+		 {
+			 
+			 String anio = "";
+			 SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+			 anio = sdf.format(ficha.getFecha_acceso());
+			 referencia = ficha.getApellido()==null?"":ficha.getApellido() + ", " + anio; 
+		 }
+		 else{
+		 
+			 referencia = ficha.getApellido()==null?"":ficha.getApellido() + ", " + ficha.getAno()==null?"":ficha.getAno();
+		 }
 		 ArrayList<ContenidoFicha> listaContenidos = contenidoFichaDAO.consultarContenidoFicha(id_ficha);
+		 
 		 
 		 for (ContenidoFicha contenido : listaContenidos) {
 			 contenido.setCampos(contenidoFichaDAO.llenarCampos(contenido,referencia));			 

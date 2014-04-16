@@ -51,6 +51,30 @@
 	<script type="text/javascript">
 		$(function() {
 			
+			$('#fichas').on('click', '.mostrardetalle', function(ev){
+				ev.preventDefault();
+				var idsec = $(this).parent().attr('id');
+				$('.lineaCampo.oculto.' + idsec).addClass('mostrar');
+				$('.lineaCampo.oculto.' + idsec).removeClass('oculto');
+				
+				$(this).parent().find('.mostrardetalle').addClass('oculto');
+				$(this).parent().find('.ocultardetalle').removeClass('oculto');
+				
+				
+			});
+			
+			$('#fichas').on('click', '.ocultardetalle', function(ev){
+				ev.preventDefault();
+				var idsec = $(this).parent().attr('id');
+				$('.lineaCampo.mostrar.' + idsec).addClass('oculto');
+				$('.lineaCampo.mostrar.' + idsec).removeClass('mostrar');
+				
+				$(this).parent().find('.mostrardetalle').removeClass('oculto');
+				$(this).parent().find('.ocultardetalle').addClass('oculto');
+				
+				
+			});
+			
 			$('#guardarFicha').on('click', function(){
 				var requerido = false;
 				$('.requerido').each(function (i, e){
@@ -151,11 +175,14 @@
 
 				var campo = campos[i]; requerido = "";
 				var seccion = campo.seccion;
+				var idSec;
 				if(seccion != seccionAnterior){
-					output2 += "<div class='seccion'>" + campo.seccion + "</div><hr/>";
+					idSec = i + 'sec';
+					output2 += "<div class='seccion' id = '" + idSec + "'>" + campo.seccion +  " <a href='#' class='mostrardetalle'>+</a> <a href='#' class='ocultardetalle oculto'>-</a> </div><hr/>";
 				}
 
 				if(campo.requerido == 1) requerido = "requerido";
+				
 
 				var tipoInput = "";
 				var today = new Date();
@@ -172,7 +199,7 @@
 				else if(campo.tipo_entrada == "comboTipo")
 					tipoInput = '<select class=" ' + requerido + '" '+ idCampo +' ><option value="1">(ed.)</option><option value="2">(coord.)</option><option value="3">(comp.)</option><option value="4">(dir.)</option></select>';
 
-				var template = '<div class="lineaCampo"><strong><div class="nomCampo">' + biblicon.ficha.constantes[campo.nombre_campo] + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
+				var template = '<div class="lineaCampo ' + ((campo.requerido != 1) ? 'oculto' : '') + ' ' + idSec +  '"><strong><div class="nomCampo">' + biblicon.ficha.constantes[campo.nombre_campo] + '</div></strong><span class="valorCampo">' + tipoInput + '</span></div>';
 				output2 += template;
 				
 				if(biblicon.ficha.constantes[campo.nombre_campo] == undefined)
