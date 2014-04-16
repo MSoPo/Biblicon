@@ -13,4 +13,9 @@
 .usuario .nomCampo{display:inline-block;width:30%}
 .usuario input{width:55%;margin-left:2em}
 .botonUsuario{width:100%;text-align:center}
- 
+.oculto{display: none !important;}
+.mostrar{display: block !important;}
+
+
+.seccion a{float : right; font-family:Arial;font-size:.7em;margin-right:1em;color:#777;}
+.seccion a:hover{color:#333}
