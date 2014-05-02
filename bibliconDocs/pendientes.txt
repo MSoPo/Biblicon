@@ -1,10 +1,13 @@
-Observaciones MIGUEL Arreglar
+Biblicon v 1.0
+Correcciones 
 
-5.- Cargar las categorias y los tipos de fichas de las fichas compartidas para poder realizar la busqueda
+1.- Cargar las categorias y los tipos de fichas de las fichas compartidas para poder realizar la busqueda
+2.- + - no debe aparecer si no ai campos extras q mostrar
+4.- No permiter consultar plantilla si no existen plantillas guardadas
+3.- : y versalias en plantillas
 
-*7.- Metodo de clonar ficha no esta completo ya que despues de clonar se debe de eliminar
-*8.- Falta metodo para elimnar ficha compartida Realizar estas 2 acciones faltantes
-/////////////////////////////****************************************////////////////////////////
-Exportar
-Validacion de login
-Cerrar sesion
+Pendientes
+
+a) Realizar lista para exportar fichas
+b) Validar la session 
+c) Boton para cerrar session
