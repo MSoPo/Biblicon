@@ -8,6 +8,7 @@
    <link rel="stylesheet" href="css/tipoficha.css">
    <link rel="stylesheet" href="css/ficha.css">
    <link rel="stylesheet" href="css/plantila.css">
+   <link rel="stylesheet" href="css/style.css">
    <script src="js/jquery-2.0.3.min.js"></script>
    <script src="js/mustache.js"></script>
    <script src="js/jquery.redirect.min.js"></script>
@@ -35,6 +36,8 @@
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
+			<li><a href="exportar.htm">Exportar</a></li>
+			<li class="salir"><a href="cerrarSesion.htm" class="icon-exit"></a></li>
 		</ul>
 	</nav>
 	<section>

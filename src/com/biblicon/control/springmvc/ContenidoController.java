@@ -34,7 +34,7 @@ public class ContenidoController {
  
  	 @RequestMapping("contenido.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		 
+ 		if (request.getSession().getAttribute("usuario") == null) return "login";
 		 Gson gson = new Gson();		 
 		 Integer id_ficha = new Integer (request.getParameter("idFicha"));
 		 

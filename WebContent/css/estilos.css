@@ -1,36 +1,261 @@
-@font-face{font-family:'circula';src:local('circula'),url("fuentes/circula.otf");font-family:'AmericanCaptain';src:local('AmericanCaptain'),url("fuentes/AmericanCaptain.ttf") format('truetype')}
-article{border:1px solid;padding:1em;padding-bottom:.5em;margin:2em;text-align:center;background-color:#eee;border-radius:3px;display:inline-block;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);}
-article .tipoficha{margin:0 !important;padding:0 !important;position:absolute}
-body{background-color:#fff;margin:0 auto;font-family:circula;color:#555;font-size:16px;height:100%}
-footer{color:#eee;background-color:#555;text-align:center;font-size:.8em;padding:.5em;position:fixed;bottom:0;width:100%;z-index:1}
-h1{font-family:AmericanCaptain;text-align:center;border:1px solid #fff;border-right-style:dotted;border-left-style:dotted;margin:1em}
-header{background-color:#555;overflow:hidden;}
-header h1{color:#fff;background:#555;border:0;margin-bottom:0;margin-top:10px;text-shadow:1px 1px 0 #ff7f27}
-html{height:100%}
-input[type=submit]{font-size:.8em;padding:.5em;margin-top:2em;border-radius:.5em;border-width:0;color:#ccc;background:#555;}
-input[type=submit]:hover{background:#999;color:#555}
-nav{background:#22bce0;border-left:15px solid #fff;position:relative;}
-nav:before{border-bottom:20px solid transparent;border-left:7px solid #fff;border-top:20px solid transparent;content:"";left:0;position:absolute;top:0}
-nav ul{height:40px;line-height:40px;margin:0;padding:0;overflow-x:auto;white-space:nowrap;}
-nav ul::-webkit-scrollbar{display:none}
-nav ul li{display:inline-block;}
-nav ul li a{color:#fff;display:block;margin:0 .5em;padding:0 .2em;text-decoration:none;}
-nav ul li a:hover{background:rgba(0,0,0,0.1)}
-section{display:table;height:85%;width:100%}
-span{font-weight:bold;font-size:1.2em}
-.acciones{text-align:right;margin-top:2em;}
-.acciones a{font-family:Arial;font-size:.7em;margin-right:1em;color:#777;}
-.acciones a:hover{color:#333}
-.ver_todo font-family Arial{font-size:.7em;margin-right:1em;color:#777;}
-.ver_todo font-family Arial:hover{color:#333}
-.contenido{display:table-row}
-.error{font-size:.8em;color:#c01212;font-weight:bold}
-.correcto{font-size:.8em;color:#070}
-.fichas{display:table-cell;vertical-align:top;width:80%;min-width:400px;margin:0 auto}
-.filtros{display:table-cell;width:20%;height:100%;border-right:2px solid;padding:1em;padding-bottom:2em;vertical-align:top;}
-.filtros .filtro{margin-top:1em;}
-.filtros .filtro button{margin-top:.5em}
-.login{position:relative;text-align:center;height:300px;font-size:18px;box-shadow:1px 1px 1px rgba(0,0,0,0.15),10px 10px 0 -5px #ddd,10px 10px 1px -4px rgba(0,0,0,0.15),20px 20px 0 -10px #ddd,20px 20px 1px -9px rgba(0,0,0,0.15);background:none repeat scroll 0 0 #eee;margin:1em auto;overflow:hidden;padding:.5em 2em;width:380px;}
-.login input{display:block;margin:.5em auto}
-.login:before{border-color:#fff #999;border-style:solid;border-width:20px 20px 0 0;content:"";display:block;position:absolute;left:0;top:0;width:0}
-#cantidadCompartida{display:inline-block;text-decoration:inherit}
+@font-face {
+  font-family: 'circula';
+  src: local('circula'), url("fuentes/circula.otf");
+  font-family: 'AmericanCaptain';
+  src: local('AmericanCaptain'), url("fuentes/AmericanCaptain.ttf") format('truetype');
+}
+article {
+  border: 1px solid;
+  padding: 1em;
+  padding-bottom: 0.5em;
+  margin: 2em;
+  text-align: center;
+  background-color: #eee;
+  border-radius: 3px;
+  display: inline-block;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 10px 10px 0 -5px #ddd, 10px 10px 1px -4px rgba(0,0,0,0.15), 20px 20px 0 -10px #ddd, 20px 20px 1px -9px rgba(0,0,0,0.15);
+}
+article .tipoficha {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute;
+}
+body {
+  background-color: #fff;
+  margin: 0 auto;
+  font-family: circula;
+  color: #555;
+  font-size: 16px;
+  height: 100%;
+}
+footer {
+  color: #eee;
+  background-color: #555;
+  text-align: center;
+  font-size: 0.8em;
+  padding: 0.5em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+}
+h1 {
+  font-family: AmericanCaptain;
+  text-align: center;
+  border: 1px solid #fff;
+  border-right-style: dotted;
+  border-left-style: dotted;
+  margin: 1em;
+}
+header {
+  background-color: #555;
+  overflow: hidden;
+}
+header h1 {
+  color: #fff;
+  background: #555;
+  border: 0;
+  margin-bottom: 0;
+  margin-top: 10px;
+  text-shadow: 1px 1px 0 #ff7f27;
+}
+html {
+  height: 100%;
+}
+input[type=submit] {
+  font-size: 0.8em;
+  padding: 0.5em;
+  margin-top: 2em;
+  border-radius: 0.5em;
+  border-width: 0;
+  color: #ccc;
+  background: #555;
+}
+input[type=submit]:hover {
+  background: #999;
+  color: #555;
+}
+nav {
+  background: #22bce0;
+  border-left: 15px solid #fff;
+  position: relative;
+}
+nav:before {
+  border-bottom: 20px solid transparent;
+  border-left: 7px solid #fff;
+  border-top: 20px solid transparent;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+nav ul {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+nav ul::-webkit-scrollbar {
+  display: none;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li a {
+  color: #fff;
+  display: block;
+  margin: 0 0.5em;
+  padding: 0 0.2em;
+  text-decoration: none;
+}
+nav ul li a:hover {
+  background: rgba(0,0,0,0.1);
+}
+section {
+  display: table;
+  height: 85%;
+  width: 100%;
+}
+span {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.acciones {
+  text-align: right;
+  margin-top: 2em;
+}
+.acciones a {
+  font-family: Arial;
+  font-size: 0.7em;
+  margin-right: 1em;
+  color: #777;
+}
+.acciones a:hover {
+  color: #333;
+}
+.ver_todo {
+  font-family: Arial;
+  font-size: 0.8em;
+  margin-right: 1em;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  color: #777;
+}
+.ver_todo:hover {
+  color: #333;
+}
+.contenido {
+  display: table-row;
+}
+.error {
+  font-size: 0.8em;
+  color: #c01212;
+  font-weight: bold;
+}
+.salir {
+  color: #fff;
+  float: right;
+  height: 100%;
+}
+.salir a {
+  font-size: 1.5em;
+  margin-top: 0.5em;
+  height: 100%;
+}
+.correcto {
+  font-size: 0.8em;
+  color: #070;
+}
+.checkExportar {
+  text-decoration: none;
+  color: inherit;
+}
+.fichas {
+  display: table-cell;
+  vertical-align: top;
+  width: 80%;
+  min-width: 400px;
+  margin: 0 auto;
+}
+.fichas #error {
+  text-align: center;
+  padding-top: 0.5em;
+}
+.filtros {
+  display: table-cell;
+  width: 20%;
+  height: 100%;
+  border-right: 2px solid;
+  padding: 1em;
+  padding-bottom: 2em;
+  vertical-align: top;
+}
+.filtros .filtro {
+  margin-top: 1em;
+}
+.filtros .filtro button {
+  margin-top: 0.5em;
+}
+.login {
+  position: relative;
+  text-align: center;
+  height: 300px;
+  font-size: 18px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 10px 10px 0 -5px #ddd, 10px 10px 1px -4px rgba(0,0,0,0.15), 20px 20px 0 -10px #ddd, 20px 20px 1px -9px rgba(0,0,0,0.15);
+  background: none repeat scroll 0 0 #eee;
+  margin: 1em auto;
+  overflow: hidden;
+  padding: 0.5em 2em;
+  width: 380px;
+}
+.login input {
+  display: block;
+  margin: 0.5em auto;
+}
+.login:before {
+  border-color: #fff #999;
+  border-style: solid;
+  border-width: 20px 20px 0 0;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+}
+.seleccion {
+  margin: auto;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 1em;
+}
+.seleccion input {
+  margin: 1em;
+  margin-bottom: 0;
+}
+.tablaExportar {
+  margin: auto;
+  margin-top: 1em;
+  border-bottom: 2px solid #000;
+  margin-bottom: 3em;
+}
+.tablaExportar td {
+  padding: 1em;
+}
+.tablaExportar thead td {
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+.tablaExportar tbody tr {
+  background-color: #bbb;
+}
+.tablaExportar tbody tr:nth-child(2n) {
+  background-color: #eee;
+}
+#cantidadCompartida {
+  display: inline-block;
+  text-decoration: inherit;
+}

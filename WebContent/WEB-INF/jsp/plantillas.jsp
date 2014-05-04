@@ -37,6 +37,8 @@
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
+			<li><a href="exportar.htm">Exportar</a></li>
+			<li class="salir"><a href="cerrarSesion.htm" class="icon-exit"></a></li>
 		</ul>
 	</nav>
 	<section>
@@ -133,7 +135,7 @@
 			</div>
 			<div class="panel" id="cplantilla" >
 				<div class="controles">
-					<a href="#" class="negritas" id="negritas">B</a><a href="#" class="italica" id="italica">I</a><a href="#" class="subrayado" id="subrayado">S</a><a href="#" class="comillas" id="comillas"></a><a style="float: right;" id="quitar" href="#">Borrar</a>
+					<a href="#" class="negritas" id="negritas">B</a><a href="#" class="italica" id="italica">I</a><a href="#" class="subrayado" id="subrayado">S</a><a href="#" class="comillas" id="comillas"></a><a href="#" style="text-transform: uppercase" class="mayusculas">MAY</a><a href="#" class="versalia" style="font-variant: small-caps">Vers</a><a style="float: right;" id="quitar" href="#">Borrar</a>
 				</div>
 				<div id="textplatilla"></div>
 			</div>
@@ -276,6 +278,7 @@
 			$.post("guardarPlantilla.htm", {"nombrePlantilla" : nombre, "plantilla" : plantilla}	, function(respuesta){
 				var resp = JSON.parse(respuesta);
 				if(resp.respuesta == "1"){
+					$('#eliminar').show();
 					$('#listaPlantillas').append('<option value="'+ resp.id +'">' +nombre+ '</option>');
 					if($('#ejmplantilla').html() == "")
 						$('#ejmplantilla').html(plantilla);
@@ -329,6 +332,11 @@
 		
 		var plantillas = <%= request.getAttribute("plantillas") %>;
 		var opciones = "";
+
+		if(plantillas.length < 1){
+			$('#eliminar').hide();
+		}
+
 		for(var i = 0; i < plantillas.length; i++){ 	
 			var plantilla = plantillas[i];
 			 opciones+= '<option value="' + plantilla.id_platilla + '">'+ plantilla.nombrePlantilla +'</option>';

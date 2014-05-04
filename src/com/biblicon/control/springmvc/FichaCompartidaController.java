@@ -40,7 +40,7 @@ public class FichaCompartidaController {
 	
 	 @RequestMapping("fichasCompartidas.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		 	 
+		 if (request.getSession().getAttribute("usuario") == null) return "login";
 		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		 Gson gson = new Gson();
 		 

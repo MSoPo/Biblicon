@@ -132,12 +132,14 @@ span
       color #333
       
 .ver_todo
-	font-family Arial
-    font-size 0.7em
-    margin-right 1em
-    color #777
-    &:hover
-      color #333
+  font-family Arial
+  font-size 0.8em
+  margin-right 1em
+  text-decoration none
+  letter-spacing 0.2em
+  color #777
+  &:hover
+    color #333
 
 
 .contenido
@@ -148,9 +150,22 @@ span
   color #C01212
   font-weight bold
 
+.salir
+  color white
+  float right
+  height 100%
+  a
+    font-size 1.5em
+    margin-top .5em
+    height 100%
+
 .correcto
   font-size 0.8em
   color #007700
+
+.checkExportar
+  text-decoration none
+  color inherit
 
 .fichas
   display table-cell
@@ -158,6 +173,9 @@ span
   width 80%
   min-width 400px
   margin 0 auto
+  #error
+    text-align center
+    padding-top .5em
 
 .filtros
   display table-cell
@@ -200,6 +218,35 @@ span
     left 0
     top 0
     width 0
+
+.seleccion
+  margin auto
+  display inline-block
+  width 100%
+  text-align center
+  margin-top 1em
+  input
+    margin 1em
+    margin-bottom 0
+
+.tablaExportar
+  margin auto
+  margin-top 1em
+  border-bottom 2px solid black
+  margin-bottom 3em
+  td
+    padding 1em
+  thead
+    td
+      font-weight bold
+      border-bottom 2px solid black
+  tbody
+    tr
+      background-color #BBB
+      &:nth-child(2n)
+        background-color #EEE
+      
+      
 
 #cantidadCompartida
   display inline-block
