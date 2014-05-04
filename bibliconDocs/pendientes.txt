@@ -1,15 +1,11 @@
 Biblicon v 1.0
 Correcciones 
 
-1.- Cargar las categorias y los tipos de fichas de las fichas compartidas para poder realizar la busqueda
-2.- + - no debe aparecer si no ai campos extras q mostrar
-4.- No permiter consultar plantilla si no existen plantillas guardadas
-3.- : y versalias en plantillas
+1.- Cargar las categorias y los tipos de fichas de las fichas compartidas para poder 
+realizar la busqueda * no recuerdo si ya se hizo
 
 Pendientes
 
-a) Realizar lista para exportar fichas
-b) Validar la session 
-c) Boton para cerrar session
-
+a) Realizar lista para exportar fichas, ya se envia al front la lista de ids de fichas, 
+la lista de id de plantilla y el formato
 --
