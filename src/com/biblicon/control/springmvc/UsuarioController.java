@@ -23,6 +23,7 @@ public class UsuarioController {
 	@RequestMapping("usuario.htm")
 	 public String listaUsuarios(HttpServletRequest request, HttpServletResponse response)
 	{
+		if (request.getSession().getAttribute("usuario") == null) return "login";
 		ArrayList<Usuario> lstUsuario = null; 
 		Gson json = new Gson();	
 		

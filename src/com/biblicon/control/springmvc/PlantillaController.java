@@ -28,6 +28,7 @@ public class PlantillaController {
 
 	@RequestMapping("plantillas.htm")
 	public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if (request.getSession().getAttribute("usuario") == null) return "login";
 		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		ArrayList<Plantilla> listaPlantillas = plantillaDAO.consultarPorUsuario(usuario.getId_usuario());
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();

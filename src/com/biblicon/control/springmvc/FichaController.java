@@ -43,6 +43,7 @@ public class FichaController {
 	 
 	 @RequestMapping("ficha.htm")
 	 public String principal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 if (request.getSession().getAttribute("usuario") == null) return "login";
 		 Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		 ArrayList<TipoFicha> listaTipos = tipofichaDAO.consultarPorUsuario(usuario.getId_usuario());
 		 Gson gson = new Gson();

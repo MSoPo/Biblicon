@@ -1,15 +1,103 @@
-.campo{padding:.5em;display:inline-block;margin:.3em;color:#fff;min-width:5em;box-shadow:inset 0 0 3px #000;text-align:center;cursor:move;background:-moz-linear-gradient(left center,#000,#4f4f4f,#151515);background:-webkit-gradient(linear,left top,right top,color-stop(0,#000),color-stop(.5,#4f4f4f),color-stop(1,#151515));background:-webkit-linear-gradient(left center,#000,#4f4f4f,#151515);background:-ms-linear-gradient(left center,#000,#4f4f4f,#151515);border-bottom:1px solid #ddd;border-radius:1em 1em}
-.contenidoNotabla{width:100%;}
-.contenidoNotabla .cdisponible{text-align:center;width:50%;display:inline-block;padding:1.5em;}
-.contenidoNotabla .cdisponible button{font-size:.8em;min-width:10em;border-radius:1em;background-color:#ddd;color:#000;display:inline-block;margin:.5em}
-.contenidoNotabla .cseleccionado{display:inline-block;text-align:center;width:40%;border-radius:1em 1em;border:1px solid;vertical-align:top;min-height:25em;margin-top:1.5em;background:#ddd;}
-.contenidoNotabla .cseleccionado .campo{cursor:pointer}
-.contenidoNotabla .datostipoficha{text-align:center;width:100%;padding:1em}
-[draggable]{-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;-khtml-user-drag:element;-webkit-user-drag:element}
-.over{box-shadow:0 0 .5em #ff7f27}
-.divEliminar{text-align:center;border-radius:1em;z-index:11;background-color:#eee;margin:auto;margin-top:2em;width:50%;padding:.5em;max-height:80%;overflow-y:auto;}
-.divEliminar ul::-webkit-scrollbar{display:none}
-.divEliminar ul li{display:inline-block;margin:.3em;padding:.5em;border-radius:.5em;background-color:#ccc;}
-.divEliminar ul li a{text-decoration:none;color:#aaa;font-size:.9em;}
-.divEliminar ul li a:hover{background:rgba(0,0,0,0.1)}
-.bloqueo{display:none;position:fixed;width:100%;height:100%;z-index:10;background:rgba(0,0,0,0.4)}
+.campo {
+  padding: 0.5em;
+  display: inline-block;
+  margin: 0.3em;
+  color: #fff;
+  min-width: 5em;
+  box-shadow: inset 0 0 3px #000;
+  text-align: center;
+  cursor: move;
+  background: -moz-linear-gradient(left center, #000, #4f4f4f, #151515);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0, #000), color-stop(0.5, #4f4f4f), color-stop(1, #151515));
+  background: -webkit-linear-gradient(left center, #000, #4f4f4f, #151515);
+  background: -ms-linear-gradient(left center, #000, #4f4f4f, #151515);
+  border-bottom: 1px solid #ddd;
+  border-radius: 1em 1em;
+}
+.contenidoNotabla {
+  width: 100%;
+}
+.contenidoNotabla .cdisponible {
+  text-align: center;
+  width: 50%;
+  display: inline-block;
+  padding: 1.5em;
+}
+.contenidoNotabla .cdisponible button {
+  font-size: 0.8em;
+  min-width: 10em;
+  border-radius: 1em;
+  background-color: #ddd;
+  color: #000;
+  display: inline-block;
+  margin: 0.5em;
+}
+.contenidoNotabla .cseleccionado {
+  display: inline-block;
+  text-align: center;
+  width: 40%;
+  border-radius: 1em 1em;
+  border: 1px solid;
+  vertical-align: top;
+  min-height: 25em;
+  margin-top: 1.5em;
+  background: #ddd;
+}
+.contenidoNotabla .cseleccionado .campo {
+  cursor: pointer;
+}
+.contenidoNotabla .datostipoficha {
+  text-align: center;
+  width: 100%;
+  padding: 1em;
+}
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+/* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+.over {
+  box-shadow: 0 0 0.5em #ff7f27;
+}
+.divEliminar {
+  text-align: center;
+  border-radius: 1em;
+  z-index: 11;
+  background-color: #eee;
+  margin: auto;
+  margin-top: 2em;
+  width: 50%;
+  padding: 0.5em;
+  max-height: 80%;
+  overflow-y: auto;
+}
+.divEliminar ul::-webkit-scrollbar {
+  display: none;
+}
+.divEliminar ul li {
+  display: inline-block;
+  margin: 0.3em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  background-color: #ccc;
+}
+.divEliminar ul li a {
+  text-decoration: none;
+  color: #aaa;
+  font-size: 0.9em;
+}
+.divEliminar ul li a:hover {
+  background: rgba(0,0,0,0.1);
+}
+.bloqueo {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0,0,0,0.4);
+}

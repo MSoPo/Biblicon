@@ -23,6 +23,8 @@
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
+			<li><a href="exportar.htm">Exportar</a></li>
+			<li class="salir"><a href="cerrarSesion.htm" class="icon-exit"></a></li>
 		</ul>
 	</nav>
 	<section>
@@ -178,7 +180,7 @@
 				var idSec;
 				if(seccion != seccionAnterior){
 					idSec = i + 'sec';
-					output2 += "<div class='seccion' id = '" + idSec + "'>" + campo.seccion +  " <a href='#' class='mostrardetalle'>+</a> <a href='#' class='ocultardetalle oculto'>-</a> </div><hr/>";
+					output2 += "<div class='seccion' id = '" + idSec + "'>" + campo.seccion +  " <a href='#' class='mostrardetalle " + idSec + " '>+</a> <a href='#' class='ocultardetalle oculto'>-</a> </div><hr/>";
 				}
 
 				if(campo.requerido == 1) requerido = "requerido";
@@ -211,6 +213,15 @@
 
 			}
 			$("#fichas article").html(output2);
+			
+			$('div.seccion').each(function(i,e){ 
+				var seccion = $(e).attr('id') ;
+				var cantOculto = $('.lineaCampo.oculto.'+seccion).length;
+				if(cantOculto <  1){
+					$('.mostrardetalle.'+seccion).addClass('oculto');
+				}
+				
+				});
 			
 			$( "#fichas .datepicker" ).each(function (i, e){
 				$(e).datepicker({ 

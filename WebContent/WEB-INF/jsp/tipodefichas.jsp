@@ -35,6 +35,8 @@
 			<li><a href="ficha.htm">Agregar Ficha</a></li>
 			<li><a href="tipos.htm">Tipo de Fichas</a></li>
 			<li><a href="plantillas.htm">Plantillas</a></li>
+			<li><a href="exportar.htm">Exportar</a></li>
+			<li class="salir"><a href="cerrarSesion.htm" class="icon-exit"></a></li>
 		</ul>
 	</nav>
 	<section>
