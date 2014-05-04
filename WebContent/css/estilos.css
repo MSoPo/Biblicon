@@ -198,6 +198,9 @@ span {
 .filtros .filtro button {
   margin-top: 0.5em;
 }
+.labelFormato {
+  margin-left: 2em;
+}
 .login {
   position: relative;
   text-align: center;

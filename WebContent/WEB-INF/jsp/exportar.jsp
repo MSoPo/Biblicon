@@ -55,7 +55,13 @@
 				<div class="seleccion">
 					<label for="plantillas">Selecciona la plantilla</label>
 					<select name="plantillas" id="listaPlantillas">
-					</select><br>
+					</select>
+					<label for="formato" class="labelFormato">Selecciona el formato</label>
+					<select name="formato" id="formato">
+						<option value="doc">Documento Word</option>
+						<option value="pdf">Documento pdf</option>
+					</select>
+					<br>
 					<input type="submit" class="button" value="Exportar" id="exportar">
 					<input type="submit" class="button" value="Marcar todas" id="marcar">
 					<input type="submit" class="button" value="Desmarcar todas" id="desmarcar">
@@ -195,8 +201,9 @@
 				}
 				
 				var plantilla = $('#listaPlantillas').val();
+				var formato = $('#formato').val();
 				
-				$.post('exportarFicha.htm', { 'idFichas' : JSON.stringify(listaExportar), 'id_platilla' : plantilla }, function(respuesta){
+				$.post('exportarFicha.htm', { 'idFichas' : JSON.stringify(listaExportar), 'id_platilla' : plantilla, 'formato' : formato }, function(respuesta){
 					var resp = JSON.parse(respuesta);
 					if(resp.respuesta == "1"){
 						$('#error').addClass('correcto');

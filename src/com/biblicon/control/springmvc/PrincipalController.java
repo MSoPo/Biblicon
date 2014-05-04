@@ -81,6 +81,7 @@ public class PrincipalController {
  public String exportarFicha(HttpServletRequest request, HttpServletResponse response){
 	 System.out.println(request.getParameter("idFichas"));
 	 System.out.println(request.getParameter("id_platilla"));
+	 System.out.println(request.getParameter("formato"));
 	 String respuesta = "{ \"respuesta\" : \"1\"}";
 	 return respuesta;
  }
